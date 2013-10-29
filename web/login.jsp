@@ -21,6 +21,7 @@
     <%@ page import="java.util.*"%>
         
 <%
+
     if ( request.getParameter("campo_controle") != null ) {
         // processa login
         String user = request.getParameter("usuario");
@@ -28,7 +29,8 @@
         // metodo valida deve ser implementado
         //boolean v = valida(user, passwd);
         // simulacao: deve ser 123
-
+        
+       
         classes.data.UsuariosData loginDigitado = new classes.data.UsuariosData();
         classes.utils.Transacao tr = new classes.utils.Transacao();
         Vector usuarios = loginDigitado.pesquisarPorLogin(user, tr);
@@ -39,7 +41,7 @@
         boolean v = senha.equals(passwd);
         if (v) {
            session.setAttribute("user_name", user);
-           pageContext.forward("main.jsp");
+           pageContext.forward("index.html");
         } else {
    %>
            Usuario ou Senha invalidos!
@@ -48,7 +50,7 @@
     }
     // show login form
 %>
-    <form method="post" action=index.jsp>
+    <form method="post" action=login.jsp>
        Usuário <input type="text" name="usuario" />
        Senha <input type="password" name="senha" />
        <input type="submit" name="enviar" value="Enviar" />
