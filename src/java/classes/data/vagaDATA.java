@@ -8,7 +8,7 @@ package sav;
 
 import java.sql.*;
 import java.util.*;
-import utils.Transacao;
+import classes.utils.Transacao;
 
 /**
  *
