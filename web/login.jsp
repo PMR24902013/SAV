@@ -30,7 +30,7 @@
         // simulacao: deve ser 123
 
         classes.data.UsuariosData loginDigitado = new classes.data.UsuariosData();
-        classes.classes.utils.Transacao tr = new classes.classes.utils.Transacao();
+        classes.utils.Transacao tr = new classes.utils.Transacao();
         Vector usuarios = loginDigitado.pesquisarPorLogin(user, tr);
         UsuariosDO usuario = new UsuariosDO();
         usuario = (UsuariosDO)usuarios.get(0);
