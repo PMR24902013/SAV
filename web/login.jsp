@@ -1,11 +1,13 @@
 <%-- 
-    Document   : login
-    Created on : 28/10/2013
-    Author     : Augusto
+    Document   : index
+    Created on : 01/10/2009, 18:29:29
+    Author     : MB
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
 
 <html>
     <head>
@@ -13,6 +15,11 @@
         <title>Login</title>
     </head>
     <body>
+        
+    <%@ page import="classes.data.UsuariosDO"%>
+    <%@ page import="classes.data.UsuariosData"%>
+    <%@ page import="java.util.*"%>
+        
 <%
     if ( request.getParameter("campo_controle") != null ) {
         // processa login
@@ -23,8 +30,11 @@
         // simulacao: deve ser 123
 
         classes.data.UsuariosData loginDigitado = new classes.data.UsuariosData();
-        classes.data.UsuariosDO usuario = loginDigitado.pesquisarPorLogin(user);
-        String senha = usuario.getParameter("senha");
+        classes.utils.Transacao tr = new classes.utils.Transacao();
+        Vector usuarios = loginDigitado.pesquisarPorLogin(user, tr);
+        UsuariosDO usuario = new UsuariosDO();
+        usuario = (UsuariosDO)usuarios.get(0);
+        String senha = usuario.getSenha();
 
         boolean v = senha.equals(passwd);
         if (v) {
