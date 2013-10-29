@@ -1,0 +1,13 @@
+    #mymenu { margin: 0; padding: 0; }
+    #mymenu li { margin: 0; padding: 0;
+    list-style: none; float: left; }
+    #mymenu li a { display: block; margin: 0 1px 0 0; padding: 4px 10px; width: 100px; background:
+    #bbbaaa; color: #ffffff; text-align: center; }
+    #mymenu li a:hover { background: #aaddaa }
+    #mymenu ul { position: absolute; visibility: hidden; margin: 0; padding: 0; background:
+    #eeebdd; border: 1px solid #ffffff }
+    #mymenu ul li{float: none}
+    #mymenu ul li a{ position: relative; display: block; margin: 0; padding: 5px 10px; width: 100px;
+    text-align: center; background: #eeebdd; color: #000000; float: none}
+    #mymenu ul li a:hover { background: #aaffaa; }
+

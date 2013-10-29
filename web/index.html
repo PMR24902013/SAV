@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <title>SAV</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        
+        <link href="estiloIndex.css" rel="stylesheet" type="text/css" media="screen, projection" />
+        
+        <script>
+            var timer = 0;
+            var item = 0;
+            
+            function openElement(num){
+                if(item) item.style.visibility = 'hidden';
+                item = document.getElementById(num);
+                if(item) item.style.visibility = 'visible';
+            }
+            
+            function closeElement(){
+                timer = window.setTimeout("if(item) item.style.visibility = 'hidden';",500);
+            }
+            
+            function keepSubmenu(){
+                window.clearTimeout(timer);
+            }
+            
+            document.onclick = closeElement;
+            
+        </script>
+        
+    </head>
+    
+    <body>
+        <ul id="mymenu">
+            <li>
+                <a href="menuManutencao.html">Home</a>
+            </li>
+            <li>
+                <a onmouseover="openElement('menu1')">Cadastrar</a>
+                <ul id="menu1" onmouseover="keepSubmenu()" onmouseout="closeElement()">
+                    <li><a href="menuMotorista.html">Cliente</a></li>
+                    <li><a>Estacionamento</a></li>
+                    <li><a>Posto</a></li>
+                    <li><a>Motorista</a></li>
+                    <li><a>Manutenção</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="menuPosto.html" onmouseover="openElement('menu2')" onmouseout="closeElement()">Serviços</a>
+                <ul id="menu2" onmouseover="keepSubmenu()" onmouseout="closeElement()">
+                    <li><a>Carros</a></li>
+                    <li><a>Postos</a></li>
+                    <li><a>Preços</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Dúvidas</a>
+            </li>
+            <li>
+                <a href="login.jsp">Log in</a>
+            </li>
+        </ul>
+        <div >
+        </div>
+    </body>
+</html>
