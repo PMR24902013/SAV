@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 01/10/2009, 18:29:29
-    Author     : MB
+    Document   : login
+    Created on : 05/11/2013, 18:29:29
+    Author     : hidden
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,14 +26,22 @@
         // processa login
         String user = request.getParameter("usuario");
         String passwd = request.getParameter("senha");
-        // metodo valida deve ser implementado
-        //boolean v = valida(user, passwd);
-        // simulacao: deve ser 123
+       
         
        
-        classes.data.UsuariosData loginDigitado = new classes.data.UsuariosData();
-        classes.utils.Transacao tr = new classes.utils.Transacao();
-        Vector usuarios = loginDigitado.pesquisarPorLogin(user, tr);
+        classes.transacoes.Usuarios loginDigitado = new classes.transacoes.Usuarios();
+       
+                
+        Vector usuarios = loginDigitado.pesquisar(user);
+         if ( (usuarios == null) || (usuarios.size() == 0)) {
+         // avisar usuario que nao ha' contatos com este nome
+%>
+          Este usuário não existe!
+          <form action="index.html" method="post">
+             <input type="submit" name="voltar" value="Voltar" />
+          </form>
+<%     }
+         else{
         UsuariosDO usuario = new UsuariosDO();
         usuario = (UsuariosDO)usuarios.get(0);
         String senha = usuario.getSenha();
@@ -41,12 +49,38 @@
         boolean v = senha.equals(passwd);
         if (v) {
            session.setAttribute("user_name", user);
-           pageContext.forward("index.html");
+           
+          if(usuario.getTipo().equals("Cliente")){
+          
+           pageContext.forward("meuCliente.html");
+          }
+           if(usuario.getTipo().equals("OpSist")){
+          
+           pageContext.forward("menuOperadorSistema.html");
+          }
+            if(usuario.getTipo().equals("Motorista")){
+          
+           pageContext.forward("menuMotorista.html");
+          }
+             if(usuario.getTipo().equals("OpManut")){
+          
+           pageContext.forward("menuManutencao.html");
+          }
+              if(usuario.getTipo().equals("Estacionamento")){
+          
+           pageContext.forward("menuEstacionamento.html");
+          }
+               if(usuario.getTipo().equals("Posto")){
+          
+           pageContext.forward("menuPosto.html");
+          }
+           
         } else {
    %>
            Usuario ou Senha invalidos!
    <%
         }
+         }
     }
     // show login form
 %>
