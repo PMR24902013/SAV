@@ -70,7 +70,7 @@ public class UsuariosData {
         UsuariosDO c = new UsuariosDO();
         c.setId (rs.getInt("id"));
         c.setLogin (rs.getString("login"));
-        System.out.println(" got " + c.getLogin());
+        c.setSenha(rs.getString("senha"));
         c.setTipo(rs.getString("tipo"));
         usuarios.add(c);
      }
