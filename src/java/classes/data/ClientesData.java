@@ -68,6 +68,49 @@ public class ClientesData {
      cliente.setCNH(rs.getString("CNH"));
      cliente.setEstado (rs.getString("Estado"));
      return cliente;
-  }
+      }
+      public ClientesDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Cliente where  Usuario_ID=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     ClientesDO cliente = new ClientesDO();
+     cliente.setId (rs.getInt("id"));
+     cliente.setUsuarioId (rs.getInt("Usuario_ID"));
+     cliente.setNome (rs.getString("Nome"));
+     cliente.setCPF (rs.getString("CPF"));
+     cliente.setEmail (rs.getString("email"));
+     cliente.setEndereco (rs.getString("Endereco"));
+     cliente.setTelefone (rs.getString("Telefone"));
+     cliente.setCNH(rs.getString("CNH"));
+     cliente.setEstado (rs.getString("Estado"));
+     return cliente;
+      }
+      public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Cliente where nome like ?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, login);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector usuarios = new Vector();
+     while (rs.next()) {
+        ClientesDO cliente = new ClientesDO();
+        cliente.setId (rs.getInt("id"));
+     cliente.setUsuarioId (rs.getInt("Usuario_ID"));
+     cliente.setNome (rs.getString("Nome"));
+     cliente.setCPF (rs.getString("CPF"));
+     cliente.setEmail (rs.getString("email"));
+     cliente.setEndereco (rs.getString("Endereco"));
+     cliente.setTelefone (rs.getString("Telefone"));
+     cliente.setCNH(rs.getString("CNH"));
+     cliente.setEstado (rs.getString("Estado"));
+        usuarios.add(cliente);
+     }
+     return usuarios;
+  } // pesquisarPorLogin
+  
       
 }
