@@ -35,7 +35,17 @@
         UsuariosDO postocriado =new UsuariosDO();
        postocriado = (UsuariosDO)ps.get(0);
        
-        
+       Posto c= new Posto();
+      if(c.isEmpty(nome)|| c.isEmpty(local)||c.isEmpty(telefone)||c.isEmpty(horario)||c.isEmpty(horario)){
+      
+     %> 
+     Preencha todos os campos!
+     <form action="cadastrarComoPostoORetorno.jsp" method="post">
+    
+     <input type="submit" name="Prosseguir" value="Prosseguir" />
+     </form><%
+      }  
+      else{
     p.setUsuariosID(postocriado.getId());
     
    p.setNome(nome);
@@ -56,7 +66,7 @@
     
      <input type="submit" name="Prosseguir" value="Prosseguir" />
      </form>
-    <%    
+    <% }   
      }
           if ( null != request.getParameter("Cancelar")) {
 %>        <jsp:forward page="index.html" />
