@@ -36,7 +36,7 @@
          if ( (usuarios == null) || (usuarios.size() == 0)) {
          // avisar usuario que nao ha' contatos com este nome
 %>
-          Este usuário não existe!
+          Este usuário não existe!<br><br>
           <form action="index.html" method="post">
              <input type="submit" name="voltar" value="Voltar" />
           </form>
@@ -52,27 +52,27 @@
            
           if(usuario.getTipo().equals("Cliente")){
           
-           pageContext.forward("meuCliente.html");
+           pageContext.forward("Cliente_menu.html");
           }
            if(usuario.getTipo().equals("OpSist")){
           
-           pageContext.forward("menuOperadorSistema.html");
+           pageContext.forward("OperadorSistema_menu.html");
           }
             if(usuario.getTipo().equals("Motorista")){
           
-           pageContext.forward("menuMotorista.html");
+           pageContext.forward("Motorista_menu.html");
           }
              if(usuario.getTipo().equals("OpManut")){
           
-           pageContext.forward("menuManutencao.html");
+           pageContext.forward("Manutencao_menu.html");
           }
               if(usuario.getTipo().equals("Estacionamento")){
           
-           pageContext.forward("menuEstacionamento.html");
+           pageContext.forward("Estacionamento_menu.html");
           }
                if(usuario.getTipo().equals("Posto")){
           
-           pageContext.forward("menuPosto.html");
+           pageContext.forward("Posto_menu.html");
           }
            
         } else {
