@@ -21,7 +21,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
         <title>contatar assistencia tecnica</title>
     </head>
     <body>
- <form method="post" action=contatarAssistenciaTecnica.jsp>
+ <form method="post" action=Cliente_contatarAssistenciaTecnica.jsp>
        Localizacao atual do veiculo <input type="text" name="local" />
        Defeito <input type="text" name="defeito" />
       
@@ -34,7 +34,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
        
 
 <%     if ( null != request.getParameter("Cancelar")) {
-%>        <jsp:forward page="meuCliente.html" />
+%>        <jsp:forward page="Cliente_menu.html" />
 <%        return;
        }
 %>
@@ -53,7 +53,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
   %>
            
          
-            <form action="contatarAssistenciaTecnica.jsp" method="post">
+            <form action="Cliente_contatarAssistenciaTecnica.jsp" method="post">
              Preencha todos os campos!
           </form>
 <%   
@@ -83,7 +83,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
   
   
            %>
-           <form action="meuCliente.html" method="post">
+           <form action="Cliente_menu.html" method="post">
              O seu chamada foi registrado, você será contatado e breve.
              <input type="submit" name="Voltar" value="Voltar" />
           </form>

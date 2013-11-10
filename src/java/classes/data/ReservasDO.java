@@ -100,34 +100,16 @@ public class ReservasDO {
         _cliente_id = idCliente;
     }
     
-    public void setHorarioDeRetirada(String horarioDeRetirada){
-        try{
-            _horarioDeRetirada = hora.parse(horarioDeRetirada);
-        }
-        catch (ParseException e){
-            System.out.println("Unable to Parse using" + hora);
-        }
+    public void setHorarioDeRetirada(Date horarioDeRetirada){
+            _horarioDeRetirada = horarioDeRetirada;
     }
     
-    public void setDataDeReserva(String dataDeReserva){
-        try{
-            _dataDeReserva = data.parse(dataDeReserva);
-        }
-        catch (ParseException e){
-            System.out.println("Unable to Parse using" + data);
-        }
+    public void setDataDeReserva(Date dataDeReserva){
+            _dataDeReserva = dataDeReserva;
     }
     
     public void setEstado(String estado){
         _estado = estado;
     }
-    
-    public void setHorarioDeDevolucao(String HorarioDeDevolucao){
-        try{
-            _horarioDeDevolucao = hora.parse(HorarioDeDevolucao);
-        }
-        catch (ParseException e){
-            System.out.println("Unable to Parse using" + hora);
-        }
-    }
+   
 }

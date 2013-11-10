@@ -110,6 +110,26 @@ public class Usuarios {
      }
      return null;
   } // pesquisar
+  
+  public int buscarID(String nome) {
+        if (isEmpty(nome)) {
+            return -1;
+        }
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            UsuariosData udata = new UsuariosData();
+            int id = udata.buscarID(nome, tr);
+
+            tr.commit();
+            return id;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar " + nome);
+            e.printStackTrace();
+        }
+        return -1;
+    } // buscarID
 
   private boolean isEmpty(String s) {
      if (null == s)

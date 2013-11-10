@@ -76,5 +76,17 @@ public class UsuariosData {
      }
      return usuarios;
   } // pesquisarPorLogin
+  
+  public int buscarID(String login, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select ID from Usuarios where login = ?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, login);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     rs.next();
+     int id = rs.getInt("id");
+     return id;
+  } // buscarID
     
 }
