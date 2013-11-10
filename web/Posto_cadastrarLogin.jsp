@@ -29,7 +29,7 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
         <title>Cadastra como Posto</title>
     </head>
     <body>
-         <form method="post" action=cadastraComoPosto.jsp>
+         <form method="post" action=Posto_cadastrarLogin.jsp>
        login <input type="text" name="login" />
        senha <input type="password" name="senha" />
        <input type="submit" name="enviar" value="Enviar" />
@@ -37,7 +37,7 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
        <input type="submit" name="Cancelar" value="Cancelar" />
     </form>
         
-        <!--    "Cancelar"  vlta pro inicio -->
+        <!--    "Cancelar"  volta pro inicio -->
        
 
 <%     if ( null != request.getParameter("Cancelar")) {
@@ -62,7 +62,7 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
 %>
            
            login ou senha inválida
-            <form action="cadastraComoPosto.jsp" method="post">
+            <form action="Posto_cadastrarLogin.jsp" method="post">
              <input type="submit" name="Voltarr" value="Voltar" />
           </form>
 <%	   }
@@ -75,18 +75,91 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
   session.setAttribute("user_name", user);
   
            %>
-            <jsp:forward page="cadastrarComoPostoORetorno.jsp" />
+            <jsp:forward page="Posto_cadastrarDados.jsp" />
+             <form action="Posto_cadastrarLogin.jsp" method="post">
+                 
+                 Login criado, insira seus dados
+           <table>
+            <tr>
+               <td>Nome do Posto</td>
+               <td><input type="text" name="nome" />
+            </tr>
+            <tr>
+               <td>Local do Posto</td>
+               <td><input type="text" name="local" />
+            </tr>
+            <tr>
+            <td>Nome do Dono</td>
+               <td><input type="text" name="dono" />
+            </tr>
+            <tr>
+            <td>Documento de licensiamento</td>
+            <!--nao sei como fazer pra carregar -->
+<td><input type="file"   />
+              
+            </tr>
+             <tr>
+            <td>Telefone</td> 
+</tr>
+<tr>
+               <td><input type="text" name="telefone" /> 
+             <tr>
+            <td>Horario de Funcionamento</td> 
+</tr>
+<tr>
+               <td><input type="text" name="horario" /> 
             
-             
+           
+           
+          
+          </table>
+                  <input type="submit" name="incluir" value="incluir" /> 
+            <input type="hidden" name="why" />
+           
+        
+                 <input type="submit" name="Cancelar" value="Cancelar" />
+        </form> 
            
            <%
+     if ( null != request.getParameter("why")){
+      
+        String nome = request.getParameter("nome");
+       
+        String local = request.getParameter("local");
+        
+        String dono = request.getParameter("dono");
+        String telefone = request.getParameter("telefone");
+        String horario = request.getParameter("horario");
+        PostoDO p=new PostoDO();
+       //arrumar  arquivo 
+        Vector ps = tn.pesquisar(user);
+        UsuariosDO postocriado =new UsuariosDO();
+       postocriado = (UsuariosDO)ps.get(0);
+       
+        
+    p.setUsuariosID(postocriado.getId());
     
- }
-     
+   p.setNome(nome);
+    
+    p.setEndereco(local);
+    
+   p.setTelefone(telefone);
+     p.setHorario(horario);
+     p.setResponsavel(dono);
+    
+       p.setDocumento("sei lah");
+     classes.transacoes.Posto po = new classes.transacoes.Posto();
+     po.incluir(p);
+       
+    %> Seus dados foram cadastrados com sucesso!
+    <jsp:forward page="index.html" />
+    
+    <%    
+     }
  }
    
     
-    %>
+    }%>
         
   
     </body>

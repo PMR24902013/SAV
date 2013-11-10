@@ -36,28 +36,25 @@
     <body>
         <ul id="mymenu">
             <li>
-                <a href="menuManutencao.html">Home</a>
-            </li>
-            <li>
                 <a onmouseover="openElement('menu1')">Cadastrar</a>
                 <ul id="menu1" onmouseover="keepSubmenu()" onmouseout="closeElement()">
-                    <li><a href="menuMotorista.html">Cliente</a></li>
-                    <li><a>Estacionamento</a></li>
-                    <li><a href="cadastraComoPosto.jsp">Posto</a></li>
-                    <li><a>Motorista</a></li>
-                    <li><a>Manutenção</a></li>
+                    <li><a href="Cliente_cadastrarLogin.jsp">Cliente</a></li>
+                    <li><a href="Estacionamento_cadastrarLogin.jsp">Estacionamento</a></li>
+                    <li><a href="Posto_cadastrarLogin.jsp">Posto</a></li>
+                    <li><a href="Motorista_cadastrarLogin.jsp">Motorista</a></li>
+                    <li><a href="Manutencao_cadastrarLogin.jsp">Manutenção</a></li>
                 </ul>
             </li>
             <li>
-                <a href="menuPosto.html" onmouseover="openElement('menu2')" onmouseout="closeElement()">Serviços</a>
+                <a onmouseover="openElement('menu2')" onmouseout="closeElement()">Serviços</a>
                 <ul id="menu2" onmouseover="keepSubmenu()" onmouseout="closeElement()">
-                    <li><a>Carros</a></li>
-                    <li><a>Postos</a></li>
-                    <li><a>Preços</a></li>
+                    <li><a href="verCarros.jsp">Carros</a></li>
+                    <li><a href="verPostos.jsp">Postos</a></li>
+                    <li><a href="verPrecos.jsp">Preços</a></li>
                 </ul>
             </li>
             <li>
-                <a>Dúvidas</a>
+                <a  href="enviarDuvidas.jsp">Dúvidas</a>
             </li>
             <li>
                 <a href="login.jsp">Log in</a>

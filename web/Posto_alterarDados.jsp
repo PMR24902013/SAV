@@ -19,7 +19,7 @@
 
         <%     if ( null == request.getParameterValues("incluir") ) {
         %>
-            <form action="./AlterarCadastroPosto.jsp" method="post">
+            <form action="./Posto_alterarDados.jsp" method="post">
         <%
             // VERIFICACAO MANUAL DO LOGIN
             if ( session.getAttribute("user_name") == null) {

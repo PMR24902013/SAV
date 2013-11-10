@@ -12,8 +12,8 @@ package classes.data;
  */
 public class AssistenciaTecnicaDO {
     private int _id;
-  private String _cliente;
-  private String _opmanut;
+  private int _clienteID;
+  private int _funcionarioID;
   private String _queixa;
   private String _end;
   private String _data;
@@ -27,20 +27,20 @@ public class AssistenciaTecnicaDO {
     _id = id;
   } // setId
 
-  public String getCliente() {
-    return _cliente;
+  public int getClienteID() {
+    return _clienteID;
   } // obterCliente
 
-  public void setCliente(String cliente) {
-    _cliente = cliente;
+  public void setClienteID(int cliente) {
+    _clienteID = cliente;
   } // setCliente
   
-  public String getOpManut() {
-      return _opmanut;
+  public int getFuncionarioID() {
+      return _funcionarioID;
   } //  obterOperador de Manutenção
   
-  public void setOpManut(String opmanut) {
-      _opmanut = opmanut;
+  public void setFuncionarioID(int opmanut) {
+      _funcionarioID = opmanut;
   } // setOperador de Manutenção
 
   public String getQueixa() {

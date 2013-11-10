@@ -12,10 +12,10 @@ public class AssistenciaTecnicaData {
     
     public void incluir(AssistenciaTecnicaDO assistencia, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "insert into AssistenciaTecnica (cliente, opmanut, queixa, end, data, estadofinal) values (?, ?, ?, ?, ?, ?)";
+     String sql = "INSERT INTO Assistencia_Tecnica (Funcionario_ID, Cliente_ID, Queixa, Endereco, Data_do_Pedido_de_Assistencia, Estado_Final_do_Veiculo)  values (?, ?, ?, ?, ?, ?)";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setString(1, assistencia.getCliente());
-     ps.setString(2, assistencia.getOpManut());
+     ps.setInt(1, assistencia.getFuncionarioID());
+     ps.setInt(2, assistencia.getClienteID());
      ps.setString(3, assistencia.getQueixa());
      ps.setString(4, assistencia.getEndereco());
      ps.setString(5, assistencia.getData());
@@ -38,10 +38,10 @@ public class AssistenciaTecnicaData {
 
   public void atualizar(AssistenciaTecnicaDO assistencia, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update AssistenciaTecnica set cliente=?, opmanut=?, queixa=?, end=?, data=?, estadofinal=? where id=?";
+     String sql = "update AssistenciaTecnica set Funcionario_ID=?, Cliente_ID=?, Queixa=?, Endereco=?, Data_do_Pedido_de_Assistencia=?, Estado_Final_do_Veiculo=?  where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setString(1, assistencia.getCliente());
-     ps.setString(2, assistencia.getOpManut());
+     ps.setInt(1, assistencia.getFuncionarioID());
+     ps.setInt(2, assistencia.getClienteID());
      ps.setString(3, assistencia.getQueixa());
      ps.setString(4, assistencia.getEndereco());
      ps.setString(5, assistencia.getData());
@@ -59,33 +59,32 @@ public class AssistenciaTecnicaData {
      rs.next();
      AssistenciaTecnicaDO assistencia = new AssistenciaTecnicaDO();
      assistencia.setId (rs.getInt("id"));
-     assistencia.setCliente (rs.getString("cliente"));
-     assistencia.setOpManut (rs.getString("opmanut"));
-     assistencia.setQueixa (rs.getString("queixa"));
-     assistencia.setEndereco (rs.getString("end"));
-     assistencia.setData (rs.getString("data"));
-     assistencia.setEstadoFinal (rs.getString("estadofinal"));
+     assistencia.setFuncionarioID (rs.getInt("Funcionario_ID"));
+     assistencia.setClienteID (rs.getInt("Cliente_ID"));
+     assistencia.setQueixa (rs.getString("Queixa"));
+     assistencia.setEndereco (rs.getString("Endereco"));
+     assistencia.setData (rs.getString("Data_do_Pedido_de_Assistencia"));
+     assistencia.setEstadoFinal (rs.getString("Estado_Final_do_Veiculo"));
      return assistencia;
   } // buscar
 
-  public Vector pesquisarPorCliente(String cliente, Transacao tr) throws Exception {
+  public Vector pesquisarPorClienteID(int cliente, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from AssistenciaTecnica where nome like ?";
+     String sql = "select * from AssistenciaTecnica where Cliente_ID like ?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setString(1, cliente);
+     ps.setInt(1, cliente);
      ResultSet rs = ps.executeQuery();
      System.out.println("query executada");
      Vector assistencia = new Vector();
      while (rs.next()) {
         AssistenciaTecnicaDO c = new AssistenciaTecnicaDO();
         c.setId (rs.getInt("id"));
-        c.setCliente (rs.getString("cliente"));
-        System.out.println(" got " + c.getCliente());
-        c.setOpManut(rs.getString("opmanut"));
-        c.setQueixa(rs.getString("queixa"));
-        c.setEndereco(rs.getString("end"));
-        c.setData(rs.getString("data"));
-        c.setEstadoFinal(rs.getString("estadofinal"));
+        c.setFuncionarioID (rs.getInt("Funcionario_ID"));
+         c.setClienteID(rs.getInt("Cliente_ID"));
+        c.setQueixa(rs.getString("Queixa"));
+        c.setEndereco(rs.getString("Endereco"));
+        c.setData(rs.getString("Data_do_Pedido_de_Assistencia"));
+        c.setEstadoFinal(rs.getString("Estado_Final_do_Veiculo"));
         assistencia.add(c);
      }
      return assistencia;
