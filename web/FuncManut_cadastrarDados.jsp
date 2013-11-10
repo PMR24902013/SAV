@@ -14,22 +14,32 @@
     <body bgcolor="white">
     <!--%@ page import="classes.trasacoes.Funcionarios" %>
     <%@ page import="classes.data.FuncionarioDO" %>
+    <%@ page import="classes.data.UsuariosDO" %>
+    <%@ page import="classes.transacoes.Funcionarios" %>
+    <%@ page import="java.util.Vector" %>
     <! ------------------------------------------------------------>
     <!--   se for o request inicial, mostrar somente o formulario -->
     
     <%     if ( null == request.getParameterValues("incluir") ) {
     %>
-       <form action="./FuncManut_cadastrarDados.jsp" method="post">
-    <%
-        // VERIFICACAO MANUAL DO LOGIN
-        if ( session.getAttribute("user_name") == null) {
-           pageContext.forward("index.jsp");
-        }
-        
-        String nome = (String)session.getAttribute("user_name");
-    %>
-        Bom dia <%= nome %> !!
-
+       <form action="./IncluirFuncionarioManutencao.jsp" method="post">
+           <b>Informações de login</b>
+           <table>
+            <tr>
+                <td>Usuário</td>
+                <td><input type="text" name="user" />
+            </tr>       
+            <tr>
+                <td>Senha</td>
+                <td><input type="password" name="password" />
+            </tr>
+            <tr>
+                <td>Digite a senha novamente</td>
+                <td><input type="password" name="validaPassword">
+            </tr>
+           </table>
+           
+           <b>Informações de cadastro</b>
            <table>
             <tr>
                <td>Nome</td>
@@ -43,47 +53,86 @@
                 <td>Email</td>
                 <td><input type="text" name="Email" />
             </tr>
-            <td>
+            <tr>
                 <td>Endereco</td>
                 <td><input type="text" name="Endereco" />
-            </td>
+            </tr>
             <tr>
                <td>Telefone</td>
                <td><input type="text" name="telefone" />
             </tr>
+            <tr>
+               <td>Estado</td>
+               <td><input type="text" name="Estado" />
+            </tr>
           </table>
           <input type="submit" name="incluir" value="incluir" />
         </form>
+       <form action="./index.html" method="post">
+            <input type="submit" name="cancelar" value="cancelar" />
+       </form>
 
 <%      } else { 
 %>
 <! ------------------------------------------------------------------->
 <!--   se nao for o request inicial, acionar a transacao de negocio -->
-<%     String nome = request.getParameter("nome");
+<%     String user = request.getParameter("user");
+       String senha = request.getParameter("password");
+       String senhaValidacao = request.getParameter("validaPassword");
+       
+       if(!senha.equals(senhaValidacao)){
+%>
+       As senhas digitadas não conferem!            
+          <form action="./IncluirFuncionarioManutencao.jsp" method="post">
+             <input type="submit" name="retry" value="Repetir" />
+          </form>
+<%       }
+       classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
+       classes.data.UsuariosDO usuario = new classes.data.UsuariosDO();
+       usuario.setLogin(user);
+       usuario.setSenha(senha);
+       usuario.setTipo("OpManut");
+       if(!tu.incluir(usuario)){
+       
+%>
+       Erro ao adicionar usuário. Verifique os campos.
+       <form action="./IncluirFuncionarioManutencao.jsp" method="post">
+            <input type="submit" name="retry" value="Repetir" />
+       </form>
+<%
+       }
+       Vector buscaUser = tu.pesquisar(user);
+       UsuariosDO userCriado = new UsuariosDO();
+       userCriado = (UsuariosDO)buscaUser.get(0);
+       
+       String nome = request.getParameter("nome");
        String cpf = request.getParameter("CPF");
        String email = request.getParameter("Email");
        String endereco = request.getParameter("Endereco");
        String telefone = request.getParameter("telefone");
-       classes.transacoes.Funcionario tn = new classes.transacoes.Funcionario();
+       String estado = request.getParameter("estado");
+       classes.transacoes.Funcionarios tn = new classes.transacoes.Funcionarios();
        classes.data.FuncionarioDO funcionario = new classes.data.FuncionarioDO();
        funcionario.setNome(nome);
        funcionario.setCPF(cpf);
        funcionario.setEmail(email);
        funcionario.setEndereco(endereco);
        funcionario.setTelefone(telefone); 
-       funcionario.setEstado("1");
-       funcionario.setCategoria("1");
-       if ( funcionario.incluirFuncionarioManutencao(funcionario)) {
+       funcionario.setEstado(estado);
+       funcionario.setCategoria("OpManut");
+       funcionario.setId(userCriado.getId());
+       if ( tn.incluirFuncionarioManutencao(funcionario)) {
          // avisar usuario que transacao foi feita com sucesso
 %>
           Transação realizada com sucesso!
-          <form action="./main.jsp" method="post">
+          <form action="./index.html" method="post">
              <input type="submit" name="voltar" value="Voltar" />
           </form>
 <%     } else {
+           tu.excluir(userCriado);
 %>
-          Erro ao incluir usuário            
-          <form action="./insert.jsp" method="post">
+          Erro ao incluir usuário! Preencha os campos corretamente.            
+          <form action="./IncluirFuncionarioManutencao.jsp" method="post">
              <input type="submit" name="retry" value="Repetir" />
           </form>
 <%     }
