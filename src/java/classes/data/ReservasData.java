@@ -6,6 +6,7 @@ package classes.data;
 
 import java.sql.*;
 import java.util.*;
+import java.text.*;
 import classes.utils.Transacao;
 /**
  *
@@ -25,10 +26,10 @@ public class ReservasData {
     ps.setInt(4, reserva.getVeiculoID());
     ps.setInt(5, reserva.getEstacionamentoID());
     ps.setInt(6, reserva.getClienteID());
-    ps.setDate(7, new java.sql.Date(reserva.getHorarioDeRetirada().getTime()));
-    ps.setDate(8, new java.sql.Date(reserva.getDataDeReserva().getTime()));
+    //ps.setDate(7, reserva.getHorarioDeRetirada().getTime());
+    //ps.setDate(8, reserva.getDataDeReserva().getTime());
     ps.setString(9, reserva.getEstado());
-    ps.setDate(10, new java.sql.Date(reserva.getHorarioDeDevolucao().getTime()));
+    //ps.setDate(10, reserva.getHorarioDeDevolucao().getTime());
      
     int result = ps.executeUpdate();
   }
@@ -49,12 +50,18 @@ public class ReservasData {
 
  public void atualizar(ReservasDO reserva, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update Reservas set ModeloID=?, DataDeReserva=?, HorarioDeRetirada=?, Estacionamento_ID=? where id=?";
+     String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelo_ID=?, Estacionamento_ID=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, reserva.getModeloID());
-     ps.setInt(2, reserva.getEstacionamentoID());
-//     ps.setDate(3, reserva.getDataDeReserva());
-//     ps.setDate(4, reserva.getHorarioDeRetirada());
+     java.util.Date utilDate1 = reserva.getDataDeReserva();
+     java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+     java.util.Date utilDate2 = reserva.getHorarioDeRetirada();
+     java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+
+     ps.setDate(1, sqlDate1);
+     ps.setDate(2, sqlDate2);
+     ps.setInt(3, reserva.getModeloID());
+     ps.setInt(4, reserva.getEstacionamentoID());
+     
      
      
      int result = ps.executeUpdate();

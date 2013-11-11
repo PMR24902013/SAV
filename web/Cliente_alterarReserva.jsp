@@ -21,6 +21,7 @@
     <body>
         <%@ page import="java.util.Vector" %>
         <%@ page import="java.util.Date" %>
+        <%@ page import="java.text.*" %>
         <%@page import="classes.transacoes.Usuarios"  %>
         <%@page import="classes.data.UsuariosDO" %>
         <%@page import="classes.transacoes.Reservas"  %>
@@ -91,7 +92,9 @@
             <%           } // for i      
             %>       <td></td>
                 <td></td>
-                <td><input action="./Cliente_menu.html" type="submit" name ="cancelar" value ="cancelar"/>
+                <td><form action="./Cliente_menu.jsp" method="post">
+             <input type="submit" name="cancelar" value="cancelar" />
+          </form>
         </table>            
             <%     } // reservas retornados
                 } // pesquisar
@@ -111,12 +114,12 @@
                   <td><input type="date" name="data de reserva" value=<%= reserva.getDataDeReserva() %> />
                </tr>
                <tr>
-                  <td>Modelo</td>
-                  <td><input type="text" name="modelo" value=<%= reserva.getModeloID() %> />
-               </tr>
-               <tr>
                   <td>Horário da Reserva</td>
                   <td><input type="date" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada() %> />
+               </tr>
+               <tr>
+                  <td>Modelo</td>
+                  <td><input type="text" name="modelo" value=<%= reserva.getModeloID() %> />
                </tr>
                <tr>
                   <td>Estacionamento</td>
@@ -126,8 +129,9 @@
              <input type="submit" name="atualizar" value="atualizar" />
 	     <input type="hidden" name="id" value=<%= id %> /> 
 	     <input type="hidden" name="action" value="updateValues" />
-	     <input type="submit" name ="voltar" value ="voltar"/> 
-	     <input type="hidden" name="action" value="showSearchResults" />
+	     <form action="./Cliente_alterarReserva.jsp" method="post">
+             <input type="submit" name="voltar" value="Voltar" />
+          </form>
            </form>
 <%         
        } // showEditForm
@@ -137,15 +141,20 @@
 <!--   atualizar valores -->
 <%     
      if (action.equals("updateValues")) {
-       //Date DataDeReserva = request.getParameter("data de reserva");
+       String DataDeReserva = request.getParameter("data de reserva");
+       String HorarioDeRetirada = request.getParameter("horario de reserva");
        int ModeloID = Integer.parseInt(request.getParameter("modelo"));
-       //Date HorarioDeRetirada = request.getParameter("horario de reserva");
        int EstacionamentoID = Integer.parseInt(request.getParameter("estacionamento"));
        classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
        classes.data.ReservasDO reservas = new classes.data.ReservasDO();
-       //reservas.setDataDeReserva(DataDeReserva);
+           try {  
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");              
+          reservas.setDataDeReserva(sdf.parse(DataDeReserva));
+       reservas.setHorarioDeRetirada(sdf.parse(HorarioDeRetirada));  
+      
+    } catch (ParseException e){}  
+            
        reservas.setModeloID(ModeloID);
-       //reservas.setHorarioDeRetirada(HorarioDeRetirada); 
        reservas.setEstacionamentoID(EstacionamentoID); 
        boolean result = false;
        try {
@@ -158,13 +167,13 @@
          // avisar usuario que transacao foi feita com sucesso
 %>
           Transação realizada com sucesso!
-          <form action="./main.jsp" method="post">
+          <form action="./Cliente_menu.jsp" method="post">
              <input type="submit" name="voltar" value="Voltar" />
           </form>
 <%     } else {
 %>
           Erro ao atualizar dados do contato
-          <form action="./update.jsp" method="post">
+          <form action="./Cliente_alterarReserva.jsp" method="post">
              <input type="submit" name="retry" value="Repetir" />
           </form>
 <%     }

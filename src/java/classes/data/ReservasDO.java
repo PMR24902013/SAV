@@ -21,9 +21,8 @@ public class ReservasDO {
     private int _estacionamento_id;
     private int _cliente_id;
     private Date _horarioDeRetirada;
-    private Date _dataDeReserva = new Date();
+    private Date _dataDeReserva;
     private String _estado;
-    private Date _horarioDeDevolucao;
     
     SimpleDateFormat data = new SimpleDateFormat ("dd/MM/yyyy");
     SimpleDateFormat hora = new SimpleDateFormat ("hh:mm");
@@ -66,10 +65,6 @@ public class ReservasDO {
     
     public String getEstado(){
         return _estado;
-    }
-    
-    public Date getHorarioDeDevolucao(){
-        return _horarioDeDevolucao;
     }
     
     public void setID(int id){
