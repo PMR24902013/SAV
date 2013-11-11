@@ -80,8 +80,8 @@
 //se apertar alterar
 if ( null != request.getParameterValues("alterar") ){
     // se tiver campo vazio
-    Posto p = new Posto();
-if (p.isEmpty(request.getParameter("endereco")) || p.isEmpty(request.getParameter("email")) || p.isEmpty(request.getParameter("telefone")) ||p.isEmpty(request.getParameter("senha"))){
+    Funcionario f = new Funcionario();
+if (f.isEmpty(request.getParameter("endereco")) || f.isEmpty(request.getParameter("email")) || f.isEmpty(request.getParameter("telefone")) ||f.isEmpty(request.getParameter("senha"))){
 %>
 Preencha todos os campos, por favor.
 <form action="Cliente_alterarDados.jsp" method="post">
