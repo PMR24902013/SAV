@@ -16,8 +16,8 @@
     </head>
     <body>
         
-    <%@ page import="classes.data.UsuariosDO"%>
-    <%@ page import="classes.data.UsuariosData"%>
+    <%@ page import="classes.data.*"%>
+    <%@ page import="classes.transacoes.*"%>
     <%@ page import="java.util.*"%>
         
 <%
@@ -51,8 +51,23 @@
            session.setAttribute("user_name", user);
            
           if(usuario.getTipo().equals("Cliente")){
-          
+              ClientesDO cliente=new ClientesDO();
+              Clientes cli =new Clientes();
+              cliente = cli.buscarPorUsuarioID(usuario.getId());
+              if((cliente.getEstado()).equals("bloqueado")){
+            %>  <form action="index.html">
+                
+                Este login está bloqueado!
+            </form>
+                
+                
+                <%
+              
+              }
+                  
+              else{
            pageContext.forward("Cliente_menu.html");
+          }
           }
            if(usuario.getTipo().equals("OpSist")){
           
