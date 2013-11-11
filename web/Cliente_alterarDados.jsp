@@ -52,7 +52,7 @@
             </tr>
              <tr>
                <td>Endereco</td>
-               <td><input type="text" value=<%=clientelogado.getEndereco()%> name="endereco" />
+               <td><input type="text" value="<%=clientelogado.getEndereco()%>" name="endereco" />
             </tr>
           
              <tr>
