@@ -60,16 +60,16 @@
                <td><input type="text" value=<%=funcionariologado.getTelefone()%> name="telefone" />
             </tr>
           
-           
-             <tr>
-               <td>Senha</td>
-               <td><input type="text" value=<%=usuariologado.getSenha()%> name="senha" />
-            </tr>
-          </table>
-          <input type="submit" name="alterar" value="alterar" />
-         <input type="submit" name="cancelar" value="cancelar" />
-         </form>
-         
+
+                <tr>
+                  <td>Senha</td>
+                  <td><input type="text" value=<%=usuariologado.getSenha()%> name="senha" />
+               </tr>
+             </table>
+             <input type="submit" name="alterar" value="alterar" />
+            <input type="submit" name="cancelar" value="cancelar" />
+            </form>
+
          
          <!--   se apertar  "cancelar" volta para o menu do motorista -->
 
@@ -80,8 +80,9 @@
 //se apertar alterar
 if ( null != request.getParameterValues("alterar") ){
     // se tiver campo vazio
-    Funcionario f = new Funcionario();
-if (f.isEmpty(request.getParameter("endereco")) || f.isEmpty(request.getParameter("email")) || f.isEmpty(request.getParameter("telefone")) ||f.isEmpty(request.getParameter("senha"))){
+    Funcionario fu = new Funcionario();
+    
+if (fu.isEmpty(request.getParameter("endereco")) || fu.isEmpty(request.getParameter("email")) || fu.isEmpty(request.getParameter("telefone")) ||fu.isEmpty(request.getParameter("senha"))){
 %>
 Preencha todos os campos, por favor.
 <form action="Cliente_alterarDados.jsp" method="post">
