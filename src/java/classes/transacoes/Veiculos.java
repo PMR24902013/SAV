@@ -97,7 +97,7 @@ public class Veiculos {
      try {
 	     tr.beginReadOnly();
           VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.pesquisarPorLogin(placa, tr);
+           Vector v = cdata.buscar(placa, tr);
            
 		 tr.commit();
 		 return v;
