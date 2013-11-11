@@ -98,7 +98,7 @@ public class FuncionarioData {
      System.out.println("query executada");
      Vector usuarios = new Vector();
      while (rs.next()) {
-        FuncionariosDO funcionario = new FuncionarioDO();
+        FuncionarioDO funcionario = new FuncionarioDO();
         funcionario.setId (rs.getInt("id"));
      funcionario.setUsuarioId (rs.getInt("Usuario_ID"));
      funcionario.setNome (rs.getString("Nome"));
