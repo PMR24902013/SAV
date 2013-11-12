@@ -3,54 +3,61 @@
  * and open the template in the editor.
  */
 package classes.data;
+
 import java.util.*;
 import java.text.*;
+
 /**
  *
  * @author User
  */
 public class Operacoes_de_CaixaDO {
-    
+
     private int _id;
     private float _valorDoPagamento;
     private String _dataDoPagamento;
     private int _usuario_id;
-    
-    
-    
-    public int getID(){
+    private String _estado;
+
+    public int getID() {
         return _id;
     }
-    
-    public float getValorDoPagamento(){
+
+    public float getValorDoPagamento() {
         return _valorDoPagamento;
     }
-    
-    public String getDataDoPagamento(){
+
+    public String getDataDoPagamento() {
         return _dataDoPagamento;
     }
-    
-    public int getUsuarioID(){
+
+    public int getUsuarioID() {
         return _usuario_id;
     }
-    
-    public void setID(int id){
+
+    public void setID(int id) {
         _id = id;
     }
-    
-    public void setValorDoPagamento(float valorDoPagamento){
+
+    public void setValorDoPagamento(float valorDoPagamento) {
         _valorDoPagamento = valorDoPagamento;
     }
-    
-    public void setDataDoPagamento(String dataDoPagamento){
-       
-            _dataDoPagamento = dataDoPagamento;
-        
-       
+
+    public void setDataDoPagamento(String dataDoPagamento) {
+
+        _dataDoPagamento = dataDoPagamento;
+
     }
-    
-    public void setUsuarioID(int UsuarioID){
+
+    public void setUsuarioID(int UsuarioID) {
         _usuario_id = UsuarioID;
     }
-    
+
+    public String getEstado() {
+        return _estado;
+    }
+
+    public void setEstado(String estado) {
+        _estado = estado;
+    }
 }
