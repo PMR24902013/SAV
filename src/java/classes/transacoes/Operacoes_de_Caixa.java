@@ -102,6 +102,22 @@ public class Operacoes_de_Caixa {
      }
      return null;
   } // pesquisar
+  
+  public Vector buscarPorEstado(String estado) {
+     
+     Transacao tr = new Transacao();
+     try {
+	     tr.beginReadOnly();
+           Operacoes_de_CaixaData cdata = new Operacoes_de_CaixaData();
+           Vector v = cdata.buscarPorEstado(estado, tr);
+		 tr.commit();
+		 return v;
+     } catch(Exception e) {
+         System.out.println("erro ao pesquisar " );
+         e.printStackTrace();
+     }
+     return null;
+  } // pesquisar
 
   public boolean isEmpty(String s) {
      if (null == s)
