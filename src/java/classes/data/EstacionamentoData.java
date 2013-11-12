@@ -97,5 +97,28 @@ public class EstacionamentoData {
      }
      return estacionamentos;
   } // pesquisarPorNome
+  
+  public Vector listar(Transacao tr) throws Exception{
+      Connection con = tr.obterConexao();
+      String sql = "select * from Estacionamento";
+      PreparedStatement ps = con.prepareStatement(sql);
+      ResultSet rs = ps.executeQuery();
+      Vector estacionamentos = new Vector();
+      while(rs.next()){
+        EstacionamentoDO e = new EstacionamentoDO();
+        e.setId (rs.getInt("ID"));
+        e.setNome (rs.getString("Nome"));
+        System.out.println(" got " + e.getNome());
+        e.setEndereco(rs.getString("Endereco"));
+        e.setVagas(rs.getInt("Vagas"));
+        e.setTipo(rs.getBoolean("Tipo"));
+        e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
+        e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
+        e.setHorario_De_Funcionamento(rs.getString("Horairo_de_Funcionamento"));
+        e.setTelefone(rs.getString("Telefone"));
+        estacionamentos.add(e);
+      }
+      return estacionamentos;
+  }
 
 } // ContatoData
