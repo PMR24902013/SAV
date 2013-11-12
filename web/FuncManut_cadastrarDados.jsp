@@ -15,7 +15,7 @@
     <!--%@ page import="classes.trasacoes.Funcionarios" %>
     <%@ page import="classes.data.FuncionarioDO" %>
     <%@ page import="classes.data.UsuariosDO" %>
-    <%@ page import="classes.transacoes.Funcionarios" %>
+    <%@ page import="classes.transacoes.Funcionario" %>
     <%@ page import="java.util.Vector" %>
     <! ------------------------------------------------------------>
     <!--   se for o request inicial, mostrar somente o formulario -->
@@ -111,7 +111,7 @@
        String endereco = request.getParameter("Endereco");
        String telefone = request.getParameter("telefone");
        String estado = request.getParameter("estado");
-       classes.transacoes.Funcionarios tn = new classes.transacoes.Funcionarios();
+       classes.transacoes.Funcionario tn = new classes.transacoes.Funcionario();
        classes.data.FuncionarioDO funcionario = new classes.data.FuncionarioDO();
        funcionario.setNome(nome);
        funcionario.setCPF(cpf);

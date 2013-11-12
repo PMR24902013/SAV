@@ -15,7 +15,7 @@
     <!--%@ page import="classes.trasacoes.Funcionarios" %>
     <%@ page import="classes.data.FuncionarioDO" %>
     <%@ page import="classes.data.UsuariosDO" %>
-    <%@ page import="classes.transacoes.Funcionarios" %>
+    <%@ page import="classes.transacoes.Funcionario" %>
     <%@ page import="java.util.Vector" %>
     <! ------------------------------------------------------------>
     <!--   se for o request inicial, mostrar somente o formulario -->
