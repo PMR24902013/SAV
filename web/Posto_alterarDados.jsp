@@ -36,12 +36,12 @@
                       <td><input type="text" name="nome" />
                  </tr>
                  <tr>
-                     <td>Nome do Dono</td>
-                     <td><input type="text" name="dono" />
+                     <td>Responsável</td>
+                     <td><input type="text" name="responsavel" />
                  </tr>
                  <tr>
-                     <td>CNPJ</td>
-                     <td><input type="text" name="CNPJ" />
+                     <td>Documento</td>
+                     <td><input type="text" name="documento" />
                  </tr>
                  <tr>
                      <td>Endereco</td>
@@ -70,21 +70,21 @@
        classes.data.PostoDO postoAtualizar = new classes.data.PostoDO();
        postoAtualizar = tn.pesquisarPorNome(posto, tn);
        request.setAttribute("nome", postoAtualizar.getNome());
-       request.setAttribute("dono", postoAtualizar.getDono());
-       request.setAttribute("CNPJ", postoAtualizar.getCNPJ());
+       request.setAttribute("responsavel", postoAtualizar.getResponsavel());
+       request.setAttribute("documento", postoAtualizar.getDocumento());
        request.setAttribute("Endereco", postoAtualizar.getEndereco());
        request.setAttribute("gasolina", postoAtualizar.getGasolina());
        request.setAttribute("alcool", postoAtualizar.getAlcool());
        String nome = request.getParameter("nome");
-       String dono = request.getParameter("dono");
-       String CNPJ = request.getParameter("CNPJ");
+       String responsavel = request.getParameter("responsavel");
+       String documento = request.getParameter("documento");
        String endereco = request.getParameter("Endereco");
        String gasolina = request.getParameter("gasolina");
-       String alcool = request.getParameter("alccol");
+       String alcool = request.getParameter("alcool");
        classes.data.PostoDO posto = new classes.data.PostoDO();
        posto.setNome(nome);
-       posto.setDono(dono);
-       posto.setCNPJ(cnpj);
+       posto.setResponsavel(responsavel);
+       posto.setDocumento(documento);
        posto.setEndereco(endereco);
        posto.setGasolina(gasolina);
        posto.setAlcool(alcool);

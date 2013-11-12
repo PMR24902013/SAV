@@ -21,7 +21,7 @@ public class PostoDO {
     private String _telefone;
     private String _horarioDeFuncionamento;
     private String _responsavel;
-    private String _documentoDeLicensiamento;
+    private String _documentoDeLicenciamento;
     private String _estado;
 
     public int getID() {
@@ -53,7 +53,7 @@ public class PostoDO {
     }
 
     public String getDocumento() {
-        return _documentoDeLicensiamento;
+        return _documentoDeLicenciamento;
     }
 
     public void setID(int id) {
@@ -85,7 +85,7 @@ public class PostoDO {
     }
 
     public void setDocumento(String doc) {
-        _documentoDeLicensiamento = doc;
+        _documentoDeLicenciamento = doc;
     }
     public String getEstado() {
         return _estado;

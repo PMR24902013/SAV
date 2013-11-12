@@ -85,7 +85,16 @@ if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) 
                     classes.data.FuncionarioDO f = (classes.data.FuncionarioDO) cadastrosF.elementAt(i); 
             %>              <tr>
                 <td><%= f.getNome()%></td>
-                <td>Funcionarios</td>
+                <td><% String categoria = f.getCategoria();
+                if (categoria.equals("OpSist")){%>
+                    <td>Operador do Sistema</td>
+                    <%}
+                else if (categoria.equals("Motorista")){%>
+                    <td>Motorista</td>
+                    <%}
+                else {%>
+                    <td>Operador de Manutençao</td>
+                    <%}%>
                 <td><a href=OperadorSistema_administrarCadastros.jsp?action=showFuncionarioEditForm&id=<%= f.getId()%>>Administrar</a>
             </tr>        
             <%           } // for i Funcionario     
