@@ -87,5 +87,12 @@ public class PostoDO {
     public void setDocumento(String doc) {
         _documentoDeLicensiamento = doc;
     }
+    public String getEstado() {
+        return _estado;
+    } 
+    
+    public void setEstado(String estado) {
+        _estado= estado;
+    }
 
 }
