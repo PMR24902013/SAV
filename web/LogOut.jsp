@@ -8,8 +8,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+            function MudarPagina(){
+                window.location = "http://localhost:8080/SAV/index.html"
+            }
+        </script>
     </head>
-    <body>
-        <h1>Implementar!</h1>
+    
+        
+    
+    <body onload="setTimeout(function(){MudarPagina()}, 2000);">
+        
+    <b> Retornando ao menu inicial </b>
+
     </body>
 </html>
