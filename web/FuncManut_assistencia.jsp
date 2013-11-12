@@ -47,12 +47,10 @@
                 classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
                 classes.data.AssistenciaTecnicaDO assistencia = new classes.data.AssistenciaTecnicaDO();
                 
-                for(int i = 0; tn.buscar(i)!=null ;i++){
+                for(int i = 1; tn.buscar(i)!=null ;i++){
                     assistencia = tn.buscar(i);
-                    if(assistencia.getEstadoFinal().equals("Aguardando")){
+                    if(assistencia.getEstadoFinal().equals("Reparado"))
                         temAguardando = true;
-                        break;
-                    }
                 }
                 
                 if(temAguardando == false){
@@ -70,9 +68,9 @@
                 <td>Queixa</td>
                 <td>Endereço</td>
             </tr>
-       <%           for (int i = 0; tn.buscar(i)!=null ; i++) {
+       <%           for (int i = 1; tn.buscar(i)!=null ; i++) {
                         assistencia = tn.buscar(i);
-                        if(assistencia.getEstadoFinal().equals("Aguardando")){
+                        if(!assistencia.getEstadoFinal().equals("Reparado")){
                 
        %>
             <tr>
@@ -100,7 +98,42 @@
         if (action.equals("showEditForm")){
             int id = Integer.parseInt(request.getParameter("id"));
             classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
+            classes.transacoes.Funcionario tf = new classes.transacoes.Funcionario();
+            classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
+    
             classes.data.AssistenciaTecnicaDO responderChamado = tn.buscar(id);
+            String user = (String)session.getAttribute("user_name");
+            int buscaID = tu.buscarID(user);
+            classes.data.FuncionarioDO funcionario = tf.buscarPorUsuarioID(buscaID);
+            
+            responderChamado.setFuncionarioID(funcionario.getId());
+            
+            if ( null == request.getParameterValues("incluir") ){
+        %>
+        <tr>
+                <td>Estado</td>
+                <td><input type="text" name="estado" />
+                <td><input type="submit" name="cancelar" value="incluir" />
+        </tr>  
+        <%
+            }
+            else{
+            responderChamado.setEstadoFinal(request.getParameter("estado"));
+        %>
+            Estado alterado com sucesso
+            <form action="./FuncManut_assistencia.jsp" method="post">
+            <table>
+                <tr>
+                    
+                    <input type="submit" name="pesquisar" value="retornar" />
+                    <input type="hidden" name="action" value="showSearchResults" />
+                    
+                </tr>
+            </table>
+        </form>
+            
+        <%
+            }
             
         }
         %>
