@@ -61,10 +61,6 @@
                <td>Telefone</td>
                <td><input type="text" name="telefone" />
             </tr>
-            <tr>
-               <td>Estado</td>
-               <td><input type="text" name="Estado" />
-            </tr>
           </table>
           <input type="submit" name="incluir" value="incluir" />
         </form>
@@ -118,7 +114,7 @@
        funcionario.setEmail(email);
        funcionario.setEndereco(endereco);
        funcionario.setTelefone(telefone); 
-       funcionario.setEstado(estado);
+       funcionario.setEstado("Aguardando Aprovacao");
        funcionario.setCategoria("OpManut");
        funcionario.setId(userCriado.getId());
        if ( tn.incluirFuncionarioManutencao(funcionario)) {
