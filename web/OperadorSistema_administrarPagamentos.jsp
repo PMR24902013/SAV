@@ -95,6 +95,7 @@
                 try {
                     op = tn.buscar(id);
                     op.setEstado("Pago");
+                    result = tn.atualizar(op);
                 } catch (Exception e) {
         %>           <%= e.toString()%>
         <%
