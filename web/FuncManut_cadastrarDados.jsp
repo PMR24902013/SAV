@@ -61,12 +61,14 @@
                <td>Telefone</td>
                <td><input type="text" name="telefone" />
             </tr>
-          </table>
+            <tr>
           <input type="submit" name="incluir" value="incluir" />
         </form>
        <form action="./index.html" method="post">
             <input type="submit" name="cancelar" value="cancelar" />
        </form>
+            </tr>
+       </table>
 
 <%      } else { 
 %>
