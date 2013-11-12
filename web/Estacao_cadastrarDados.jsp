@@ -12,8 +12,8 @@
         <title>Cadastrar Estação Propria</title>
     </head>
     <body bgcolor="white">
-    <%@ page import="classes.trasacoes.Estacao" %>
-    <%@ page import="classes.data.EstacaoDO" %>
+    <%@ page import="classes.transacoes.Estacionamento" %>
+    <%@ page import="classes.data.EstacionamentoDO" %>
     <! ------------------------------------------------------------>
     <!--   se for o request inicial, mostrar somente o formulario -->
     
@@ -61,18 +61,18 @@
 <!--   se nao for o request inicial, acionar a transacao de negocio -->
 <%     String nome = request.getParameter("Nome");
        String endereco = request.getParameter("Endereco");
-       String bairro = request.getParameter("Bairro")
+       String bairro = request.getParameter("Bairro");
        String cep = request.getParameter("CEP");
        String telefone = request.getParameter("Telefone");
-       classes.transacoes.Estacao tn = new classes.transacoes.Estacao();
-       classes.data.EstacaoDO funcionario = new classes.data.EstacaoDO();
-       contato.setNome(nome);
-       contato.setEndereco(endereco);
-       contato.setBairro(bairro);
-       contato.setCEP(cep);
-       contato.setTelefone(telefone); 
+       endereco = endereco + " - " + bairro;
+       classes.transacoes.Estacao tEst = new classes.transacoes.Estacao();
+       classes.data.EstacionamentoDO estacionamento = new classes.data.EstacionamentoDO();
+       //Arrumar sentenças abaixo:
+       estacionamento.setNome(nome);
+       estacionamento.setEndereco(endereco);
+       estacionamento.setTelefone(telefone); 
        
-       if ( estacao.CadastrarEstacaoPropria(estacao)) {
+       if (tEst.incluir(estacionamento)) {
          // avisar usuario que transacao foi feita com sucesso
 %>
           Transação realizada com sucesso!
