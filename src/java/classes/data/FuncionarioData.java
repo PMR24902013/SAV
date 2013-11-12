@@ -132,7 +132,7 @@ public class FuncionarioData {
        
         public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update Posto set Estado=? where id=?";
+     String sql = "update Funcionario set Estado=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setString(1, estado);
      ps.setInt(2, id);

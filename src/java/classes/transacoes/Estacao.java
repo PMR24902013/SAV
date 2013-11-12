@@ -61,6 +61,23 @@ public class Estacao {
 	 }
 	 return false;
   } // atualizar
+  
+public boolean atualizarCadastro(int id, String Estado) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    EstacionamentoData edata = new EstacionamentoData();
+	     edata.atualizarCadastro(id, Estado, tr);
+	   tr.commit(); 
+	   return true;
+	 } catch (Exception e) { 
+	   tr.rollback();
+	   System.out.println("erro ao atualizar situação do cadastro");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
 
   public boolean excluir(EstacionamentoDO estacionamento) throws Exception {
      Transacao tr = new Transacao();
@@ -112,6 +129,25 @@ public class Estacao {
      }
      return null;
   } // pesquisar
+  
+  public Vector pesquisarCadastro(String estado) {
+        if (isEmpty(estado)) {
+            return null;
+        }
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            EstacionamentoData edata = new EstacionamentoData();
+            Vector v = edata.pesquisarCadastro(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar cadastro");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarCadastro
   
   private boolean isEmpty(String s) {
      if (null == s)

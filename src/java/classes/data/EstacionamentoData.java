@@ -35,7 +35,7 @@ public class EstacionamentoData {
      int result = ps.executeUpdate();
   } // excluir 
 
-  //BRU_DUVIDA: Atualizar cada campo ou todos?
+  
   public void atualizar(EstacionamentoDO e, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "update Estacionamento set Nome=?, Endereco=?, Vagas=?, Tipo=?, Nome_do_Responsavel=?, Documento_do_Convenio=?, Horario_de_Funcionamento=?, Telefone=? where id=?";
@@ -52,7 +52,15 @@ public class EstacionamentoData {
      int result = ps.executeUpdate();
   } // atualizar
 
-  //BRU_DUVIDA: O que � importante na busca?
+  public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update Estacionamento set Estado=? where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ps.setInt(2, id);
+     int result = ps.executeUpdate(); 
+  }// atualizarCadastro
+  
   public EstacionamentoDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Estacionamento where  id=?";
@@ -68,7 +76,7 @@ public class EstacionamentoData {
      e.setTipo(rs.getBoolean("Tipo"));
      e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
      e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
-     e.setHorario_De_Funcionamento(rs.getString("Horairo_de_Funcionamento"));
+     e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
      e.setTelefone(rs.getString("Telefone"));
      return e;
   } // buscar
@@ -97,6 +105,23 @@ public class EstacionamentoData {
      }
      return estacionamentos;
   } // pesquisarPorNome
+  
+  public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Estacionamento where Estado =?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector cadastro = new Vector();
+     while (rs.next()){
+        EstacionamentoDO e = new EstacionamentoDO();
+        e.setNome(rs.getString("Nome"));
+        e.setId(rs.getInt("ID"));
+        cadastro.add(e);
+     }
+     return cadastro;
+  } // pesquisarCadastro
   
   public Vector listar(Transacao tr) throws Exception{
       Connection con = tr.obterConexao();

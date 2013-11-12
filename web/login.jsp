@@ -79,7 +79,7 @@
           }
              if(usuario.getTipo().equals("OpManut")){
           
-           pageContext.forward("Manutencao_menu.html");
+           pageContext.forward("FuncManut_menu.html");
           }
               if(usuario.getTipo().equals("Estacionamento")){
           
