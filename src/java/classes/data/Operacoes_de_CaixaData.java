@@ -39,12 +39,13 @@ public class Operacoes_de_CaixaData {
 
     public void atualizar(Operacoes_de_CaixaDO operacao, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Operacoes_de_Caixa set Valor=?, Data_de_Pagamento=?, Usuario_ID=? where id=?";
+        String sql = "update Operacoes_de_Caixa set Valor=?, Data_de_Pagamento=?, Usuario_ID=?, Estado=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setFloat(1, operacao.getValorDoPagamento());
         ps.setString(2, operacao.getDataDoPagamento());
         ps.setInt(3, operacao.getUsuarioID());
         ps.setInt(4, operacao.getID());
+        ps.setString(5, operacao.getEstado());
         int result = ps.executeUpdate();
     } // atualizar
 
