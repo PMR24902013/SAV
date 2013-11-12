@@ -12,7 +12,7 @@ public class AssistenciaTecnicaData {
     
     public void incluir(AssistenciaTecnicaDO assistencia, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "INSERT INTO Assistencia_Tecnica (Funcionario_ID, Cliente_ID, Queixa, Endereco, Data_do_Pedido_de_Assistencia, Estado_Final_do_Veiculo)  values (?, ?, ?, ?, ?, ?)";
+     String sql = "INSERT INTO assistencia_tecnica (Funcionario_ID, Cliente_ID, Queixa, Endereco, Data_do_Pedido_de_Assistencia, Estado_Final_do_Veiculo)  values (?, ?, ?, ?, ?, ?)";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, assistencia.getFuncionarioID());
      ps.setInt(2, assistencia.getClienteID());
@@ -29,7 +29,7 @@ public class AssistenciaTecnicaData {
 
   public void excluir (int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "delete from AssistenciaTecnica where id=?";
+     String sql = "delete from assistencia_tecnica where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      String id = ""+idobj;
      ps.setString(1, id);
@@ -38,7 +38,7 @@ public class AssistenciaTecnicaData {
 
   public void atualizar(AssistenciaTecnicaDO assistencia, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update AssistenciaTecnica set Funcionario_ID=?, Cliente_ID=?, Queixa=?, Endereco=?, Data_do_Pedido_de_Assistencia=?, Estado_Final_do_Veiculo=?  where id=?";
+     String sql = "update assistencia_tecnica set Funcionario_ID=?, Cliente_ID=?, Queixa=?, Endereco=?, Data_do_Pedido_de_Assistencia=?, Estado_Final_do_Veiculo=?  where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, assistencia.getFuncionarioID());
      ps.setInt(2, assistencia.getClienteID());
@@ -52,7 +52,7 @@ public class AssistenciaTecnicaData {
 
   public AssistenciaTecnicaDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from AssistenciaTecnica where  id=?";
+     String sql = "select * from assistencia_tecnica where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, idobj);
      ResultSet rs = ps.executeQuery();
@@ -70,7 +70,7 @@ public class AssistenciaTecnicaData {
 
   public Vector pesquisarPorClienteID(int cliente, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from AssistenciaTecnica where Cliente_ID like ?";
+     String sql = "select * from assistencia_tecnica where Cliente_ID like ?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, cliente);
      ResultSet rs = ps.executeQuery();
