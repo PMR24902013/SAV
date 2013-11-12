@@ -124,6 +124,7 @@ public class FuncionarioData {
         FuncionarioDO p = new FuncionarioDO();
         p.setNome(rs.getString("Nome"));
         p.setId(rs.getInt("ID"));
+        p.setCategoria(rs.getString("Categoria"));
         cadastro.add(p);
      }
      return cadastro;
