@@ -15,6 +15,7 @@ public class Operacoes_de_CaixaDO {
     private float _valorDoPagamento;
     private String _dataDoPagamento;
     private int _usuario_id;
+    private String _estado;
     
     
     

@@ -22,6 +22,7 @@ public class PostoDO {
     private String _horarioDeFuncionamento;
     private String _responsavel;
     private String _documentoDeLicensiamento;
+    private String _estado;
 
     public int getID() {
         return _id;

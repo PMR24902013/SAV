@@ -11,6 +11,7 @@ public class EstacionamentoDO {
   private String _documento_do_convenio;
   private String _horario_de_funcionamento;
   private String _telefone;
+  private String _estado;
   
 
   public int getId() {
