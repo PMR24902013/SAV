@@ -89,7 +89,7 @@ public class Veiculos {
   } // buscar
 
 
-  public Vector pesquisar(String placa) {
+ /* public Vector pesquisar(String placa) {
      if ( isEmpty(placa) )
         return null;
 
@@ -107,7 +107,7 @@ public class Veiculos {
      }
      return null;
   } // pesquisar
-
+*/
   private boolean isEmpty(String s) {
      if (null == s)
        return true;
