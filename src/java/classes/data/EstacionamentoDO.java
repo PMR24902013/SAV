@@ -26,7 +26,7 @@ public class EstacionamentoDO {
   } // getUsuario_Id
 
   public void setUsuario_Id(int usuario_id) {
-    _id = usuario_id;
+    _usuario_id = usuario_id;
   } // setUsuario_Id
 
   public String getNome() {
