@@ -94,7 +94,7 @@ public class Operacoes_de_CaixaData {
             operacao.setValorDoPagamento(rs.getFloat("Valor"));
             operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
             operacao.setUsuarioID(rs.getInt("Usuario_ID"));
-            operacao.setUsuarioID(rs.getInt("Estado"));
+            operacao.setEstado(rs.getString("Estado"));
             v.add(operacao);
         }
         return v;
