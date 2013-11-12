@@ -65,7 +65,6 @@ public class FuncionarioData {
      funcionario.setEmail (rs.getString("email"));
      funcionario.setEndereco (rs.getString("Endereco"));
      funcionario.setTelefone (rs.getString("Telefone"));
-     funcionario.setEstado(rs.getString("Estado"));
      funcionario.setCategoria (rs.getString("Categoria"));
      return funcionario;
   }
@@ -112,4 +111,30 @@ public class FuncionarioData {
      }
      return usuarios;
   } // pesquisarPorLogin
+      
+       public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Funcionario where Estado =?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector cadastro = new Vector();
+     while (rs.next()){
+        FuncionarioDO p = new FuncionarioDO();
+        p.setNome(rs.getString("Nome"));
+        p.setId(rs.getInt("ID"));
+        cadastro.add(p);
+     }
+     return cadastro;
+  } // pesquisarCadastro
+       
+        public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update Posto set Estado=? where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ps.setInt(2, id);
+     int result = ps.executeUpdate(); 
+  }// atualizarCadastro
 }

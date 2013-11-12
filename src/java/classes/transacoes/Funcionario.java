@@ -121,7 +121,67 @@ public class Funcionario {
      }
      return null;
   } // pesquisar
+  
+  public boolean atualizarCadastro(int id, String Estado) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    FuncionarioData fdata = new FuncionarioData();
+	     fdata.atualizarCadastro(id, Estado, tr);
+	   tr.commit(); 
+	   return true;
+	 } catch (Exception e) { 
+	   tr.rollback();
+	   System.out.println("erro ao atualizar situação do cadastro");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
+  
+  public Vector pesquisarCadastro(String estado) {
+        if (isEmpty(estado)) {
+            return null;
+        }
 
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            FuncionarioData fdata = new FuncionarioData();
+            Vector v = fdata.pesquisarCadastro(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar cadastro");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarCadastro
+
+  public boolean incluirFuncionarioManutencao (FuncionarioDO funcionario){
+        // validacao das regras de negocio
+     if ( (isEmpty(funcionario.getNome())) || isEmpty(funcionario.getCPF()) || isEmpty(funcionario.getEmail()) || isEmpty(funcionario.getEndereco()) ||
+             ( isEmpty(funcionario.getTelefone())) || funcionario.getCategoria()!="OpManut" ) {
+       return false;
+     }
+
+     // efetuando a transacao
+     Transacao tr = new Transacao();
+     try {
+
+       tr.begin();
+       FuncionarioData cdata = new FuncionarioData();
+       cdata.incluir(funcionario, tr);
+       tr.commit();
+       return true;
+       
+     } catch(Exception e) {
+         System.out.println("erro ao incluir " + funcionario.getNome());
+         e.printStackTrace();
+     }
+     return false;
+    }
+  
   private boolean isEmpty(String s) {
      if (null == s)
        return true;

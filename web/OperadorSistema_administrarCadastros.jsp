@@ -44,10 +44,12 @@
         <%
             classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
             classes.transacoes.Posto tn_p = new classes.transacoes.Posto();
+classes.transacoes.Funcionario tn_f = new classes.transacoes.Funcionario();
 String estado = "aguardando";
             Vector cadastrosC = tn_c.pesquisarCadastro(estado);
             Vector cadastrosP = tn_p.pesquisarCadastro(estado);
-if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0))) {
+Vector cadastrosF = tn_f.pesquisarCadastro(estado); 
+if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0)) && ((cadastrosF == null) || (cadastrosF.size() == 0))) {
                 // avisar usuario que nao ha' reserva
         %>
         Nenhum cadastro em aguardo foi encontrado
@@ -79,7 +81,15 @@ if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) 
             </tr>        
             <%           } // for i Posto     
             %>
-
+<%           for (int i = 0; i < cadastrosF.size(); i++) {
+                    classes.data.FuncionarioDO f = (classes.data.FuncionarioDO) cadastrosF.elementAt(i); 
+            %>              <tr>
+                <td><%= f.getNome()%></td>
+                <td>Funcionarios</td>
+                <td><a href=OperadorSistema_administrarCadastros.jsp?action=showFuncionarioEditForm&id=<%= f.getId()%>>Administrar</a>
+            </tr>        
+            <%           } // for i Funcionario     
+            %>
             <td></td>
             <td></td>
             <td><form action="./OperadorSistema_menu.html" method="post">
@@ -178,6 +188,49 @@ if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) 
             } // showPostoEditForm
         %>
         
+        <!--   mostra formulario para atualizacao  do funcionario               -->
+        <%     if (action.equals("showFuncionarioEditForm")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                classes.transacoes.Funcionario tn = new classes.transacoes.Funcionario();
+                classes.data.FuncionarioDO funcionario = tn.buscar(id);
+        %>        
+        <form action="./OperadorSistema_administrarCadastros.jsp" method="post">
+            <table>
+                <tr>
+                    <td>Nome</td>
+                    <td><%= funcionario.getNome()%></td>
+                </tr>
+                <tr>
+                    <td>CPF</td>
+                    <td><%= funcionario.getCPF()%></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><%= funcionario.getEmail()%></td>
+                </tr>
+                <tr>
+                    <td>Endereço</td>
+                    <td><%= funcionario.getEndereco()%></td>
+                </tr>
+                <tr>
+                    <td>Telefone</td>
+                    <td><%= funcionario.getTelefone()%></td>
+                </tr>
+                <tr>
+                    <td>Categoria</td>
+                    <td><%= funcionario.getCategoria()%></td>
+                </tr>
+            </table>
+            <input type="submit" name="ativar" value="ativar" />
+            <input type="hidden" name="id" value=<%= id%> /> 
+            <input type="submit" name="recusar" value="recusar" />
+            <input type="hidden" name="action" value="updateFuncionarioValues" />
+        </form>
+        <%
+            } // showPostoEditForm
+        %>
+        
         <! ------------------------------------------------------------------->
         <!--   atualizar valores -->
         <%
@@ -199,7 +252,7 @@ if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) 
             if (result) {
                  // avisar usuario que transacao foi feita com sucesso
         %>
-        Transação realizada com sucesso!
+        Foi enviado um email para o usuario sobre a situaçao do seu cadastro
         <form action="./OperadorSistema_administrarCadastros.jsp" method="post">
             <input type="submit" name="voltar" value="Voltar" />
         </form>
@@ -222,6 +275,39 @@ if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) 
                     if (null != request.getParameter("ativar")){
                     result = tn.atualizarCadastro(id, "ativado");
                 }
+                    else if (null != request.getParameter("recusar")){
+                    result = tn.atualizarCadastro(id, "recusado");
+                }
+                } catch (Exception e) {
+        %>           <%= e.toString()%>
+        <%
+            }
+            if (result) {
+                 // avisar usuario que transacao foi feita com sucesso
+        %>
+        Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+        <form action="./OperadorSistema_administrarCadastros.jsp" method="post">
+            <input type="submit" name="voltar" value="Voltar" />
+        </form>
+        <%     } else {
+        %>
+        Erro ao atualizar dados do contato
+        <form action="./OperadorSistema_administrarCadastros.jsp" method="post">
+            <input type="submit" name="retry" value="Repetir" />
+        </form>
+        <%     }
+             } // updatePostoValues
+        %>
+        
+        <%
+            if (action.equals("updateFuncionarioValues")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                classes.transacoes.Funcionario tn = new classes.transacoes.Funcionario();
+                boolean result = false;
+                try {
+                    if (null != request.getParameter("ativar")){
+                    result = tn.atualizarCadastro(id, "ativado");
+                } 
                     else if (null != request.getParameter("recusar")){
                     result = tn.atualizarCadastro(id, "recusado");
                 }
