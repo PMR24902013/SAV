@@ -18,7 +18,7 @@ public class Operacoes_de_CaixaData {
      String sql = "insert into Operacoes_de_Caixa (Valor, Data_de_Pagamento, Usuario_ID) values (?, ?, ?)";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setFloat(1, operacao.getValorDoPagamento());
-     ps.setDate(2, new java.sql.Date(operacao.getDataDoPagamento().getTime()));
+     ps.setString(2, operacao.getDataDoPagamento());
      ps.setInt(3, operacao.getUsuarioID());
      int result = ps.executeUpdate();
   }
@@ -41,7 +41,7 @@ public class Operacoes_de_CaixaData {
      String sql = "update Operacoes_de_Caixa set Valor=?, Data_de_Pagamento=?, Usuario_ID=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setFloat(1, operacao.getValorDoPagamento());
-     ps.setDate(2, new java.sql.Date(operacao.getDataDoPagamento().getTime()));
+     ps.setString(2, operacao.getDataDoPagamento());
      ps.setInt(3, operacao.getUsuarioID());
      ps.setInt(4, operacao.getID());
      int result = ps.executeUpdate();
@@ -56,9 +56,26 @@ public class Operacoes_de_CaixaData {
      rs.next();
      Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
      operacao.setID (rs.getInt("id"));
-     operacao.setValorDoPagamento(rs.getFloat("Valor_Do_Pagamento"));
-     operacao.setDataDoPagamento(rs.getString("Data_Do_Pagamento"));
+     operacao.setValorDoPagamento(rs.getFloat("Valor"));
+     operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
      operacao.setUsuarioID(rs.getInt("Usuario_ID"));
      return operacao;
+  } // buscar
+   public Vector buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Operacoes_de_Caixa where  Usuario_ID=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     Vector v= new Vector();
+    while( rs.next()){
+     Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
+     operacao.setID (rs.getInt("id"));
+     operacao.setValorDoPagamento(rs.getFloat("Valor"));
+     operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
+     operacao.setUsuarioID(rs.getInt("Usuario_ID"));
+     v.add(operacao);
+    }
+     return v;
   } // buscar
 }

@@ -69,4 +69,47 @@ public class FuncionarioData {
      funcionario.setCategoria (rs.getString("Categoria"));
      return funcionario;
   }
+   
+     public FuncionarioDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Funcionario where  Usuario_ID=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     FuncionarioDO funcionario = new FuncionarioDO();
+     funcionario.setId (rs.getInt("id"));
+     funcionario.setUsuarioId (rs.getInt("Usuario_ID"));
+     funcionario.setNome (rs.getString("Nome"));
+     funcionario.setCPF (rs.getString("CPF"));
+     funcionario.setEmail (rs.getString("email"));
+     funcionario.setEndereco (rs.getString("Endereco"));
+     funcionario.setTelefone (rs.getString("Telefone"));
+     funcionario.setCategoria(rs.getString("Categoria"));
+     return funcionario;
+      }
+      
+      public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from  where nome like ?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, login);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector usuarios = new Vector();
+     while (rs.next()) {
+        FuncionarioDO funcionario = new FuncionarioDO();
+        funcionario.setId (rs.getInt("id"));
+     funcionario.setUsuarioId (rs.getInt("Usuario_ID"));
+     funcionario.setNome (rs.getString("Nome"));
+     funcionario.setCPF (rs.getString("CPF"));
+     funcionario.setEmail (rs.getString("email"));
+     funcionario.setEndereco (rs.getString("Endereco"));
+     funcionario.setTelefone (rs.getString("Telefone"));
+     funcionario.setCategoria(rs.getString("Categoria"));
+     
+        usuarios.add(funcionario);
+     }
+     return usuarios;
+  } // pesquisarPorLogin
 }

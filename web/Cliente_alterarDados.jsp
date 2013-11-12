@@ -52,7 +52,7 @@
             </tr>
              <tr>
                <td>Endereco</td>
-               <td><input type="text" value=<%=clientelogado.getEndereco()%> name="endereco" />
+               <td><input type="text" value="<%=clientelogado.getEndereco()%>" name="endereco" />
             </tr>
           
              <tr>
@@ -60,10 +60,7 @@
                <td><input type="text" value=<%=clientelogado.getTelefone()%> name="telefone" />
             </tr>
           
-            <tr>
-               <td>Estado</td>
-               <td><input type="text" value=<%=clientelogado.getEstado()%> name="estado" />
-            </tr>
+           
              <tr>
                <td>Senha</td>
                <td><input type="text" value=<%=usuariologado.getSenha()%> name="senha" />
@@ -84,7 +81,7 @@
 if ( null != request.getParameterValues("alterar") ){
     // se tiver campo vazio
     Posto p = new Posto();
-if (p.isEmpty(request.getParameter("endereco")) || p.isEmpty(request.getParameter("email")) || p.isEmpty(request.getParameter("telefone")) || p.isEmpty(request.getParameter("estado"))||p.isEmpty(request.getParameter("senha"))){
+if (p.isEmpty(request.getParameter("endereco")) || p.isEmpty(request.getParameter("email")) || p.isEmpty(request.getParameter("telefone")) ||p.isEmpty(request.getParameter("senha"))){
 %>
 Preencha todos os campos, por favor.
 <form action="Cliente_alterarDados.jsp" method="post">
@@ -99,13 +96,13 @@ else{//se nao tiver
     String email = request.getParameter("email");
        String endereco= request.getParameter("endereco");
        String telefone= request.getParameter("telefone");
-       String estado= request.getParameter("estado");
+       
        String senha= request.getParameter("senha");
        
        
        clientelogado.setEmail(email);
        clientelogado.setEndereco(endereco);
-       clientelogado.setEstado(estado);
+       
        clientelogado.setTelefone(telefone);
       c.atualizar(clientelogado);
        usuariologado.setSenha(senha);

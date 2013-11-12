@@ -13,10 +13,10 @@ public class Operacoes_de_CaixaDO {
     
     private int _id;
     private float _valorDoPagamento;
-    private Date _dataDoPagamento;
+    private String _dataDoPagamento;
     private int _usuario_id;
     
-    SimpleDateFormat data = new SimpleDateFormat ("dd/MM/yyyy");
+    
     
     public int getID(){
         return _id;
@@ -26,7 +26,7 @@ public class Operacoes_de_CaixaDO {
         return _valorDoPagamento;
     }
     
-    public Date getDataDoPagamento(){
+    public String getDataDoPagamento(){
         return _dataDoPagamento;
     }
     
@@ -43,12 +43,10 @@ public class Operacoes_de_CaixaDO {
     }
     
     public void setDataDoPagamento(String dataDoPagamento){
-        try{
-            _dataDoPagamento = data.parse(dataDoPagamento);
-        }
-        catch (ParseException e){
-            System.out.println("Unable to Parse using" + data);
-        }
+       
+            _dataDoPagamento = dataDoPagamento;
+        
+       
     }
     
     public void setUsuarioID(int UsuarioID){
