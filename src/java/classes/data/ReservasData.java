@@ -50,20 +50,17 @@ public class ReservasData {
 
  public void atualizar(ReservasDO reserva, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelo_ID=?, Estacionamento_ID=? where id=?";
+     String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      java.util.Date utilDate1 = reserva.getDataDeReserva();
      java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
      java.util.Date utilDate2 = reserva.getHorarioDeRetirada();
      java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
-
      ps.setDate(1, sqlDate1);
      ps.setDate(2, sqlDate2);
      ps.setInt(3, reserva.getModeloID());
      ps.setInt(4, reserva.getEstacionamentoID());
-     
-     
-     
+     ps.setInt(5, reserva.getID());
      int result = ps.executeUpdate();
   } // atualizar
 
@@ -100,4 +97,6 @@ public class ReservasData {
      }
      return reserva;
   } // pesquisar
+  
+  
 }

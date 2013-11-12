@@ -37,7 +37,7 @@ public class PostoData {
   public void excluir (int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "delete from Posto where id=?";
-     PreparedStatement ps = con.prepareStatement(sql);
+     PreparedStatement ps = con.prepareStatement(sql); 
      String id = ""+idobj;
      ps.setString(1, id);
      int result = ps.executeUpdate();
@@ -99,5 +99,31 @@ public class PostoData {
      }
      return postos;
   } // pesquisarPorLogin
+  
+  public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Posto where Estado =?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector cadastro = new Vector();
+     while (rs.next()){
+        PostoDO p = new PostoDO();
+        p.setNome(rs.getString("Nome"));
+        p.setID(rs.getInt("ID"));
+        cadastro.add(p);
+     }
+     return cadastro;
+  } // pesquisarCadastro
     
+   public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update Posto set Estado=? where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ps.setInt(2, id);
+     int result = ps.executeUpdate(); 
+  }// atualizarCadastro
+  
 }

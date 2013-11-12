@@ -45,7 +45,6 @@ public class ClientesData {
      ps.setString(5, cliente.getEndereco());
      ps.setString(6, cliente.getTelefone());
      ps.setString(7, cliente.getCNH());
-     ps.setString(8, cliente.getEstado());
      ps.setInt(9, cliente.getId());
      int result = ps.executeUpdate();
   }
@@ -66,7 +65,6 @@ public class ClientesData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
-     cliente.setEstado (rs.getString("Estado"));
      return cliente;
       }
       public ClientesDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
@@ -85,7 +83,6 @@ public class ClientesData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
-     cliente.setEstado (rs.getString("Estado"));
      return cliente;
       }
       public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
@@ -106,11 +103,34 @@ public class ClientesData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
-     cliente.setEstado (rs.getString("Estado"));
         usuarios.add(cliente);
      }
      return usuarios;
   } // pesquisarPorLogin
   
+      public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Cliente where Estado =?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector cadastro = new Vector();
+     while (rs.next()){
+        ClientesDO c = new ClientesDO();
+        c.setNome(rs.getString("Nome"));
+        c.setId(rs.getInt("ID"));
+        cadastro.add(c);
+     }
+     return cadastro;
+  } // pesquisarCadastro
       
+      public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update Cliente set Estado=? where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, estado);
+     ps.setInt(2, id);
+     int result = ps.executeUpdate();
+  }// atualizarCadastro
 }

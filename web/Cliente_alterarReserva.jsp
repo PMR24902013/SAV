@@ -22,10 +22,8 @@
         <%@ page import="java.util.Vector" %>
         <%@ page import="java.util.Date" %>
         <%@ page import="java.text.*" %>
-        <%@page import="classes.transacoes.Usuarios"  %>
-        <%@page import="classes.data.UsuariosDO" %>
-        <%@page import="classes.transacoes.Reservas"  %>
-        <%@page import="classes.data.ReservasDO" %>
+        <%@page import="classes.transacoes.*"  %>
+        <%@page import="classes.data.*" %>
 
         <! ------------------------------------------------------------------->
         <!--   se for o request inicial, mostrar somente o formulario de pesquisa -->
@@ -72,8 +70,8 @@
                     // avisar usuario que nao ha' reserva
         %>
         Nenhuma reserva em aguardo foi encontrada
-        <form action="./login.jsp" method="post">
-            <input type="submit" name="cancelar" value="cancelar" />
+        <form action="./Cliente_menu.jsp" method="post">
+            <input type="submit" name="voltar" value="Voltar" />
         </form>
         <%     } else {
         %>
@@ -141,33 +139,36 @@
 <!--   atualizar valores -->
 <%     
      if (action.equals("updateValues")) {
-       String DataDeReserva = request.getParameter("data de reserva");
-       String HorarioDeRetirada = request.getParameter("horario de reserva");
-       int ModeloID = Integer.parseInt(request.getParameter("modelo"));
-       int EstacionamentoID = Integer.parseInt(request.getParameter("estacionamento"));
-       classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
-       classes.data.ReservasDO reservas = new classes.data.ReservasDO();
-           try {  
-          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");              
-          reservas.setDataDeReserva(sdf.parse(DataDeReserva));
-       reservas.setHorarioDeRetirada(sdf.parse(HorarioDeRetirada));  
-      
-    } catch (ParseException e){}  
-            
-       reservas.setModeloID(ModeloID);
-       reservas.setEstacionamentoID(EstacionamentoID); 
-       boolean result = false;
-       try {
-          result = tn.atualizar(reservas);
-       } catch (Exception e) {
-%>           <%= e.toString() %>
+             String DataDeReserva = request.getParameter("data de reserva");
+             String HorarioDeRetirada = request.getParameter("horario de reserva");
+             int ModeloID = Integer.parseInt(request.getParameter("modelo"));
+             int EstacionamentoID = Integer.parseInt(request.getParameter("estacionamento"));
+             int id = Integer.parseInt(request.getParameter("id"));
+             classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
+             classes.data.ReservasDO reservas = new classes.data.ReservasDO();
+             try {
+                 SimpleDateFormat hora = new SimpleDateFormat("hh:mm:ss");
+                 SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+                 reservas.setDataDeReserva(data.parse(DataDeReserva));
+                 reservas.setHorarioDeRetirada(hora.parse(HorarioDeRetirada));
+             } catch (ParseException e) {
+             }
+
+             reservas.setModeloID(ModeloID);
+             reservas.setEstacionamentoID(EstacionamentoID);
+             reservas.setID(id);
+             boolean result = false;
+             try {
+                 result = tn.atualizar(reservas);
+             } catch (Exception e) {
+%>           <%= e.toString()%>
 <%
-       }
-       if ( result ) {
+    }
+    if (result) {
          // avisar usuario que transacao foi feita com sucesso
 %>
           Transação realizada com sucesso!
-          <form action="./Cliente_menu.jsp" method="post">
+          <form action="./Cliente_menu.html" method="post">
              <input type="submit" name="voltar" value="Voltar" />
           </form>
 <%     } else {

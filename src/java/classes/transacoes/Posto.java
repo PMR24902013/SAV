@@ -18,10 +18,7 @@ public class Posto {
      public boolean incluir (PostoDO Posto) throws Exception{
 
      // validacao das regras de negocio
-     if ( (isEmpty(Posto.getNome())) || ( isEmpty(Posto.getEndereco())) ||( isEmpty(Posto.getTelefone()))||( isEmpty(Posto.getHorario()))||( isEmpty(Posto.getResponsavel()))||( isEmpty(Posto.getDocumento()) )){
-      return false;
-     }
-
+     
      // efetuando a transacao
      Transacao tr = new Transacao();
      try {
@@ -89,6 +86,23 @@ public class Posto {
 	 return null;
   } // buscar
 
+   public boolean atualizarCadastro(int id, String Estado) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    PostoData pdata = new PostoData();
+	     pdata.atualizarCadastro(id, Estado, tr);
+	   tr.commit(); 
+	   return true;
+	 } catch (Exception e) { 
+	   tr.rollback();
+	   System.out.println("erro ao atualizar situação do cadastro");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
+  
   public Vector pesquisar(String nome) {
      if ( isEmpty(nome) )
         return null;
@@ -107,6 +121,25 @@ public class Posto {
      }
      return null;
   } // pesquisar
+  
+  public Vector pesquisarCadastro(String estado) {
+        if (isEmpty(estado)) {
+            return null;
+        }
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            PostoData pdata = new PostoData();
+            Vector v = pdata.pesquisarCadastro(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar cadastro");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarCadastro
 
   public boolean isEmpty(String s) {
      if (null == s)

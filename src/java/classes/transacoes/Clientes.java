@@ -17,10 +17,7 @@ public class Clientes {
      public boolean incluir (ClientesDO cliente) throws Exception{
 
      // validacao das regras de negocio
-     if ( (isEmpty(cliente.getEmail())) || ( isEmpty(cliente.getEndereco())) ||( isEmpty(cliente.getTelefone()))||( isEmpty(cliente.getEstado()))) {
-       return false;
-     }
-
+     
      // efetuando a transacao
      Transacao tr = new Transacao();
      try {
@@ -121,7 +118,42 @@ public class Clientes {
      }
      return null;
   } // pesquisar
+  
+    public Vector pesquisarCadastro(String estado) {
+        if (isEmpty(estado)) {
+            return null;
+        }
 
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            ClientesData cdata = new ClientesData();
+            Vector v = cdata.pesquisarCadastro(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar cadastro");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
+
+    public boolean atualizarCadastro(int id, String Estado) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    ClientesData cdata = new ClientesData();
+	     cdata.atualizarCadastro(id, Estado, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) { 
+	   tr.rollback();
+	   System.out.println("erro ao atualizar situação do cadastro");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
   private boolean isEmpty(String s) {
      if (null == s)
        return true;
