@@ -90,7 +90,7 @@
             <%           } // for i      
             %>       <td></td>
                 <td></td>
-                <td><form action="./Cliente_menu.jsp" method="post">
+                <td><form action="./Cliente_menu.html" method="post">
              <input type="submit" name="cancelar" value="cancelar" />
           </form>
         </table>            

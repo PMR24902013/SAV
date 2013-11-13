@@ -55,4 +55,22 @@ public class ModelosData {
         return modelo;
     } // buscar
 
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Modelos";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector modelo = new Vector();
+        while (rs.next()) {
+            ModelosDO m = new ModelosDO(); 
+            m.setId(rs.getInt("ID"));
+            m.setModelo(rs.getString("Modelo"));
+            m.setMarca(rs.getString("Marca"));
+            m.setAno(rs.getInt("Ano"));
+            modelo.add(m);
+        }
+        return modelo;
+    } // pesquisarTodos
+
 } // ContatoData

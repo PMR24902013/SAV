@@ -81,6 +81,7 @@ public class ClientesData {
      cliente.setCPF (rs.getString("CPF"));
      cliente.setEmail (rs.getString("email"));
      cliente.setEndereco (rs.getString("Endereco"));
+     cliente.setEstado (rs.getString("Estado"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
      return cliente;
