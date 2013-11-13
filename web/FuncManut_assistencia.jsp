@@ -31,10 +31,14 @@
             <table>
                 <tr>
                     
-                    <input type="submit" name="pesquisar" value="pesquisar" />
-                    <input type="hidden" name="action" value="showSearchResults" />
+                    <td><a href=FuncManut_assistencia.jsp?action=showSearchResultsPending>Assistências Pendentes</a>
+                    <td><td><a href=FuncManut_assistencia.jsp?action=showSearchResultsConcluded>Assistências Concluidas</a>
                     
                 </tr>
+
+                    
+                    
+
             </table>
         </form>
 <%        
@@ -42,12 +46,13 @@
 
 %>
 
-        <%   if (action.equals("showSearchResults")) {
+        <%   if (action.equals("showSearchResultsPending")) {
                 boolean temAguardando = false;
+                int i;
                 classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
                 classes.data.AssistenciaTecnicaDO assistencia = new classes.data.AssistenciaTecnicaDO();
                 
-                for(int i = 1; tn.buscar(i)!=null ;i++){
+                for(i = 1; tn.buscar(i)!=null ;i++){
                     assistencia = tn.buscar(i);
                     if(assistencia.getEstadoFinal().equals("Reparado"))
                         temAguardando = true;
@@ -62,13 +67,13 @@
         <%      }
                 else{
         %>
-        <table>
+        <table border = "1">
             <tr>
                 <td>Data</td>
                 <td>Queixa</td>
                 <td>Endereço</td>
             </tr>
-       <%           for (int i = 1; tn.buscar(i)!=null ; i++) {
+       <%           for (i = 1; tn.buscar(i)!=null ; i++) {
                         assistencia = tn.buscar(i);
                         if(!assistencia.getEstadoFinal().equals("Reparado")){
                 
@@ -93,7 +98,60 @@
        </table>
        <%
         }
-        } //pequisar
+        }
+        
+        if (action.equals("showSearchResultsConcluded")){
+                boolean temReparado = false;
+                int i;
+                classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
+                classes.data.AssistenciaTecnicaDO assistencia = new classes.data.AssistenciaTecnicaDO();
+                
+                for(i = 1; tn.buscar(i)!=null ;i++){
+                    assistencia = tn.buscar(i);
+                    if(assistencia.getEstadoFinal().equals("Reparado"))
+                        temReparado = true;
+                }
+                
+                if(temReparado == false){
+        %>
+        Não foram encontrados chamados de assistência pendentes
+        <form action="./FuncManut_menu.html" method="post">
+            <input type="submit" name="voltar" value="Voltar" />
+        </form>
+        <%      }
+                else{
+        %>
+        <table border = "1">
+            <tr>
+                <td>Data</td>
+                <td>Queixa</td>
+                <td>Endereço</td>
+            </tr>
+       <%           for (i = 1; tn.buscar(i)!=null ; i++) {
+                        assistencia = tn.buscar(i);
+                        if(assistencia.getEstadoFinal().equals("Reparado")){
+                
+       %>
+            <tr>
+                <td><%= assistencia.getData()%></td>
+                <td><%= assistencia.getQueixa()%></td>
+                <td><%= assistencia.getEndereco()%></td>
+            </tr>
+        
+        
+        <%
+                        } //if
+                    } //for i
+       %>
+            <td></td>
+                <td></td>
+                <td><form action="./FuncManut_menu.html" method="post">
+             <input type="submit" name="cancelar" value="cancelar" />
+          </form>
+       </table>
+       <%
+        }
+        }
         
         if (action.equals("showEditForm")){
             int id = Integer.parseInt(request.getParameter("id"));
