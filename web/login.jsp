@@ -48,8 +48,8 @@
 
         boolean v = senha.equals(passwd);
         if (v) {
-           session.setAttribute("user_name", user);
            
+           session.setAttribute("user_name", user);
           if(usuario.getTipo().equals("Cliente")){
               ClientesDO cliente=new ClientesDO();
               Clientes cli =new Clientes();
@@ -66,27 +66,29 @@
               }
                   
               else{
+           session.setAttribute("user_tipo", "Cliente");
            pageContext.forward("Cliente_menu.html");
           }
           }
            if(usuario.getTipo().equals("OpSist")){
           
+           session.setAttribute("user_tipo", "OpSist");
            pageContext.forward("OperadorSistema_menu.html");
           }
             if(usuario.getTipo().equals("Motorista")){
-          
+          session.setAttribute("user_tipo", "Motorista");
            pageContext.forward("Motorista_menu.html");
           }
              if(usuario.getTipo().equals("OpManut")){
-          
+          session.setAttribute("user_tipo", "OpManut");
            pageContext.forward("FuncManut_menu.html");
           }
               if(usuario.getTipo().equals("Estacionamento")){
-          
+          session.setAttribute("user_tipo", "Estacionamento");
            pageContext.forward("Estacionamento_menu.html");
           }
                if(usuario.getTipo().equals("Posto")){
-          
+          session.setAttribute("user_tipo", "Posto");
            pageContext.forward("Posto_menu.html");
           }
            

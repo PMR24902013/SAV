@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package sav;
+package classes.data;
 
 import java.sql.*;
 import java.util.*;
@@ -28,7 +28,7 @@ public class vagaDATA {
      int result = ps.executeUpdate();
   }
 
-    public void excluir(modeloDeVeiculosDO e, Transacao tr) throws Exception {
+    public void excluir(Precos_OpcionaisDO e, Transacao tr) throws Exception {
      excluir(e.getId(), tr);
   } // excluir
     

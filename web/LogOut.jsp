@@ -10,14 +10,16 @@
         <title>Redirecionando...</title>
         <script>
             function MudarPagina(){
-                window.location = "http://localhost:8080/SAV/index.html"
+                window.location = "http://localhost:8080/ProjetoSI/index.html";
+                session.setAttribute("user_name", null);
+                session.setAttribute("user_tipo", null);
             }
         </script>
     </head>
     
         
     
-    <body onload="setTimeout(function(){MudarPagina()}, 2000);">
+    <body onload="setTimeout(function(){MudarPagina();}, 2000);">
         
     <b> Retornando ao menu inicial </b>
 

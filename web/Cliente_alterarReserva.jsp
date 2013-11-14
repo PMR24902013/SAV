@@ -70,7 +70,7 @@
                     // avisar usuario que nao ha' reserva
         %>
         Nenhuma reserva em aguardo foi encontrada
-        <form action="./Cliente_menu.jsp" method="post">
+        <form action="./Cliente_menu.html" method="post">
             <input type="submit" name="voltar" value="Voltar" />
         </form>
         <%     } else {
@@ -105,32 +105,32 @@
 	  classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
           classes.data.ReservasDO reserva = tn.buscar(id);
 %>        
-          <form action="./Cliente_alterarReserva.jsp" method="post">
-             <table>
-               <tr>
-                  <td>Data da Reserva</td>
-                  <td><input type="date" name="data de reserva" value=<%= reserva.getDataDeReserva() %> />
-               </tr>
-               <tr>
-                  <td>Horário da Reserva</td>
-                  <td><input type="date" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada() %> />
-               </tr>
-               <tr>
-                  <td>Modelo</td>
-                  <td><input type="text" name="modelo" value=<%= reserva.getModeloID() %> />
-               </tr>
-               <tr>
-                  <td>Estacionamento</td>
-                  <td><input type="text" name="estacionamento" value=<%= reserva.getEstacionamentoID() %> />
-               </tr>
-             </table>
-             <input type="submit" name="atualizar" value="atualizar" />
-	     <input type="hidden" name="id" value=<%= id %> /> 
-	     <input type="hidden" name="action" value="updateValues" />
-	     <form action="./Cliente_alterarReserva.jsp" method="post">
-             <input type="submit" name="voltar" value="Voltar" />
-          </form>
-           </form>
+<form action="./Cliente_alterarReserva.jsp" method="post">
+    <table>
+        <tr>
+            <td>Data da Reserva</td>
+            <td><input type="date" name="data de reserva" value=<%= reserva.getDataDeReserva()%> />
+        </tr>
+        <tr>
+            <td>Horário da Reserva</td>
+            <td><input type="date" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada()%> />
+        </tr>
+        <tr>
+            <td>Modelo</td>
+            <td><input type="text" name="modelo" value=<%= reserva.getModeloID()%> />
+        </tr>
+        <tr>
+            <td>Estacionamento</td>
+            <td><input type="text" name="estacionamento" value=<%= reserva.getEstacionamentoID()%> />
+        </tr>
+    </table>
+    <input type="submit" name="atualizar" value="atualizar" />
+    <input type="hidden" name="id" value=<%= id%> /> 
+    <input type="hidden" name="action" value="updateValues" />
+    <form action="./Cliente_alterarReserva.jsp" method="post">
+        <input type="submit" name="voltar" value="Voltar" />
+    </form>
+</form>
 <%         
        } // showEditForm
 %>
