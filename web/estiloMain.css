@@ -1,0 +1,133 @@
+/* Estilos de todo o Site */
+	*{text-decoration:none;margin:0;padding:0;list-style:none}
+
+	body {
+		background	: #EEEEEE; 
+	}
+
+	#base {
+		background	: #FFFFFF;
+		margin		: auto;
+		width		: 484px;
+		padding		: 0;
+		clear		: both;
+		text-align	: left;
+                border          : 1px;
+                border-color    : #000000;
+                border-radius   : 6px;
+	}
+
+
+	#cima #logo {
+		height		: 200px;
+        	background	: url("header.png");
+	}
+        
+	#content {
+                height          : 300px;
+		background	: #FFFFFF;
+		border          : 1px;
+                border-color    : #000000;
+                border-radius   : 6px}
+        
+	.link{
+		color		: #006699;
+		font-weight	: bold;
+	}
+	.right{ float: right;}
+	.left { float: left; background: #bbbaaa;}
+	
+	a {
+		color		: #708090;
+		text-decoration	: none;
+		font-size	: 15px;
+	}
+	
+	.bgopacity {
+		background-color: #C1CDCD;
+		opacity		: 0.70;
+		-moz-opacity	: 0.70;
+		filter		: alpha(opacity=70);
+	}
+
+/* Estilos do Conteudo do Site */
+
+	/*Elementos Comuns*/
+
+	.box, .boxEsquerdo, .boxDireito, .boxCentral, .boxDefault, .boxSlide, .boxIniciacoes {
+		text-align	: justify;
+		padding		: 10px 10px 10px 10px;
+	}
+
+	.titulobox, .tituloboxEsquerdo, .tituloboxDireito, .tituloboxCentral, .tituloboxDefault, .tituloboxSlide {
+        	color		    : #006699;
+		    padding-left	: 5px;
+		    border-bottom   : dashed 1px #006699;
+    		font-size       : 20px;
+    		font-style      : italic;
+    		padding-bottom  : 5px;
+	}
+	
+	.tituloboxIniciacoes {
+        	color		    : #000000;
+		    padding-left	: 5px;
+    		font-size       : 13px;
+    		font-style      : italic;
+    		text-align	    : center;
+    		padding-bottom  : 5px;
+	}
+	
+	.Default {
+		text-align	: left;
+		font-size	: 13px;
+		list-style-type	: circle;
+	    list-style-position	: inside;
+	}
+
+	/*Diferença de Tamanho*/
+
+	.box {width:480px;}
+	.boxEsquerdo{width:660px;}
+	.boxDireito{width:310px;}
+	.boxCentral {width: 980px;}
+	.boxSlide {width: 940px; margin-left:5px;}
+	.boxDefault {width: 230px;}
+	.boxIniciacoes {width: 900px;}
+
+/*Estilos da tabela*/
+	table,td {
+		border          : 1px solid #000000;
+		border-collapse : collapse;
+  		font            : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
+	}
+	
+	thead th {	
+  		color           : #000000;  
+		padding         : 5px;
+  		border-left     : 1px solid #000000;
+		text-align      : center;
+	}
+
+	tbody td, thead td {	
+  		border-top      : 1px solid #000000;
+  		text-align      : center;
+  		font-weight     : normal;
+	}
+	
+	.impar {background: #C1CDCD;}
+	.par {background: #FFFFFF;}
+
+/* Estilos da parte de Baixo do Site*/
+	
+	#baixo {
+		clear		: both;
+		height		: auto;
+		width		: 100%;
+		padding		: 2px 0px 2px 0px;
+		background-color: #000000;
+		color           : #87CEFA;
+		font-size       : 12px;
+		font-family	: Verdana;
+		text-align      : center;
+		position	: relative;
+	}

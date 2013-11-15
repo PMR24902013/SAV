@@ -1,5 +1,5 @@
     #mymenu { margin: 0; padding: 0; }
-    #mymenu li a{ display: block; margin: 0 0 1px 0; padding: 4px 10px; width: 200px; background:
+    #mymenu li a{ display: block; margin: 0; padding: 4px 10px; width: 125px; background:
     #bbbaaa; color: #ffffff; text-align: center;}
     #mymenu li a:hover { background: #aaddaa }
 
