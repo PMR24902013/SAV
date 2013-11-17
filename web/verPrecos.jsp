@@ -13,6 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
         <title>Ver preços</title>
     </head>
     <body>
@@ -23,17 +24,17 @@
         <%@page import="classes.data.*" %>
 
         <! ------------------------------------------------------------------->
-<!--   sempre mostrar o formulario de busca, ateh acao ser "voltar" -->
+        <!--   sempre mostrar o formulario de busca, ateh acao ser "voltar" -->
 
-<%     if (null != request.getParameter("voltarMenu")) {
-        if(session.getAttribute("user_tipo")==null) {
-            response.sendRedirect(request.getContextPath() + "/index.html");
-        } else if (session.getAttribute("user_tipo").equals("Cliente")) {
-            response.sendRedirect(request.getContextPath() + "/Cliente_menu.html");
-        } 
-        return; 
-    }
-%>
+        <%     if (null != request.getParameter("voltarMenu")) {
+                if (session.getAttribute("user_tipo") == null) {
+                    response.sendRedirect(request.getContextPath() + "/index.html");
+                } else if (session.getAttribute("user_tipo").equals("Cliente")) {
+                    response.sendRedirect(request.getContextPath() + "/Cliente_menu.html");
+                }
+                return;
+            }
+        %>
 
         <!--   se for o request inicial, mostrar somente o formulario de pesquisa -->
 
@@ -47,32 +48,61 @@
             <%
                 classes.transacoes.Modelos tr = new classes.transacoes.Modelos();
                 Vector modelos = tr.pesquisarTodos();
+                classes.transacoes.Precos_Opcionais tn = new classes.transacoes.Precos_Opcionais();
+                Vector precoOpcionais = tn.pesquisar();
             %>
-            <a href=verPrecos.jsp?action=showOpPrice>Preço dos Opcionais</a><br>
-            <table>
-                <tr>
-                    <td>Modelo </td>
-                    <td>Marca </td>
-                    <td>Ano </td>
-                    <td></td>
-                </tr>
-                <%
-                    for (int i = 0; i < modelos.size(); i++) {
-                        classes.data.ModelosDO m = (classes.data.ModelosDO) modelos.elementAt(i);
-                %>              <tr>
-                    <td><%= m.getModelo()%></td>
-                    <td><%= m.getMarca()%></td>
-                    <td><%= m.getAno()%></td>
-                    <td><a href=verPrecos.jsp?action=showPrice&id=<%= m.getId()%>>Ver</a></td>
-                </tr>        
-                <%           } // for i      
-                %>       <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="submit" name="voltarMenu" value="voltar" /><td>
-                
+            <table class="left">
+                <thead>
+                <th><strong>Preço dos Opcionais</strong></th>
+                </thead>
 
-            </table>  
+                <tbody>
+                    <tr>
+                        <td>Opcional </td>
+                        <td>Preço </td>
+                    </tr>
+                    <%
+                        for (int i = 0; i < precoOpcionais.size(); i++) {
+                            classes.data.Precos_OpcionaisDO po = (classes.data.Precos_OpcionaisDO) precoOpcionais.elementAt(i);
+                    %>              
+                    <tr>
+                        <td><%= po.getOpcional()%></td>
+                        <td><%= po.getPreco()%></td> 
+                    </tr>        
+                    <%           } // for i      
+                    %>
+                </tbody>
+            </table>
+            <table class="right">
+                <thead>
+                <th><strong>Preço dos Carros</strong></th>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Modelo </td>
+                        <td>Marca </td>
+                        <td>Ano </td>
+                        <td></td>
+                    </tr>
+                    <%
+                        for (int i = 0; i < modelos.size(); i++) {
+                            classes.data.ModelosDO m = (classes.data.ModelosDO) modelos.elementAt(i);
+                    %>              
+                    <tr>
+                        <td><%= m.getModelo()%></td>
+                        <td><%= m.getMarca()%></td>
+                        <td><%= m.getAno()%></td>
+                        <td><a href=verPrecos.jsp?action=showPrice&id=<%= m.getId()%>>Ver</a></td>
+                    </tr>        
+                    <%           } // for i      
+                    %>       
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="submit" name="voltarMenu" value="voltar" /></td>
+                </tbody>
+            </table>
         </form>
 
         <%
@@ -118,39 +148,7 @@
         </form>
 
         <%
-            } // showEditForm
-        %>
-        <! ------------------------------------------------------------------->
-        <!--                     mostra precos opcionais                    -->
-        <%     if (action.equals("showOpPrice")) {
-                classes.transacoes.Precos_Opcionais tn = new classes.transacoes.Precos_Opcionais();
-                Vector precoOpcionais = tn.pesquisar();
-        %>        
-        <form action="./verPrecos.jsp" method="post">
-            <table>
-                <tr>
-                    <td>Opcional </td>
-                    <td>Preço </td>
-                </tr>
-                <%
-                    for (int i = 0; i < precoOpcionais.size(); i++) {
-                        classes.data.Precos_OpcionaisDO po = (classes.data.Precos_OpcionaisDO) precoOpcionais.elementAt(i);
-                %>              
-                <tr>
-                    <td><%= po.getOpcional()%></td>
-                    <td><%= po.getPreco()%></td> 
-                </tr>        
-                <%           } // for i      
-                %>       <td></td>
-                <td><form action="./verPrecos.jsp" method="post">
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form></td> 
-
-            </table>  
-        </form>
-
-        <%
-            } // showOpPrice
-        %>
+            } // showPrice
+%>
     </body>
 </html>
