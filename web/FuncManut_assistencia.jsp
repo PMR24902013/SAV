@@ -5,6 +5,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <script>
+        var select = document.getElementById("estado");
+        select.onchange = function() {
+            var selIndex = select.selectedIndex;
+            var selValue = select.options(selIndex).innerHTML;
+        };
+    </script>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Responder Assistência</title>
@@ -82,7 +89,7 @@
                 <td><%= assistencia.getData()%></td>
                 <td><%= assistencia.getQueixa()%></td>
                 <td><%= assistencia.getEndereco()%></td>
-                <td><a href=FuncManut_assistencia.jsp?action=ShowEditForm&id=<%= assistencia.getId()%>>Responder</a>
+                <td><a href=FuncManut_assistencia.jsp?action=showEditForm&id=<%= assistencia.getId()%>>Responder</a>
             </tr>
         
         
@@ -138,7 +145,7 @@
                 <td><%= assistencia.getEndereco()%></td>
             </tr>
         
-        
+        n
         <%
                         } //if
                     } //for i
@@ -154,29 +161,42 @@
         }
         
         if (action.equals("showEditForm")){
+            
+            String opcao = null;
+        %>
+        <form action="#" method="post">    
+            <tr>
+                <td>Estado</td>
+                <select id="estado" name ="estado">
+                    <option selected value="Aguardando Assitencia">Aguardando Assistência</option>
+                    <option value="Enviado para Conserto">Enviado para Conserto</option>
+                    <option value="Reparado">Reparado</option>
+                </select>
+            
+             <input type="submit" name="finalizar" value="Finalizar"/>
+
+            </tr>  
+        </form>
+        <%
+            if ( request.getParameterValues("finalizar")!=null){
             int id = Integer.parseInt(request.getParameter("id"));
+            opcao = request.getParameter("estado");
+            classes.utils.Transacao tr = new classes.utils.Transacao();
             classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
             classes.transacoes.Funcionario tf = new classes.transacoes.Funcionario();
             classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
+            classes.data.AssistenciaTecnicaData att = new classes.data.AssistenciaTecnicaData();
     
             classes.data.AssistenciaTecnicaDO responderChamado = tn.buscar(id);
             String user = (String)session.getAttribute("user_name");
             int buscaID = tu.buscarID(user);
             classes.data.FuncionarioDO funcionario = tf.buscarPorUsuarioID(buscaID);
-            
+
             responderChamado.setFuncionarioID(funcionario.getId());
+            responderChamado.setEstadoFinal(opcao);
             
-            if ( null == request.getParameterValues("incluir") ){
-        %>
-        <tr>
-                <td>Estado</td>
-                <td><input type="text" name="estado" />
-                <td><input type="submit" name="cancelar" value="incluir" />
-        </tr>  
-        <%
-            }
-            else{
-            responderChamado.setEstadoFinal(request.getParameter("estado"));
+            att.atualizar(responderChamado, tr);
+            
         %>
             Estado alterado com sucesso
             <form action="./FuncManut_assistencia.jsp" method="post">
@@ -184,15 +204,15 @@
                 <tr>
                     
                     <input type="submit" name="pesquisar" value="retornar" />
-                    <input type="hidden" name="action" value="showSearchResults" />
+                    <input type="hidden" name="action" value="showSearchResultsPending" />
                     
                 </tr>
             </table>
         </form>
             
         <%
-            }
             
+            }
         }
         %>
         
