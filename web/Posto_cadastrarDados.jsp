@@ -12,10 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>cadastrar como posto o retorno</title>
+        <title>Cadastrar dados do posto</title>
+        <%@ include file="header.html" %>
     </head>
     <body>
-        
+        <div id="base">
+            <div id ="cima"></div>
+            <div id="tudo">        
         
           <%
      if ( null != request.getParameter("incluir")){
@@ -62,7 +65,7 @@
        
     %> Seus dados foram cadastrados com sucesso!
     
-  <form action="Posto_menu.html" method="post">
+  <form id="content" action="Posto_menu.html" method="post">
     
      <input type="submit" name="Prosseguir" value="Prosseguir" />
      </form>
@@ -76,7 +79,7 @@
    
     
     %>
-         <form action="Posto_cadastrarDados.jsp" method="post">
+         <form id="content" action="Posto_cadastrarDados.jsp" method="post">
                  
                  Login criado, insira seus dados
            <table>
@@ -95,31 +98,20 @@
             <tr>
             <td>Documento de licensiamento</td>
             <!--nao sei como fazer pra carregar -->
-<td><input type="file"   />
+            <td><input type="file"   /></td>
               
             </tr>
              <tr>
-            <td>Telefone</td> 
-</tr>
-<tr>
-               <td><input type="text" name="telefone" /> 
+            <td>Telefone</td>
+               <td><input type="text" name="telefone" /></td> 
              <tr>
-            <td>Horario de Funcionamento</td> 
-</tr>
-<tr>
-               <td><input type="text" name="horario" /> 
-            
-           
-           
-          
+            <td>Horario de Funcionamento</td>
+               <td><input type="text" name="horario" /> </td>
           </table>
                   <input type="submit" name="incluir" value="incluir" /> 
-            
-           
-        
-                 <input type="submit" name="Cancelar" value="Cancelar" />
+                  <input type="submit" name="Cancelar" value="Cancelar" />
         </form> 
-           
-         
+            </div>
+            </div>
     </body>
 </html>

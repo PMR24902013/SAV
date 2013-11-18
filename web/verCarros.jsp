@@ -8,8 +8,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@ include file="header.html" %>
     </head>
     <body>
-        <h1>Implantar!</h1>
+        <div id="base">
+            <div id ="cima"></div>
+            <div id="tudo">
+                <h1>Implantar!</h1>
+            </div>
+        </div>
     </body>
 </html>
