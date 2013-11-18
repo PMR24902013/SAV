@@ -1,0 +1,32 @@
+<link href="estiloIndex.css" rel="stylesheet" type="text/css" media="screen, projection" />
+<link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#cima").load("menuPrincipal.html");
+    });
+
+    var timer = 0;
+    var item = 0;
+
+    function openElement(num) {
+        if (item)
+            item.style.visibility = 'hidden';
+        item = document.getElementById(num);
+        if (item)
+            item.style.visibility = 'visible';
+    }
+
+    function closeElement() {
+        timer = window.setTimeout("if(item) item.style.visibility = 'hidden';", 500);
+    }
+
+    function keepSubmenu() {
+        window.clearTimeout(timer);
+    }
+
+    document.onclick = closeElement;
+
+</script>

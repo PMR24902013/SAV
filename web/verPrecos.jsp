@@ -13,8 +13,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
         <title>Ver preços</title>
+        <%@ include file="header.html" %>
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -23,6 +23,9 @@
         <%@page import="classes.transacoes.*"  %>
         <%@page import="classes.data.*" %>
 
+        <div id="base">
+            <div id ="cima"></div>
+            <div id="tudo">
         <! ------------------------------------------------------------------->
         <!--   sempre mostrar o formulario de busca, ateh acao ser "voltar" -->
 
@@ -150,5 +153,7 @@
         <%
             } // showPrice
 %>
+    </div>
+        </div >
     </body>
 </html>

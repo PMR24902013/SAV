@@ -1,78 +1,50 @@
 <!DOCTYPE html>
 
 <html>
-    
+
     <head>
         <title>SAV</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        
+
         <link href="estiloIndex.css" rel="stylesheet" type="text/css" media="screen, projection" />
         <link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
-        
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
         <script>
-            $(document).ready(function(){
-                $(".nav-link").click(function() {
-                    $("#tudo").load($(this).attr('href'));
-                    return false;
-                });
+            $(document).ready(function() {
+                $("#cima").load("menuPrincipal.html");
             });
-            
+
             var timer = 0;
             var item = 0;
-            
-            function openElement(num){
-                if(item) item.style.visibility = 'hidden';
+
+            function openElement(num) {
+                if (item)
+                    item.style.visibility = 'hidden';
                 item = document.getElementById(num);
-                if(item) item.style.visibility = 'visible';
+                if (item)
+                    item.style.visibility = 'visible';
             }
-            
-            function closeElement(){
-                timer = window.setTimeout("if(item) item.style.visibility = 'hidden';",500);
+
+            function closeElement() {
+                timer = window.setTimeout("if(item) item.style.visibility = 'hidden';", 500);
             }
-            
-            function keepSubmenu(){
+
+            function keepSubmenu() {
                 window.clearTimeout(timer);
             }
-            
+
             document.onclick = closeElement;
-            
+
         </script>
-        
+
     </head>
-    
+
     <body>
         <div id="base">
-            <div id ="cima"><div id="logo"></div>
-                <ul id="mymenu">
-                    <li>
-                        <a href="reservarVeiculo.jsp" onmouseover="openElement('menu1')">Cadastrar</a>
-                        <ul id="menu1" onmouseover="keepSubmenu()" onmouseout="closeElement()">
-                            <li><a class="nav-link" href="Cliente_cadastrarLogin.jsp">Cliente</a></li>
-                            <li><a class="nav-link" href="Estacionamento_cadastrarLogin.jsp">Estacionamento</a></li>
-                            <li><a class="nav-link" href="Posto_cadastrarLogin.jsp">Posto</a></li>
-                            <li><a class="nav-link" href="Motorista_cadastrarLogin.jsp">Motorista</a></li>
-                            <li><a class="nav-link" href="Manutencao_cadastrarLogin.jsp">Manutenção</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a onmouseover="openElement('menu2')" onmouseout="closeElement()">Serviços</a>
-                        <ul id="menu2" onmouseover="keepSubmenu()" onmouseout="closeElement()">
-                            <li><a class="nav-link" href="verCarros.jsp">Carros</a></li>
-                            <li><a class="nav-link" href="verPostos.jsp">Postos</a></li>
-                            <li><a class="nav-link" href="verPrecos.jsp">Preços</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a  class="nav-link" href="enviarDuvidas.jsp">Dúvidas</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="login.jsp">Log in</a>
-                    </li>
-                </ul>
-            </div >
+            <div id ="cima"></div>
             <div id="tudo"></div>
         </div >
     </body>
