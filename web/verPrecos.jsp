@@ -47,23 +47,24 @@
                 action = "show";
         %>
 
-        <form action="./verPrecos.jsp" method="post">
+        <form id="content" action="./verPrecos.jsp" method="post">
             <%
                 classes.transacoes.Modelos tr = new classes.transacoes.Modelos();
                 Vector modelos = tr.pesquisarTodos();
                 classes.transacoes.Precos_Opcionais tn = new classes.transacoes.Precos_Opcionais();
                 Vector precoOpcionais = tn.pesquisar();
             %>
-            <table class="left">
+            <br>
+                <div class="titulo">Preço dos Opcionais</div>
+                <table>
                 <thead>
-                <th><strong>Preço dos Opcionais</strong></th>
+                    <tr>
+                        <td><strong>Opcional</strong> </td>
+                        <td><strong>Preço</strong> </td>
+                    </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Opcional </td>
-                        <td>Preço </td>
-                    </tr>
                     <%
                         for (int i = 0; i < precoOpcionais.size(); i++) {
                             classes.data.Precos_OpcionaisDO po = (classes.data.Precos_OpcionaisDO) precoOpcionais.elementAt(i);
@@ -76,18 +77,18 @@
                     %>
                 </tbody>
             </table>
-            <table class="right">
+                <div class="titulo">Preço dos Carros</div>
+                
+                <table>
                 <thead>
-                <th><strong>Preço dos Carros</strong></th>
-                </thead>
+                <tr>
+                        <td><strong>Modelo </strong></td>
+                        <td><strong>Marca </strong></td>
+                        <td><strong>Ano </strong></td>
+                    </tr>
+                    </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Modelo </td>
-                        <td>Marca </td>
-                        <td>Ano </td>
-                        <td></td>
-                    </tr>
                     <%
                         for (int i = 0; i < modelos.size(); i++) {
                             classes.data.ModelosDO m = (classes.data.ModelosDO) modelos.elementAt(i);
@@ -105,7 +106,7 @@
                     <td></td>
                     <td><input type="submit" name="voltarMenu" value="voltar" /></td>
                 </tbody>
-            </table>
+                </table>
         </form>
 
         <%
@@ -118,8 +119,10 @@
                 classes.transacoes.Precos tn = new classes.transacoes.Precos();
                 classes.data.PrecosDO precos = tn.buscar(id);
         %>        
-        <form action="./verPrecos.jsp" method="post">
-            <table>
+        <div id="content"><form action="./verPrecos.jsp" method="post">
+                <br>
+                <div class="titulo">Preço por Quilometragem</div>
+                <table>
                 <tr>
                     <td>Até 100Km</td>
                     <td><%= precos.getPreco1()%></td>
@@ -148,7 +151,7 @@
                 <input type="submit" name="voltar" value="Voltar" />
             </form>
 
-        </form>
+            </form></div>
 
         <%
             } // showPrice

@@ -20,20 +20,17 @@
         
 	#tudo {
                 background	: #FFFFFF;
-		margin          : auto;
+                margin          : auto;
                 
         }
         
-	.link{
-		color		: #006699;
-		font-weight	: bold;
-	}
-        
-	.right{ float           : right;}
-	.left { float           : left;}
+	#content {
+                padding		: 10px;
+                margin          : auto;
+        }
 	
 	a {
-		color		: #708090;
+		color		: #445844;
 		text-decoration	: none;
 		font-size	: 15px;
 	}
@@ -49,25 +46,36 @@
 
 	/*Elementos Comuns*/
 
-	.box, .boxEsquerdo, .boxDireito, .nav-link, .nav-link2{
+	.box, .boxEsquerdo, .boxDireito, .nav-link{
 		text-align	: justify;
 		padding		: 10px 10px 10px 10px;
-	}/*Diferença de Tamanho*/
+	}
+
+	.titulo{
+        	color		: #445844;
+                padding-left	: 5px;
+		border-bottom   : dashed 1px #445844;
+    		font-size       : 20px;
+    		font-style      : italic;
+    		padding-bottom  : 5px;
+	}
+        
+        /*Diferença de Tamanho*/
 
 	.box {width             :480px;}
 	.boxEsquerdo{width      :660px;}
 	.boxDireito{width       :310px;}
-	.nav-link, .nav-link2 {width        : 450px;}
+	.nav-link{width        : 450px;}
 
 /*Estilos da tabela*/
 	table,td {
-		padding-right   : 3px;
-  		font            : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
+		font            : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
+                padding         : 0px 5px 2px 5px;
+                border          : 1px
 	}
 	
 	thead th {	
   		color           : #000000;  
-		padding         : 5px;
 		text-align      : center;
 	}
 
