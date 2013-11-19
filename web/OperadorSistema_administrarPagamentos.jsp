@@ -71,8 +71,22 @@
                                 classes.transacoes.Usuarios tn_u = new classes.transacoes.Usuarios();
                                 int usuarioid = op.getUsuarioID();
                                 String tipo = tn_u.buscarTipo(usuarioid);
+                                String nome = null;
+                                if (tipo.equals("Cliente")) {
+                                    classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
+                                    classes.data.ClientesDO cliente = tn_c.buscarPorUsuarioID(usuarioid);
+                                    nome = cliente.getNome();
+                                } else if (tipo.equals("Posto")) {
+                                    classes.transacoes.Posto tn_p = new classes.transacoes.Posto();
+                                    classes.data.PostoDO posto = tn_p.buscarPorUsuarioID(usuarioid);
+                                    nome = posto.getNome();
+                                } else if (tipo.equals("Estacionamento")) {
+                                    classes.transacoes.Estacionamento tn_e = new classes.transacoes.Estacionamento();
+                                    classes.data.EstacionamentoDO estacionamento = tn_e.buscarPorUsuarioID(usuarioid);
+                                    nome = estacionamento.getNome();
+                                }
                         %>              <tr>
-                            <td><%=tipo%></td>
+                            <td><%=nome%></td>
                             <td><%= op.getDataDoPagamento()%></td>
                             <td><%= op.getValorDoPagamento()%></td>
                             <td><a href=OperadorSistema_administrarPagamentos.jsp?action=updateStatusPagamento&id=<%= op.getID()%>> Validar pagamento</a></td>
@@ -121,7 +135,7 @@
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
-            } // updateStatusPagamento
+                    } // updateStatusPagamento
 %>
                 <div id="contentLeft"></div>
             </div>

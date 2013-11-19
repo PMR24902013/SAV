@@ -76,6 +76,25 @@ public class PostoData {
      posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
      return posto;
   } // buscar
+  
+  public PostoDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Posto where Usuarios_ID=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     PostoDO posto = new PostoDO();
+     posto.setID (rs.getInt("id"));
+     posto.setUsuariosID (rs.getInt("Usuarios_ID"));
+     posto.setNome (rs.getString("nome"));
+     posto.setEndereco (rs.getString("endereco"));
+     posto.setTelefone (rs.getString("telefone"));
+     posto.setHorario (rs.getString("Horario_de_Funcionamento"));
+     posto.setResponsavel (rs.getString("Responsavel"));
+     posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
+     return posto;
+  } // buscar
 
   public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
