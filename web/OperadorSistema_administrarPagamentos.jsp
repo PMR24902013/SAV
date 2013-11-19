@@ -95,7 +95,7 @@
                         %>       
                         <td></td>
                         <td></td>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
+                        <td><form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
                                 <input type="submit" name="cancelar" value="cancelar" />
                             </form></td>
                     </table>   
