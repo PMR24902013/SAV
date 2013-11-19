@@ -124,7 +124,7 @@
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
-                <form id="contentRight" action="./OperadorSistema_administrarPagamentos.jsp" method="post">
+                <form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
                     Pagamento Atualizado
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
