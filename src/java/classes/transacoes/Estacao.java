@@ -149,7 +149,7 @@ public boolean atualizarCadastro(int id, String Estado) throws Exception {
         return null;
     } // pesquisarCadastro
   
-  private boolean isEmpty(String s) {
+  public boolean isEmpty(String s) {
      if (null == s)
        return true;
      if (s.length() == 0)

@@ -4,19 +4,69 @@
     Author     : professorpmr
 --%>
 
+<%@page import="classes.data.UsuariosDO"%>
+<%@page import="classes.transacoes.Usuarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="classes.transacoes.Estacao" %>
+<%@ page import="classes.data.EstacionamentoDO" %>
+<%@page import="java.util.Vector" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastrar Estação Propria</title>
+        <%@include file="header.html" %>
     </head>
-    <body bgcolor="white">
-    <%@ page import="classes.transacoes.Estacionamento" %>
-    <%@ page import="classes.data.EstacionamentoDO" %>
-    <! ------------------------------------------------------------>
-    <!--   se for o request inicial, mostrar somente o formulario -->
     
+    <body>
+        <div id="base">
+            <div id="cima"></div>
+            <div id="tudo">
+                
+    <% if (null != request.getParameter("incluir")){
+        String nome = request.getParameter ("nome");
+        String endereco = request.getParameter ("endereco");
+        String cep = request.getParameter ("cep");
+        String telefone = request.getParameter ("telefone");
+        
+        EstacionamentoDO edo = new EstacionamentoDO();
+        
+        String nomeatual = (String)session.getAttribute ("user_name");
+        
+        Usuarios tn = new Usuarios();
+        Vector es = tn.pesquisar(nomeatual);
+        UsuariosDO estacaocriada = new UsuariosDO();
+        estacaocriada = (UsuariosDO)es.get(0);
+        
+        Estacao e = new Estacao();
+        
+       if (e.isEmpty(nome) || e.isEmpty(endereco) || e.isEmpty(cep) || e.isEmpty(telefone)){ 
+    %>
+    
+    Preencha todos os campos!
+    
+    <form action="Estacao_cadastrarDados.jsp" method="post">
+        <input type="submit" name="Prosseguir" value="Prosseguir">
+    </form>
+    
+    <% 
+       }
+       else {
+            edo.setUsuario_Id (estacaocriada.getId());
+            edo.setNome (nome);
+            edo.setEndereco (endereco);
+            edo.setCEP (cep);
+            
+            
+            
+            
+       }
+        
+        
+        
+        
+    }
+    </body>
     <%     if ( null == request.getParameterValues("incluir") ) {
     %>
        <form action="./Estacao_cadastrarDados.jsp" method="post">
