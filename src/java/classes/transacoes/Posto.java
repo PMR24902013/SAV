@@ -85,6 +85,22 @@ public class Posto {
 	 }
 	 return null;
   } // buscar
+  
+  public PostoDO buscarPorUsuarioID(int idobj) throws Exception{
+     Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	     PostoData cdata = new PostoData();
+	     PostoDO c = cdata.buscarPorUsuarioID(idobj, tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao buscar" + idobj);
+	   e.printStackTrace();
+	 }
+	 return null;
+  } // buscar
 
    public boolean atualizarCadastro(int id, String Estado) throws Exception {
      Transacao tr = new Transacao();

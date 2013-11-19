@@ -88,5 +88,17 @@ public class UsuariosData {
      int id = rs.getInt("id");
      return id;
   } // buscarID
+  
+  public String buscarTipo(int id, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select Tipo from Usuarios where ID = ?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, id);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     rs.next();
+     String tipo = rs.getString("Tipo");
+     return tipo;
+  } // buscarID
     
 }

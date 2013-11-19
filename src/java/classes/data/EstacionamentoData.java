@@ -80,6 +80,26 @@ public class EstacionamentoData {
      e.setTelefone(rs.getString("Telefone"));
      return e;
   } // buscar
+  
+  public EstacionamentoDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Estacionamento where  Usuario_ID=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     EstacionamentoDO e = new EstacionamentoDO();
+     e.setId (rs.getInt("ID"));
+     e.setNome (rs.getString("Nome"));
+     e.setEndereco(rs.getString("Endereco"));
+     e.setVagas(rs.getInt("Vagas"));
+     e.setTipo(rs.getBoolean("Tipo"));
+     e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
+     e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
+     e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
+     e.setTelefone(rs.getString("Telefone"));
+     return e;
+  } // buscar
 
   public Vector pesquisarPorNome(String nome, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();

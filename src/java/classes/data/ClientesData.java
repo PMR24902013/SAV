@@ -75,7 +75,7 @@ public class ClientesData {
      ResultSet rs = ps.executeQuery();
      rs.next();
      ClientesDO cliente = new ClientesDO();
-     cliente.setId (rs.getInt("id"));
+     cliente.setId (rs.getInt("ID"));
      cliente.setUsuarioId (rs.getInt("Usuario_ID"));
      cliente.setNome (rs.getString("Nome"));
      cliente.setCPF (rs.getString("CPF"));
