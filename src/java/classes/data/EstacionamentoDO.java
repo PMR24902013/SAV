@@ -13,6 +13,7 @@ public class EstacionamentoDO {
     private String _horario_de_funcionamento;
     private String _telefone;
     private String _estado;
+    private String _cep;
 
     public int getId() {
         return _id;
@@ -100,6 +101,14 @@ public class EstacionamentoDO {
 
     public void setEstado(String estado) {
         _estado = estado;
+    }
+    
+    public String getCEP (){
+    return _cep;
+    }
+    
+    public void setCEP(String cep) {
+        _cep = cep;
     }
 
 } // EstacionamentoDO
