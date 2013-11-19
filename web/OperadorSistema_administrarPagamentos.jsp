@@ -68,14 +68,14 @@
                         </tr>
                         <%           for (int i = 0; i < pagamentos.size(); i++) {
                                 classes.data.Operacoes_de_CaixaDO op = (classes.data.Operacoes_de_CaixaDO) pagamentos.elementAt(i);
-                                classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
-                                int usuario = op.getUsuarioID();
-                                classes.data.ClientesDO cliente = tn_c.buscarPorUsuarioID(usuario);
+                                classes.transacoes.Usuarios tn_u = new classes.transacoes.Usuarios();
+                                int usuarioid = op.getUsuarioID();
+                                String tipo = tn_u.buscarTipo(usuarioid);
                         %>              <tr>
-                            <td><%=cliente.getNome()%></td>
+                            <td><%=tipo%></td>
                             <td><%= op.getDataDoPagamento()%></td>
                             <td><%= op.getValorDoPagamento()%></td>
-                            <td><a href=OperadorSistema_administrarPagamentos.jsp?action=updateStatusPagamento&id=<%= op.getID()%>> Validar pagamento</a>
+                            <td><a href=OperadorSistema_administrarPagamentos.jsp?action=updateStatusPagamento&id=<%= op.getID()%>> Validar pagamento</a></td>
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
@@ -83,7 +83,7 @@
                         <td></td>
                         <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
                                 <input type="submit" name="cancelar" value="cancelar" />
-                            </form>
+                            </form></td>
                     </table>   
                 </form>         
                 <%     } // reservas retornados
