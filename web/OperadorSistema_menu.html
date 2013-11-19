@@ -9,26 +9,23 @@
         <link href="estiloMenu.css" rel="stylesheet" type="text/css" media="screen, projection" />
         <link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $("#contentLeft").load("menuOpSistema.html");
+            });
+        </script>
+
     </head>
     <body>
         <div id="base">
-            <div id ="cima">
-                <div id="logo"></div>
+            <div id ="cima"><div id="logo"></div></div>
+
+            <div id="tudo">
+                <div id="contentRight"></div>
+                <div id="contentLeft"></div>
             </div>
-            <div classe="boxEsquerdo">
-                <ul id="mymenu">
-                    <li><a href="OperadorSistema_administrarCadastros.jsp">Administrar novos cadastros</a></li>
-                    <li><a href="OperadorSistema_administrarPagamentos.jsp">Administrar pagamentos</a></li>
-                    <li><a href="OperadorSistema_administrarClientes.jsp">Administrar clientes</a></li>
-                    <li><a href="OperadorSistema_administrarReservas.jsp">Administrar reservas</a></li>
-                    <li><a href="OperadorSistema_administrarVeiculos.jsp">Administrar veículos</a></li>
-                    <li><a href="OperadorSistema_administrarEstacoes.jsp">Administrar estações</a></li>
-                    <li><a href="OperadorSistema_administrarPrecos.jsp">Tabela de preços</a></li>
-                    <li><a href="suporte.jsp">Suporte</a></li>
-                    <li><a href="LogOut.jsp">Log out</a></li>
-                </ul>
-            </div>
-            <div id="content"></div>
         </div>
     </body>
 </html>

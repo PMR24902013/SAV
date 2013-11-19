@@ -9,21 +9,24 @@
         <link href="estiloMenu.css" rel="stylesheet" type="text/css" media="screen, projection" />
         <link href="estiloMain.css" rel="stylesheet" type="text/css" media="screen, projection" />
 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $("#contentLeft").load("menuMotorista.html");
+            });
+        </script>
+
     </head>
 
     <body>
         <div id="base">
-            <div id ="cima">
-                <div id="logo"></div>
+            <div id ="cima"><div id="logo"></div></div>
+
+            <div id="tudo">
+                <div id="contentRight"></div>
+                <div id="contentLeft"></div>
             </div>
-            <div classe="boxEsquerdo">
-                <ul id="mymenu">
-                    <li><a href="Motorista_alterarDados.jsp">Alterar dados cadastrais</a></li>
-                    <li><a href="Motorista_realocarVeiculos.jsp">Realocar veículos</a></li>
-                    <li><a href="LogOut.jsp">Log out</a></li>
-                </ul>
-            </div>
-            <div id="content"></div>
         </div>
     </body>
 </html>
