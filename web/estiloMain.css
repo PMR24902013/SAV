@@ -28,6 +28,16 @@
                 padding		: 10px;
                 margin          : auto;
         }
+        
+	#contentRight {
+                float           : right;
+                width           : 335px;
+        }
+        
+	#contentLeft {
+                width           : 150px;
+                background      : #bbbaaa;
+        }
 	
 	a {
 		color		: #445844;
@@ -65,7 +75,7 @@
 	.box {width             :480px;}
 	.boxEsquerdo{width      :660px;}
 	.boxDireito{width       :310px;}
-	.nav-link{width        : 450px;}
+	.nav-link{width         : 450px;}
 
 /*Estilos da tabela*/
 	table,td {
