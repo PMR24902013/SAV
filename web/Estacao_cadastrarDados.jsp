@@ -7,7 +7,7 @@
 <%@page import="classes.data.UsuariosDO"%>
 <%@page import="classes.transacoes.Usuarios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="classes.transacoes.Estacionamento" %>
+<%@ page import="classes.transacoes.Estacao" %>
 <%@ page import="classes.data.EstacionamentoDO" %>
 <%@page import="java.util.Vector" %>
 <!DOCTYPE html>
@@ -38,9 +38,9 @@
         UsuariosDO estacaocriada = new UsuariosDO();
         estacaocriada = (UsuariosDO)es.get(0);
         
-        Estacionamento e = new Estacionamento();
+        Estacao e = new Estacao();
         
-       if (e.isEmpty(nome) || e.isEmpty(endereco) || e.isEmpty(cep) || e.isEmpty(telefone)){
+       if (e.isEmpty(nome) || e.isEmpty(endereco) || e.isEmpty(cep) || e.isEmpty(telefone)){ 
     %>
     
     Preencha todos os campos!
@@ -56,6 +56,7 @@
             edo.setNome (nome);
             edo.setEndereco (endereco);
             edo.setCEP (cep);
+            
             
             
             
