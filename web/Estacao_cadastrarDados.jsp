@@ -56,16 +56,38 @@
             edo.setNome (nome);
             edo.setEndereco (endereco);
             edo.setCEP (cep);
+            edo.setTelefone (telefone);
             
+            classes.transacoes.Estacao est = new classes.transacoes.Estacao ();
             
+            est.incluir(edo);
             
-            
+    %>
+    
+    Seus dados foram cadastrados com sucesso!
+    
+    <form id="content" action="Estacionamento_menu.html" method="post">
+        <input type="submit" name="Prosseguir" value="Prosseguir" />
+        </form>
+    <%     
        }
-        
-        
-        
-        
     }
+    
+    if (null != request.getParameter ("Cancelar")){
+    %>
+    <jsp:forward page="index.html" />
+    
+    <%
+        return;
+    }
+    %>
+    
+    <form id="content" action="Estacao_cadastrarDados.jsp" method="post">
+        
+        Login criado, insira seus dados!
+        
+        <table>
+            
     </body>
     <%     if ( null == request.getParameterValues("incluir") ) {
     %>
