@@ -3,7 +3,9 @@
     Created on : 29/10/2013, 09:51:57
     Author     : professorpmr
 --%>
-
+<%@page import="classes.data.UsuariosDO"%>
+<%@page import="classes.transacoes.Usuarios"%>
+<%@page import="java.util.Vector" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -75,7 +77,7 @@
                 <%     classes.transacoes.Posto tn = new classes.transacoes.Posto();
                     String posto = (String) session.getAttribute("PostoAtualizar");
                     classes.data.PostoDO postoAtualizar = new classes.data.PostoDO();
-                    postoAtualizar = tn.pesquisarPorNome(posto, tn);
+                    postoAtualizar = tn.pesquisarPorLogin(posto, tn);
                     request.setAttribute("nome", postoAtualizar.getNome());
                     request.setAttribute("responsavel", postoAtualizar.getResponsavel());
                     request.setAttribute("documento", postoAtualizar.getDocumento());
@@ -88,14 +90,14 @@
                     String endereco = request.getParameter("Endereco");
                     String gasolina = request.getParameter("gasolina");
                     String alcool = request.getParameter("alcool");
-                    classes.data.PostoDO posto = new classes.data.PostoDO();
-                    posto.setNome(nome);
-                    posto.setResponsavel(responsavel);
-                    posto.setDocumento(documento);
-                    posto.setEndereco(endereco);
-                    posto.setGasolina(gasolina);
-                    posto.setAlcool(alcool);
-                    if (tn.incluir(posto)) {
+                    classes.data.PostoDO p = new classes.data.PostoDO();
+                    p.setNome(nome);
+                    p.setResponsavel(responsavel);
+                    p.setDocumento(documento);
+                    p.setEndereco(endereco);
+                    p.setGasolina(gasolina);
+                    p.setAlcool(alcool);
+                    if (tn.incluir(p)) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./main.jsp" method="post">

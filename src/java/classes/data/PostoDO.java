@@ -23,6 +23,8 @@ public class PostoDO {
     private String _responsavel;
     private String _documentoDeLicenciamento;
     private String _estado;
+    private String _gasolina;
+    private String _alcool;
 
     public int getID() {
         return _id;
@@ -55,7 +57,19 @@ public class PostoDO {
     public String getDocumento() {
         return _documentoDeLicenciamento;
     }
+    
+    public String getEstado() {
+        return _estado;
+    } 
+    
+    public String getGasolina() {
+        return _gasolina;
+    }
 
+    public String getAlcool() {
+        return _alcool;
+    }
+    
     public void setID(int id) {
         _id = id;
     }
@@ -87,12 +101,18 @@ public class PostoDO {
     public void setDocumento(String doc) {
         _documentoDeLicenciamento = doc;
     }
-    public String getEstado() {
-        return _estado;
-    } 
+    
     
     public void setEstado(String estado) {
         _estado= estado;
+    }
+    
+    public void setGasolina (String gasolina) {
+        _gasolina = gasolina;
+    }
+    
+    public void setAlcool (String alcool){
+        _alcool = alcool;
     }
 
 }
