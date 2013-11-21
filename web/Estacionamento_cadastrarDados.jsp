@@ -27,6 +27,10 @@
         String local = request.getParameter("local");
         int vagas = Integer.parseInt(request.getParameter("vagas"));
         String proprietario = request.getParameter("proprietario");
+        String tipo = request.getParameter ("tipo");
+        String documento = request.getParameter("documento");
+        String horario = request.getParameter("horario");
+        String telefone = request.getParameter("telefone");
                 
         EstacionamentoDO p = new EstacionamentoDO();
        //arrumar  arquivo 
@@ -37,7 +41,7 @@
         estacionamentoCriado = (UsuariosDO)ps.get(0);
        
        Estacionamento c = new Estacionamento();
-       if(c.isEmpty(nome)|| c.isEmpty(local)||c.isEmpty(vagas)||c.isEmpty(proprietario)){
+       if(c.isEmpty(nome)|| c.isEmpty(local)||c.isEmpty(vagas)||c.isEmpty(proprietario) ||  c.isEmpty(documento) || c.isEmpty(horario) || c.isEmpty(telefone)){
       
      %> 
      <br>
@@ -46,13 +50,18 @@
     
      <input type="submit" name="Prosseguir" value="Prosseguir" />
      </form><%
-      }  
+      } 
+                  
       else{
    p.setUsuario_Id(estacionamentoCriado.getId());
    p.setNome(nome);
    p.setEndereco(local);
    p.setVagas(vagas);
    p.setNome_Do_Responsavel(proprietario);
+   p.setTipo(false);   
+   p.setDocumento_Do_Convenio(documento);
+   p.setHorario_De_Funcionamento(horario);
+   p.setTelefone(telefone);
       
    classes.transacoes.Estacionamento po = new classes.transacoes.Estacionamento();
    po.incluir(p);
@@ -95,9 +104,20 @@
                 <td><input type="text" name="proprietario"  /></td>
             </tr>
             <tr>
-                <td> Documento de licenciamento </td>
-                <td><input type ="file" name ="documento"/></td>
+                <td> Documento do convenio</td>
+                <td><input type ="text" name ="documento"/></td>
             </tr>
+            
+            <tr>
+                <td> Horario de Funcionamento </td>
+                <td><input type ="text" name ="horario"/></td>
+            </tr>
+            
+            <tr>
+                <td> Telefone </td>
+                <td><input type ="text" name ="telefone"/></td>
+            </tr>
+            
           </table>
                 <input type="submit" name="incluir" value="incluir" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
