@@ -16,9 +16,10 @@
         <%@ include file="header.html" %>
     </head>
     <body>
-        <div id="base">
+            <div id="base"> 
             <div id ="cima"></div>
-            <div id="tudo">        
+            <div id = "tudo">
+      
         
           <%
      if ( null != request.getParameter("incluir")){
@@ -42,10 +43,10 @@
       
      %> 
      Preencha todos os campos!
-     <form action="Cliente_cadastrarDados.jsp" method="post">
+   <form action="Cliente_cadastrarDados.jsp" method="post">
     
      <input type="submit" name="Prosseguir" value="Prosseguir" />
-     </form><%
+   </form><%
       }  
       else{
    p.setUsuarioId(clientecriado.getId());
@@ -58,12 +59,10 @@
      classes.transacoes.Clientes po = new classes.transacoes.Clientes();
      po.incluir(p);
        
-    %> Seus dados foram cadastrados com sucesso!
-    
-  <form id="content" action="Cliente_menu.html" method="post">
-    
-     <input type="submit" name="Prosseguir" value="Prosseguir" />
-     </form>
+    %> <br><br>Seus dados foram cadastrados com sucesso!
+       <input type="submit" name="Prosseguir" value="Prosseguir" />
+       
+
     <% }   
      }
           if ( null != request.getParameter("Cancelar")) {
@@ -76,7 +75,7 @@
     %>
          <form id="content" action="Cliente_cadastrarDados.jsp" method="post">
                  
-             <br>Login criado, insira seus dados
+             <br>Insira seus dados<br><br>
              
            <table>
             <tr>
@@ -105,11 +104,12 @@
                 <td><input type ="file" name ="carteira"/></td>
             </tr>
           </table>
-                <input type="submit" name="incluir" value="incluir" /> 
+                <input type="submit" name="incluir" value="Incluir" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
         </form> 
             </div>
-            </div>
+         </div>
+            
     </body>
 </html>
 

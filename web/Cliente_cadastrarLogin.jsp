@@ -45,13 +45,21 @@
                         Vector usuarios = tn.pesquisar(user);
                        //se existir avisar usuario
                         Clientes p = new Clientes();
-                        if ((usuarios != null) && (usuarios.size() > 0) || p.isEmpty(passwd) || p.isEmpty(user)) {
+                        if (p.isEmpty(passwd) || p.isEmpty(user)) {
                 %>
                 login ou senha inválida
                 <form action="Cliente_cadastrarLogin.jsp" method="post">
                     <input type="submit" name="Voltar" value="Voltar" />
                 </form>
-                <%	   } else {
+                <%	   } 
+                        if((usuarios != null) && (usuarios.size() > 0)){
+                %>
+                usuário já cadastrado
+                <form action="Cliente_cadastrarLogin.jsp" method="post">
+                    <input type="submit" name="Voltar" value="Voltar" />
+                </form>
+                <%        }
+                        else {
                     UsuariosDO pusuario = new UsuariosDO();
                     // cria um novo usuario
                     pusuario.setLogin(user);
