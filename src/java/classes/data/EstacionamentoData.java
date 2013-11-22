@@ -159,7 +159,7 @@ public class EstacionamentoData {
         e.setTipo(rs.getBoolean("Tipo"));
         e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
         e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
-        e.setHorario_De_Funcionamento(rs.getString("Horairo_de_Funcionamento"));
+        e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
         e.setTelefone(rs.getString("Telefone"));
         estacionamentos.add(e);
       }
