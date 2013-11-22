@@ -6,6 +6,9 @@
 <%@page import="classes.data.UsuariosDO"%>
 <%@page import="classes.transacoes.Usuarios"%>
 <%@page import="java.util.Vector" %>
+<%@page import="classes.transacoes.Posto"  %>
+<%@page import="classes.data.PostoDO" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,9 +18,7 @@
         <%@ include file="headerPosto.html" %>
     </head>
     <body>
-        <%@page import="classes.transacoes.Posto"  %>
-        <%@page import="classes.data.PostoDO" %>
-
+        
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
 
