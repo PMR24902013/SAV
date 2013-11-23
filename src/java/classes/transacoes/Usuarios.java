@@ -130,6 +130,23 @@ public class Usuarios {
         }
         return -1;
     } // buscarID
+  
+  public String buscarTipo(int id) {
+        
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            UsuariosData udata = new UsuariosData();
+            String tipo = udata.buscarTipo(id, tr);
+
+            tr.commit();
+            return tipo;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar " + id);
+            e.printStackTrace();
+        }
+        return "Null";
+    } // buscar Tipo
 
   private boolean isEmpty(String s) {
      if (null == s)

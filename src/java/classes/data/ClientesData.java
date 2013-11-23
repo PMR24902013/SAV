@@ -45,6 +45,7 @@ public class ClientesData {
      ps.setString(5, cliente.getEndereco());
      ps.setString(6, cliente.getTelefone());
      ps.setString(7, cliente.getCNH());
+     ps.setString(8, cliente.getEstado());
      ps.setInt(9, cliente.getId());
      int result = ps.executeUpdate();
   }
@@ -65,6 +66,7 @@ public class ClientesData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
+     cliente.setEstado(rs.getString("Estado"));
      return cliente;
       }
       public ClientesDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
@@ -75,15 +77,16 @@ public class ClientesData {
      ResultSet rs = ps.executeQuery();
      rs.next();
      ClientesDO cliente = new ClientesDO();
-     cliente.setId (rs.getInt("id"));
+     cliente.setId (rs.getInt("ID"));
      cliente.setUsuarioId (rs.getInt("Usuario_ID"));
      cliente.setNome (rs.getString("Nome"));
      cliente.setCPF (rs.getString("CPF"));
      cliente.setEmail (rs.getString("email"));
      cliente.setEndereco (rs.getString("Endereco"));
-     cliente.setEstado (rs.getString("Estado"));
+     
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
+     cliente.setEstado (rs.getString("Estado"));
      return cliente;
       }
       public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
@@ -104,6 +107,7 @@ public class ClientesData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
+      cliente.setEstado (rs.getString("Estado"));
         usuarios.add(cliente);
      }
      return usuarios;

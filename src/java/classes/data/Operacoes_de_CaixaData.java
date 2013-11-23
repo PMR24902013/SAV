@@ -44,8 +44,8 @@ public class Operacoes_de_CaixaData {
         ps.setFloat(1, operacao.getValorDoPagamento());
         ps.setString(2, operacao.getDataDoPagamento());
         ps.setInt(3, operacao.getUsuarioID());
-        ps.setInt(4, operacao.getID());
-        ps.setString(5, operacao.getEstado());
+        ps.setString(4, operacao.getEstado());
+        ps.setInt(5, operacao.getID());
         int result = ps.executeUpdate();
     } // atualizar
 

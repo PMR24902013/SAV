@@ -68,22 +68,36 @@
                         </tr>
                         <%           for (int i = 0; i < pagamentos.size(); i++) {
                                 classes.data.Operacoes_de_CaixaDO op = (classes.data.Operacoes_de_CaixaDO) pagamentos.elementAt(i);
-                                classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
-                                int usuario = op.getUsuarioID();
-                                classes.data.ClientesDO cliente = tn_c.buscarPorUsuarioID(usuario);
+                                classes.transacoes.Usuarios tn_u = new classes.transacoes.Usuarios();
+                                int usuarioid = op.getUsuarioID();
+                                String tipo = tn_u.buscarTipo(usuarioid);
+                                String nome = null;
+                                if (tipo.equals("Cliente")) {
+                                    classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
+                                    classes.data.ClientesDO cliente = tn_c.buscarPorUsuarioID(usuarioid);
+                                    nome = cliente.getNome();
+                                } else if (tipo.equals("Posto")) {
+                                    classes.transacoes.Posto tn_p = new classes.transacoes.Posto();
+                                    classes.data.PostoDO posto = tn_p.buscarPorUsuarioID(usuarioid);
+                                    nome = posto.getNome();
+                                } else if (tipo.equals("Estacionamento")) {
+                                    classes.transacoes.Estacionamento tn_e = new classes.transacoes.Estacionamento();
+                                    classes.data.EstacionamentoDO estacionamento = tn_e.buscarPorUsuarioID(usuarioid);
+                                    nome = estacionamento.getNome();
+                                }
                         %>              <tr>
-                            <td><%=cliente.getNome()%></td>
+                            <td><%=nome%></td>
                             <td><%= op.getDataDoPagamento()%></td>
                             <td><%= op.getValorDoPagamento()%></td>
-                            <td><a href=OperadorSistema_administrarPagamentos.jsp?action=updateStatusPagamento&id=<%= op.getID()%>> Validar pagamento</a>
+                            <td><a href=OperadorSistema_administrarPagamentos.jsp?action=updateStatusPagamento&id=<%= op.getID()%>> Validar pagamento</a></td>
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
                         <td></td>
                         <td></td>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
+                        <td><form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
                                 <input type="submit" name="cancelar" value="cancelar" />
-                            </form>
+                            </form></td>
                     </table>   
                 </form>         
                 <%     } // reservas retornados
@@ -110,7 +124,7 @@
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
-                <form id="contentRight" action="./OperadorSistema_administrarPagamentos.jsp" method="post">
+                <form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
                     Pagamento Atualizado
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
@@ -121,7 +135,7 @@
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
-            } // updateStatusPagamento
+                    } // updateStatusPagamento
 %>
                 <div id="contentLeft"></div>
             </div>

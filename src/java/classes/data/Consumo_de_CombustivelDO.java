@@ -18,6 +18,8 @@ public class Consumo_de_CombustivelDO {
   private int _posto_id;
   private String _tipo;
   private float _quantidade;
+  private String _preco_gasolina;
+  private String _preco_alcool;
   
     
 
@@ -47,6 +49,12 @@ public class Consumo_de_CombustivelDO {
        public float getQuantidade() {
      return _quantidade;
   } // getQuantidade
+       public String getPrecoGasolina(){
+     return _preco_gasolina;
+  } // getPrecoGasolina
+       public String getPrecoAlcool(){
+     return _preco_alcool;
+  } // getPrecoAlcool
        
        
        
@@ -78,4 +86,10 @@ public class Consumo_de_CombustivelDO {
        public void setQuantidade(float qtd) {
   _quantidade=qtd;
   } // setQuantidade
+       public void setPrecoGasolina(String pgas){
+  _preco_gasolina=pgas;
+  } // setPrecoGasolina
+       public void setPrecoAlcool(String palc){
+  _preco_alcool=palc;
+  }
 }
