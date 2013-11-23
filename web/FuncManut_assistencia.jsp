@@ -168,12 +168,13 @@
                     if (action.equals("showEditForm")) {
 
                         String opcao = null;
+                    if (request.getParameterValues("finalizar") == null){
                 %>
                 <form id="contentRight" action="#" method="post">    
                     <tr>
                         <td>Estado</td>
                     <select id="estado" name ="estado">
-                        <option selected value="Aguardando Assitencia">Aguardando Assistência</option>
+                        <option selected value="Aguardando Assistencia">Aguardando Assistência</option>
                         <option value="Enviado para Conserto">Enviado para Conserto</option>
                         <option value="Reparado">Reparado</option>
                     </select>
@@ -183,14 +184,13 @@
                     </tr>  
                 </form>
                 <%
-                    if (request.getParameterValues("finalizar") != null) {
+                    }
+                   else {
                         int id = Integer.parseInt(request.getParameter("id"));
                         opcao = request.getParameter("estado");
-                        classes.utils.Transacao tr = new classes.utils.Transacao();
                         classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
                         classes.transacoes.Funcionario tf = new classes.transacoes.Funcionario();
                         classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
-                        classes.data.AssistenciaTecnicaData att = new classes.data.AssistenciaTecnicaData();
 
                         classes.data.AssistenciaTecnicaDO responderChamado = tn.buscar(id);
                         String user = (String) session.getAttribute("user_name");
@@ -200,7 +200,7 @@
                         responderChamado.setFuncionarioID(funcionario.getId());
                         responderChamado.setEstadoFinal(opcao);
 
-                        att.atualizar(responderChamado, tr);
+                        tn.atualizar(responderChamado);                   
 
                 %>
                 <form id="contentRight" action="./FuncManut_assistencia.jsp" method="post">
