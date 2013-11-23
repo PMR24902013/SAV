@@ -72,8 +72,8 @@
                             </tr>
 
                             <%
-               soma = soma + ((Operacoes_de_CaixaDO) (fatura.get(i))).getValorDoPagamento();
-           }%>
+                                    soma = soma + ((Operacoes_de_CaixaDO) (fatura.get(i))).getValorDoPagamento();
+                                }%>
 
                         </tbody>
                         <tfoot>
@@ -88,8 +88,9 @@
 
                     <input type="submit" name="Voltar" value="Voltar" />
                 </form>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
-            <div id="contentLeft"></div>
         </div>
     </div>
 </body>

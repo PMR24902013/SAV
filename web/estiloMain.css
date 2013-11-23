@@ -7,6 +7,7 @@
 		background	: #FFFFFF;
 		margin		: auto;
 		width		: 600px;
+                height          : auto;
 		padding		: 0;
 		clear		: both;
 		text-align	: left;
@@ -21,7 +22,7 @@
 	#tudo {
                 background	: #FFFFFF;
                 margin          : auto;
-                
+                overflow        : hidden;
         }
         
 	#content {
@@ -32,11 +33,14 @@
 	#contentRight {
                 float           : right;
                 width           : 435px;
+                height          : auto;
         }
         
 	#contentLeft {
                 width           : 150px;
                 background      : #bbbaaa;
+		padding-bottom: 1000em;
+		margin-bottom: -999.5em;
         }
 	
 	a {
@@ -55,7 +59,8 @@
 /* Estilos do Conteudo do Site */
 
 	/*Elementos Comuns*/
-
+        .clear { clear: both; }
+        
 	.box, .boxEsquerdo, .boxDireito, .nav-link{
 		text-align	: justify;
 		padding		: 10px 10px 10px 10px;

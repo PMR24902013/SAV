@@ -46,7 +46,7 @@
                         usuariologado = (UsuariosDO) tn.get(0);
 
                         ClientesDO clientelogado = new ClientesDO();
-            clientelogado = c.buscarPorUsuarioID(usuariologado.getId());%>
+                        clientelogado = c.buscarPorUsuarioID(usuariologado.getId());%>
 
                     Bem vindo <%= session.getAttribute("user_name")%>
                     <!-- mostra os valores atuais -->
@@ -82,7 +82,7 @@
                 %>        <jsp:forward page="Cliente_menu.html" />
                 <%
                     }
-                //se apertar alterar
+                    //se apertar alterar
                     if (null != request.getParameterValues("alterar")) {
                         // se tiver campo vazio
                         Posto p = new Posto();
@@ -118,8 +118,9 @@
                         }
                     }
                 %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
-            <div id="contentLeft"></div>
         </div>
     </div>
 </body>

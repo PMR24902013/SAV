@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ver preços</title>
-        <%@ include file="header.html"%>
+        <%@ include file="headerCliente.html"%>
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -24,13 +24,13 @@
         <%@page import="classes.data.*" %>
 
         <div id="base">
-            <div id ="cima"></div>
+            <div id ="cima"><div id="logo"></div></div>
             <div id="tudo">
                 <! ------------------------------------------------------------------->
                 <!--   sempre mostrar o formulario de busca, ateh acao ser "voltar" -->
 
                 <%     if (null != request.getParameter("voltarMenu")) {
-                        response.sendRedirect(request.getContextPath() + "/index.html");
+                        response.sendRedirect(request.getContextPath() + "/Cliente_menu.html");
                         return;
                     }
                 %>
@@ -43,14 +43,13 @@
                         action = "show";
                 %>
 
-                <form id="content" action="./verPrecos.jsp" method="post">
+                <form id="contentRight" action="./verPrecos.jsp" method="post">
                     <%
                         classes.transacoes.Modelos tr = new classes.transacoes.Modelos();
                         Vector modelos = tr.pesquisarTodos();
                         classes.transacoes.Precos_Opcionais tn = new classes.transacoes.Precos_Opcionais();
                         Vector precoOpcionais = tn.pesquisar();
                     %>
-                    <br>
                     <div class="titulo">Preço dos Opcionais</div>
                     <table>
                         <thead>
@@ -93,7 +92,7 @@
                                 <td><%= m.getModelo()%></td>
                                 <td><%= m.getMarca()%></td>
                                 <td><%= m.getAno()%></td>
-                                <td><a href=verPrecos.jsp?action=showPrice&id=<%= m.getId()%>>Ver</a></td>
+                                <td><a href=Cliente_verPrecos.jsp?action=showPrice&id=<%= m.getId()%>>Ver</a></td>
                             </tr>        
                             <%           } // for i      
                             %>       
@@ -115,7 +114,7 @@
                         classes.transacoes.Precos tn = new classes.transacoes.Precos();
                         classes.data.PrecosDO precos = tn.buscar(id);
                 %>        
-                <div id="content"><form action="./verPrecos.jsp" method="post">
+                <div id="contentRight"><form action="./Cliente_verPrecos.jsp" method="post">
                         <br>
                         <div class="titulo">Preço por Quilometragem</div>
                         <table>
@@ -151,7 +150,9 @@
 
                 <%
                     } // showPrice
-%>
+                %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div >
     </body>

@@ -184,9 +184,10 @@
                 </form>
                 <%     }
                     } // updateValues
-%>
+                %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
-            <div id="contentLeft"></div>
         </div>
     </div>
 </body>

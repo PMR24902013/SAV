@@ -88,9 +88,10 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
                     <input type="submit" name="Voltar" value="Voltar" />
                 </form>
                 <%                    }
-                }%>
+                    }%>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
-            <div id="contentLeft"></div>
         </div>
     </div>
 </body>

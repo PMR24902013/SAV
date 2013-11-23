@@ -10,7 +10,7 @@
         <title>Redirecionando...</title>
         <script>
             function MudarPagina(){
-                window.location = "http://localhost:8080/SAV/index.html";
+                window.location = "./index.html";
                 session.removeAttribute("user_name");
                 session.removeAttribute("user_tipo");
             }
