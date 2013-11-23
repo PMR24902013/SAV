@@ -20,72 +20,70 @@
 
         <div id="base">
             <div id ="cima"></div>
-            <div id="tudo">
-                <! ------------------------------------------------------------>
-                <!--   se for o request inicial, mostrar somente o formulario -->
+            <! ------------------------------------------------------------>
+            <!--   se for o request inicial, mostrar somente o formulario -->
 
-                <%     if (null == request.getParameterValues("incluir")) {
-                %>
-                <form id="content" action="./Manutencao_cadastrarLogin.jsp" method="post">
-                    <b>Informações de login</b>
-                    <table>
-                        <tr>
-                            <td>Usuário</td>
-                            <td><input type="text" name="user" />
-                        </tr>       
-                        <tr>
-                            <td>Senha</td>
-                            <td><input type="password" name="password" />
-                        </tr>
-                        <tr>
-                            <td>Digite a senha novamente</td>
-                            <td><input type="password" name="validaPassword">
-                        </tr>
-                    </table>
-                    <input type="submit" name="incluir" value="incluir" />
-                    <form action="./index.html" method="post">
-                        <input type="submit" name="cancelar" value="cancelar" />
-                    </form>
+            <%     if (null == request.getParameterValues("incluir")) {
+            %>
+            <form id="content" action="./Manutencao_cadastrarLogin.jsp" method="post">
+                <b>Informações de login</b>
+                <table>
+                    <tr>
+                        <td>Usuário</td>
+                        <td><input type="text" name="user" />
+                    </tr>       
+                    <tr>
+                        <td>Senha</td>
+                        <td><input type="password" name="password" />
+                    </tr>
+                    <tr>
+                        <td>Digite a senha novamente</td>
+                        <td><input type="password" name="validaPassword">
+                    </tr>
+                </table>
+                <input type="submit" name="incluir" value="incluir" />
+                <form action="./index.html" method="post">
+                    <input type="submit" name="cancelar" value="cancelar" />
                 </form>
+            </form>
 
-                <%      } else {
-                %>
-                <! ------------------------------------------------------------------->
-                <!--   se nao for o request inicial, acionar a transacao de negocio -->
-                <%     String user = request.getParameter("user");
-                    String senha = request.getParameter("password");
-                    String senhaValidacao = request.getParameter("validaPassword");
+            <%      } else {
+            %>
+            <! ------------------------------------------------------------------->
+            <!--   se nao for o request inicial, acionar a transacao de negocio -->
+            <%     String user = request.getParameter("user");
+                String senha = request.getParameter("password");
+                String senhaValidacao = request.getParameter("validaPassword");
 
-                    if (!senha.equals(senhaValidacao)) {
-                %>
-                As senhas digitadas não conferem!            
-                <form action="./Manutencao_cadastrarLogin.jsp" method="post">
-                    <input type="submit" name="retry" value="Repetir" />
-                </form>
-                <%       }
-                    classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
-                    classes.data.UsuariosDO usuario = new classes.data.UsuariosDO();
-                    usuario.setLogin(user);
-                    usuario.setSenha(senha);
-                    usuario.setTipo("OpManut");
-                    if (!tu.incluir(usuario)) {
+                if (!senha.equals(senhaValidacao)) {
+            %>
+            As senhas digitadas não conferem!            
+            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
+                <input type="submit" name="retry" value="Repetir" />
+            </form>
+            <%       }
+                classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
+                classes.data.UsuariosDO usuario = new classes.data.UsuariosDO();
+                usuario.setLogin(user);
+                usuario.setSenha(senha);
+                usuario.setTipo("OpManut");
+                if (!tu.incluir(usuario)) {
 
-                %>
-                Erro ao adicionar usuário. Verifique os campos.
-                <form action="./Manutencao_cadastrarLogin.jsp" method="post">
-                    <input type="submit" name="retry" value="Repetir" />
-                </form>
-                <%     } else {
-                    session.setAttribute("user_name", user);
-                %>
-                Usuário criado com sucesso. 
-                <form action="./FuncManut_cadastrarDados.jsp" method="post">
-                    <input type="submit" name="continuar" value="Continue" />
-                </form>
-                <%     }
-                    }
-                %>
-            </div>
+            %>
+            Erro ao adicionar usuário. Verifique os campos.
+            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
+                <input type="submit" name="retry" value="Repetir" />
+            </form>
+            <%     } else {
+                session.setAttribute("user_name", user);
+            %>
+            Usuário criado com sucesso. 
+            <form action="./FuncManut_cadastrarDados.jsp" method="post">
+                <input type="submit" name="continuar" value="Continue" />
+            </form>
+            <%     }
+                }
+            %>
         </div>
     </body>
 </html>

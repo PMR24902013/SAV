@@ -13,9 +13,7 @@
     <body>
         <div id="base">
             <div id ="cima"></div>
-            <div id="tudo">
-                <h1>Implantar!</h1>
-            </div>
+            <h1>Implantar!</h1>
         </div>
     </body>
 </html>

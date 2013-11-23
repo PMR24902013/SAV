@@ -22,7 +22,6 @@
         <%@ page import="java.util.*"%>
         <div id="base">
             <div id ="cima"></div>
-            <div id="tudo">
 
 
                 <%
@@ -105,7 +104,6 @@
                     <input type="submit" name="enviar" value="Enviar" />
                     <input type="hidden" name="campo_controle" />
                 </form>
-            </div>
         </div>
     </body>
 </html>
