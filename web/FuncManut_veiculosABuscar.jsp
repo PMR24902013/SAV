@@ -11,18 +11,40 @@
         <%@ include file="headerManutencao.html" %>
     </head>
     <body>
-        <%@ page import="classes.data.FuncionarioDO" %>
-        <%@ page import="classes.data.UsuariosDO" %>
-        <%@ page import="classes.transacoes.Funcionario" %>
+        <%@ page import="classes.data.*" %>
+        <%@ page import="classes.transacoes.*" %>
         <%@ page import="java.util.Vector" %>
+        <%@ page import="java.util.Date" %>
+        <%@ page import="java.text.*" %>
+        
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
 
             <div id="tudo">
-                
             
+                <! ------------------------------------------------------------------->
                 
+                <%
+                    String action = request.getParameter("action");
+                    if (null == action) {
+                        action = "showSearchForm";
+                %>
                 
+                <form id="contentRight" action="./FuncManut_veiculosABuscar.jsp" method="post">
+                    <%
+                        // VERIFICACAO MANUAL DO LOGIN
+                        if (session.getAttribute("user_name") == null) {
+                            pageContext.forward("index.jsp");
+                        }
+                    %>                
+                    
+                    <%
+                        classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
+                        String estado = "Aberto";
+                        Vector buscar = tn.buscarPorEstado(estado);
+                        if (((pagamentos == null) || (pagamentos.size() == 0))) {
+                            // avisar usuario que nao ha' reserva
+                    %>
                 
                 
                 
