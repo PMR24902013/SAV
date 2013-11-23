@@ -6,6 +6,11 @@
 <%@page import="classes.data.UsuariosDO"%>
 <%@page import="classes.transacoes.Usuarios"%>
 <%@page import="java.util.Vector" %>
+<%@page import="classes.transacoes.Posto"  %>
+<%@page import="classes.data.PostoDO" %>
+<%@page import="classes.transacoes.Consumo_de_Combustivel" %>
+<%@page import="classes.data.Consumo_de_CombustivelDO" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,9 +20,7 @@
         <%@ include file="headerPosto.html" %>
     </head>
     <body>
-        <%@page import="classes.transacoes.Posto"  %>
-        <%@page import="classes.data.PostoDO" %>
-
+        
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
 
@@ -77,13 +80,14 @@
                 <%     classes.transacoes.Posto tn = new classes.transacoes.Posto();
                     String posto = (String) session.getAttribute("PostoAtualizar");
                     classes.data.PostoDO postoAtualizar = new classes.data.PostoDO();
-                    postoAtualizar = tn.pesquisarPorLogin(posto, tn);
+                    classes.data.Consumo_de_CombustivelDO consumoAtualizar = new classes.data.Consumo_de_CombustivelDO();
+                    postoAtualizar = tn.buscarPorUsuarioID (posto, tn);
                     request.setAttribute("nome", postoAtualizar.getNome());
                     request.setAttribute("responsavel", postoAtualizar.getResponsavel());
                     request.setAttribute("documento", postoAtualizar.getDocumento());
                     request.setAttribute("Endereco", postoAtualizar.getEndereco());
-                    request.setAttribute("gasolina", postoAtualizar.getGasolina());
-                    request.setAttribute("alcool", postoAtualizar.getAlcool());
+                    request.setAttribute("gasolina", consumoAtualizar.getGasolina());
+                    request.setAttribute("alcool", consumoAtualizar.getAlcool());
                     String nome = request.getParameter("nome");
                     String responsavel = request.getParameter("responsavel");
                     String documento = request.getParameter("documento");
