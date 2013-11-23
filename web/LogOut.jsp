@@ -10,9 +10,9 @@
         <title>Redirecionando...</title>
         <script>
             function MudarPagina(){
-                window.location = "http://localhost:8080/ProjetoSI/index.html";
-                session.setAttribute("user_name", null);
-                session.setAttribute("user_tipo", null);
+                window.location = "http://localhost:8080/SAV/index.html";
+                session.removeAttribute("user_name");
+                session.removeAttribute("user_tipo");
             }
         </script>
     </head>
