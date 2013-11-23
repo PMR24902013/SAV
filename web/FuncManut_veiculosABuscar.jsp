@@ -39,7 +39,7 @@
                     %>                
                     
                     <%
-                        classes.transacoes.AssistenciaTecnica tn = new classes.transacoes.AssistenciaTecnica();
+                        classes.transacoes.Manutencao tn = new classes.transacoes.Manutencao();
                         String estado = "Aberto";
                         Vector buscar = tn.buscarPorEstado(estado);
                         if (((pagamentos == null) || (pagamentos.size() == 0))) {
