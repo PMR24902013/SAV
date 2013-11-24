@@ -46,7 +46,7 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
             <%        return;
                 }
             %>
-            <%uest.getParameter("campo_controle") != null) {
+            <% if (request.getParameter("campo_controle") != null) {
                     // login a ser criado  
                     String user = request.getParameter("login");
                     // senha a ser criada
@@ -54,7 +54,8 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
                     // metodo verifica se jah existe tal login
                     classes.transacoes.Usuarios tn = new classes.transacoes.Usuarios();
                     Vector usuarios = tn.pesquisar(user);
-                   //se                                                 Posto p = new Posto();
+                   //se                                                 
+                    Posto p = new Posto();
                     if ((usuarios != null) && (usuarios.size() > 0) || p.isEmpty(passwd) || p.isEmpty(user)) {
             %>
             login ou senha inválida
