@@ -11,6 +11,7 @@
 		padding		: 0;
 		clear		: both;
 		text-align	: left;
+                font            : small/1.5 fantasy;
 	}
 
 
@@ -43,6 +44,23 @@
 		margin-bottom: -999.5em;
         }
 	
+        input[type=submit] {
+                width           : 100px;
+                height          : 25px;
+                border-radius   : 5px; 
+                background      : #aaddaa;
+                text-transform  : uppercase;
+                border          : 0;
+        }
+        
+        
+        input[type=submit]:hover {
+		background-color: #aaddaa;
+		opacity		: 0.70;
+		-moz-opacity	: 0.70;
+		filter		: alpha(opacity=70);
+	}
+        
 	a {
 		color		: #445844;
 		text-decoration	: none;
@@ -50,7 +68,7 @@
 	}
 	
 	.bgopacity {
-		background-color: #C1CDCD;
+		background-color: #aaddaa;
 		opacity		: 0.70;
 		-moz-opacity	: 0.70;
 		filter		: alpha(opacity=70);
@@ -59,6 +77,10 @@
 /* Estilos do Conteudo do Site */
 
 	/*Elementos Comuns*/
+        .fixed-size{
+                width: 100px;
+            }
+            
         .clear { clear: both; }
         
 	.box, .boxEsquerdo, .boxDireito, .nav-link{
