@@ -42,10 +42,23 @@
                         classes.transacoes.Manutencao tn = new classes.transacoes.Manutencao();
                         String estado = "Aberto";
                         Vector buscar = tn.buscarPorEstado(estado);
-                        if (((pagamentos == null) || (pagamentos.size() == 0))) {
-                            // avisar usuario que nao ha' reserva
+                        if (((buscar == null) || (buscar.size() == 0))) {
+                            // avisar usuario que nao ha' veiculos a buscar
                     %>
-                
+                    
+                    <form id="contentRight" action="./FuncManut_menu.jsp" method="post">
+                        Nenhum veículo a ser buscado.
+                        <input type="submit" name="voltar" value="Voltar" />
+                    </form>
+                    
+                                        <table>
+                        <tr>
+                            <td>Veículo</td>
+                            <td>Data </td>
+                            <td>Funcionario </td>
+                        </tr>
+
+              
                 
                 
                 
