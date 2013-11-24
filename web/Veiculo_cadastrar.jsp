@@ -1,4 +1,4 @@
-<%-- <%-- 
+<%--
     Document   : Estacionamento_cadastrarDados
     Created on : 24/11/2013, 12:07:51
     Author     : Rodrigo
@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="base">
-            <div id ="cima"></div><%
+            <div id ="cima"></div> <%
                     
                     if (null != request.getParameter("voltar")) {
             %>        <jsp:forward page="OperadorSistema_administrarVeiculos.jsp" />
@@ -77,16 +77,16 @@
                         
                         if(v.incluir(veiculo) == true){
                             %>Veiculo incluido com sucesso!
-                            <form id="content" action="OperadorSistema_administrarVeiculos.jsp" method="post">
+                            <form id="content1" action="OperadorSistema_administrarVeiculos.jsp" method="post">
                             <input type="submit" name="voltar" value="voltar" />
                             </form>
                             <%
                            }
                     }
                         }
-                %><h1>                    
+                %>                   
                     <form id ="content" action ="Veiculo_cadastrar.jsp" method ="post">
-                        <table border="0">
+                        <table>
                         <thead>
                             <tr>
                                 <th>*Marca do carro:</th>
@@ -154,7 +154,7 @@
                             </tr>
                             <tr>
                                 <td>*CRLV do veículo:</td>
-                                <td><input type="file" name="CRLV" value="" width="15"/></td>
+                                <td><input type="file" name="CRLV"/></td>
                             </tr>
                             <tr>
                                 <td>*Campos marcados são obrigatórios</td>
@@ -164,8 +164,7 @@
                         </tbody>
                     </table>
                     </form>
-                    
-                </h1>
+                   
             </div>
   
     </body>
