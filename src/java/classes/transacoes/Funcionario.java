@@ -182,7 +182,7 @@ public class Funcionario {
      return false;
     }
   
-  private boolean isEmpty(String s) {
+  public boolean isEmpty(String s) {
      if (null == s)
        return true;
      if (s.length() == 0)

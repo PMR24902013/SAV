@@ -18,58 +18,112 @@
             <div id ="cima"><div id="logo"></div></div>
         <div id="tudo">
             
-        <%@page import="classes.transacoes.Estacionamento"  %>
+        <%@page import="classes.transacoes.Estacao"  %>
         <%@page import="classes.data.EstacionamentoDO" %>
         <%@ page import="java.util.Vector" %>
         <! ------------------------------------------------------------>
         <!--   se for o request inicial, mostrar somente o formulario -->
 
-        <%     if ( null == request.getParameterValues("incluir") ) {
+        <%  if ( null == request.getParameterValues("alterar") && null == request.getParameter("incluir")) {
         %>
-            <form action="./Estacao_alterarDados.jsp" method="post">
+            <form action="./OperadorSistema_administrarEstacoes.jsp" method="post">
         <%
             // VERIFICACAO MANUAL DO LOGIN
             if ( session.getAttribute("user_name") == null) {
                pageContext.forward("index.jsp");
             }
-
-            String nome = (String)session.getAttribute("user_name");
+            classes.data.EstacionamentoDO estacao = new classes.data.EstacionamentoDO();
+            classes.transacoes.Estacao busca = new classes.transacoes.Estacao();
+            Vector buscaEstacao = busca.pesquisarEstacao();
+            
         %>
-            Bom dia <%= nome %> !!
-
+            Escolha o estacionamento cujos dados devem ser alterados.
+            <table>
+                <tr>
+                    <td>Nome Do Estacionamento</td>
+                    <td><select id="selecionaEstacao" name="selecionaEstacao">
+                            <option selected value="null">Selecione o nome da estação</option>
+                            <% for(int i = 0; i<buscaEstacao.size(); i++){
+                                estacao = (EstacionamentoDO)buscaEstacao.get(i);
+                            %>
+                            <option value="<%=estacao.getNome()%>"><%=estacao.getNome()%></option>
+                            <% } 
+                            %>
+                        </select>
+                </tr>
+                <tr>
+                    <td><input type="submit" name="alterar" value="Alterar Dados"/>
+                    <input type="submit" name="cancelarProcura" value="Cancelar"/>
+                </tr>
+            </table>
+            </form>
+        
+        
+        
+        
+<%              }
+                    if(null!= request.getParameter("cancelarProcura")){
+                    String redirectURL = "./OperadorSistema_menu.html";
+                    response.sendRedirect(redirectURL);
+                    }
+                %>
+ 
+<%
+            if(null != request.getParameter("alterar") && null==request.getParameter("incluir") && null==request.getParameter("cancelar") && !request.getParameter("selecionaEstacao").equals("null")){
+                classes.transacoes.Estacao atualizaEstacao = new classes.transacoes.Estacao();
+                String estacaoSelecionada = request.getParameter("selecionaEstacao");
+                session.setAttribute("selecionaEstacao", estacaoSelecionada);
+                Vector buscaEstacaoSelecionada = atualizaEstacao.pesquisar(estacaoSelecionada);
+                classes.data.EstacionamentoDO dadosEstacao = new classes.data.EstacionamentoDO();
+                dadosEstacao = (EstacionamentoDO)buscaEstacaoSelecionada.get(0);
+                
+        %>
+        
+        Inclua os dados para atualização no sistema.
+        <form action="./OperadorSistema_administrarEstacoes.jsp" method="post">
                 <table>
                  <tr>
                       <td>Nome Do Estacionamento</td>
-                      <td><input type="text" name="nome" />
+                      <td><input type="text" name="nome" value="<%=dadosEstacao.getNome()%>"/>
                  </tr>
                  <tr>
                      <td>Endereco</td>
-                     <td><input type="text" name="Endereco" />
+                     <td><input type="text" name="Endereco" value="<%=dadosEstacao.getEndereco()%>"/>
                  </tr>
                  <tr>
                      <td>Vagas</td>
-                     <td><input type="text" name="Vagas" />
+                     <td><input type="text" name="Vagas" value="<%=dadosEstacao.getVagas()%>"/>
                  </tr>
                  <tr>
                      <td>Nome Do Responsável</td>
-                     <td><input type="text" name="Responsavel" />
+                     <td><input type="text" name="Responsavel" value="<%=dadosEstacao.getNome_Do_Responsavel()%>"/>
                  </tr>
                  <tr>
                     <td>Telefone</td>
-                    <td><input type="text" name="telefone" />
+                    <td><input type="text" name="telefone" value="<%=dadosEstacao.getTelefone()%>"/>
                  </tr>
              </table>
-           <input type="submit" name="incluir" value="incluir" />
+                 <input type="submit" name="incluir" value="Incluir" />
+                 <input type="submit" name="cancelarAtualizacao" value="Cancelar" />
         </form>
 
-<%      } else { 
+<%         
+        }else if(null != request.getParameter("alterar")){
+                %>
+                Selecione uma estação!
+                <form action="./OperadorSistema_administrarEstacoes.jsp">
+                    <input type="submit" name="retry" value="Repetir" />
+                </form>
+                <%
+            }
+        if(null != request.getParameter("incluir")) {
 %>
 <! ------------------------------------------------------------------->
 <!--   se nao for o request inicial, acionar a transacao de negocio -->
 
 
-<%     classes.transacoes.Estacionamento tn = new classes.transacoes.Estacionamento();
-       String estacionamentoNome = (String)session.getAttribute("EstacionamentoAtualizar");
+<%     classes.transacoes.Estacao tn = new classes.transacoes.Estacao();
+       String estacionamentoNome = (String)session.getAttribute("selecionaEstacao");
        classes.data.EstacionamentoDO estacionamentoAtualizar = new classes.data.EstacionamentoDO();
        Vector vetorAtualizacao = tn.pesquisar(estacionamentoNome);
        estacionamentoAtualizar = (EstacionamentoDO) vetorAtualizacao.get(0);
@@ -89,22 +143,30 @@
        estacionamento.setVagas(Integer.parseInt(vagas));
        estacionamento.setNome_Do_Responsavel(responsavel);
        estacionamento.setTelefone(telefone); 
-       if ( tn.incluir(estacionamento)) {
+       if ( tn.atualizar(estacionamento)) {
          // avisar usuario que transacao foi feita com sucesso
 %>
           Transação realizada com sucesso!
-          <form action="./main.jsp" method="post">
+          <form action="./OperadorSistema_menu.html" method="post">
              <input type="submit" name="voltar" value="Voltar" />
           </form>
 <%     } else {
 %>
-          Erro ao incluir usuário            
-          <form action="./insert.jsp" method="post">
+          Erro ao atualizar infotmações           
+          <form action="./OperadorSistema_administrarEstacoes.jsp" method="post">
              <input type="submit" name="retry" value="Repetir" />
           </form>
 <%     }
-       }
-%>  </div>
+        }
+        if(null!= request.getParameter("cancelarProcura")){
+%>
+<form onload="./index.html">
+</form>
+<%             }
+                %>
+        
+        
+        </div>
              </div>
     </body>
 </html>

@@ -37,13 +37,13 @@
                         <td><input type="password" name="password" />
                     </tr>
                     <tr>
-                        <td>Digite a senha novamente</td>
+                        <td>Re-digite sua senha</td>
                         <td><input type="password" name="validaPassword">
                     </tr>
                 </table>
-                <input type="submit" name="incluir" value="incluir" />
+                <input type="submit" name="incluir" value="Enviar" />
                 <form action="./index.html" method="post">
-                    <input type="submit" name="cancelar" value="cancelar" />
+                    <input type="submit" name="cancelar" value="Cancelar" />
                 </form>
             </form>
 
