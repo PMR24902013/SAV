@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Remover veiculo</title>
-        <%@include file="header.html"%>
+        <%@include file="headerOpSistema.html"%>
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -22,9 +22,8 @@
         <%@page import="classes.data.*" %>
 
         <div id="base">
-            <div id ="cima"><div id="logo"></div></div>
+            <div id ="cima"><div id="logo"></div>
 
-            <div id="tudo">
 
                 <! ------------------------------------------------------------------->
                 <!--   se for o request inicial, mostrar somente o formulario de pesquisa -->
@@ -52,6 +51,7 @@
                     %>
                     <form id="contentRight" action="Veiculo_remover.jsp" method="post">
                         Nenhum veículo pode ser excluído do sistema.
+                        <br>
                         <input type="submit" name="voltar" value="Voltar" />
                     </form>
                     <%     } else {
@@ -79,9 +79,10 @@
                             <td><a href=Veiculo_remover.jsp?action=removerVeiculo&id=<%=veiculo.getId()%>>Remover Veículo</a></td>
                         </tr>        
                         <%           } // for i Cliente     
-                        %>       
-                        <td><form id="contentRight" action="./OperadorSistema_administrarVeiculos.jsp" method="post">
-                                <input type="submit" name="cancelar" value="cancelar" />
+                        %> 
+                        <br><br>
+                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
+                                <input type="submit" name="cancelar" value="Cancelar" />
                             </form></td>
                     </table>   
                 </form>         
