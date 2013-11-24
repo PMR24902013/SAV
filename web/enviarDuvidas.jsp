@@ -16,6 +16,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enviar Dúvidas</title>
         <%@ include file="header.html" %>
+        <div id="base">
+            <div id ="cima"></div>
         
         <% if (null != request.getParameter("Cancelar")){
             %>    <jsp:forward page="index.html" />
@@ -36,15 +38,19 @@
                     
                     Pergunta pTrans = new Pergunta();
                     pTrans.incluir(p);
+                    %>
+    <br><br>
+                    Dúvida enviada com sucesso!<br>
+                    <form action ="index.html">
+                        <input type ="submit" value="Voltar" name="Voltar"/>                       
+                    </form>
+                    <%
                     
                     }
                 
             %>
         
-    </head>
-    <body>
-        <div id="base">
-            <div id ="cima"></div>
+
             <h1>
             </h1>    
                 <form name="content" action="enviarDuvidas.jsp" method="POST">
