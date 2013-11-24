@@ -32,7 +32,7 @@
                 <%
                     String action = request.getParameter("action");
                     if (null == action) {
-                        action = "showSearchForm";
+                        action = "showEditForm";
                 %>
 
                 <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
@@ -41,8 +41,7 @@
                         if (session.getAttribute("user_name") == null) {
                             pageContext.forward("index.jsp");
                         }
-                    %>   
-                    <input type="hidden" name="action" value="showEditForm" />
+                    %>
                 </form>
                 <%
                     }
@@ -50,7 +49,7 @@
                 %>
 
                 <! ------------------------------------------------------------------->
-                
+
                 <!--   mostra formulario para atualizacao                           -->
                 <%     if (action.equals("showEditForm")) {
                         EstacionamentoDO estacionamento = new EstacionamentoDO();
@@ -61,15 +60,15 @@
                         //usuario = tn_u.buscar(usuario_ID);
                         estacionamento = tn_e.buscarPorUsuarioID(usuario_ID);
                 %>        
-                <form  id="contentRight" action="./Cliente_alterarReserva.jsp" method="post">
+                <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
                     <table>
                         <tr>
                             <td>Nome</td>
-                            <td><input type="date" name="nome" value=<%= estacionamento.getNome()%> />
+                            <td><input type="text" name="nome" value=<%= estacionamento.getNome()%> />
                         </tr>
                         <tr>
                             <td>Endereço</td>
-                            <td><input type="date" name="endereco" value=<%=estacionamento.getEndereco()%> />
+                            <td><input type="text" name="endereco" value=<%=estacionamento.getEndereco()%> />
                         </tr>
                         <tr>
                             <td>Vagas</td>
@@ -92,14 +91,15 @@
                             <td><input type="text" name="cep" value=<%=estacionamento.getCEP()%> />
                         </tr>
                         <tr>
-                            <td>CEP</td>
-                            <td><input type="file" name="convenio" value="<%=estacionamento.getDocumento_Do_Convenio()%>" width="15" /> />
+                            <td>Documento do convênio</td>
+                            <td><input type="file" name="convenio" value="<%=estacionamento.getDocumento_Do_Convenio()%>" width="15" />
                         </tr>
                     </table>
                     <input type="submit" name="atualizar" value="atualizar" />
-                    <input type="hidden" name="id" value=<%=estacionamento.getUsuario_Id()%> /> 
+                    <input type="hidden" name="id" value=<%=estacionamento.getId()%> /> 
+                    <input type="hidden" name="usuarioid" value=<%=estacionamento.getUsuario_Id()%> /> 
                     <input type="hidden" name="action" value="updateValues" />
-                    <form action="./Cliente_alterarReserva.jsp" method="post">
+                    <form action="./Estacionamento_alterarDados.jsp" method="post">
                         <input type="submit" name="voltar" value="Voltar" />
                     </form>
                 </form>
@@ -119,10 +119,10 @@
                         String horarioDeFuncionamento = request.getParameter("horarioDeFuncionamento");
                         String telefone = request.getParameter("telefone");
                         String cep = request.getParameter("cep");
-                       
+
                         Estacionamento tn_e = new Estacionamento();
                         EstacionamentoDO estacionamento = new EstacionamentoDO();
-                       
+
                         estacionamento.setNome(nome);
                         estacionamento.setEndereco(endereco);
                         estacionamento.setVagas(vagas);
@@ -131,7 +131,8 @@
                         estacionamento.setHorario_De_Funcionamento(horarioDeFuncionamento);
                         estacionamento.setTelefone(telefone);
                         estacionamento.setCEP(cep);
-                        
+                        estacionamento.setId(Integer.parseInt(request.getParameter("id")));
+                        estacionamento.setUsuario_Id(Integer.parseInt(request.getParameter("usuarioid")));
                         boolean result = false;
                         try {
                             result = tn_e.atualizar(estacionamento);
@@ -149,12 +150,12 @@
                 <%     } else {
                 %>
                 Erro ao atualizar dados.
-                <form  id="contentRight" action="./Estacionamento_alterarReserva.jsp" method="post">
+                <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
                     } // updateValues
-                %>
+%>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>
             </div>
