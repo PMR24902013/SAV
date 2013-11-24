@@ -21,7 +21,6 @@
                         
                         <br>
                         <a href="Veiculo_remover.jsp">Remover veículo</a>  
-                    
                     </h1></div>
                 <div id="contentLeft"></div>
             </div>

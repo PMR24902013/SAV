@@ -32,10 +32,10 @@
                 <%
                     String action = request.getParameter("action");
                     if (null == action) {
-                        action = "showSearchForm";
+                        action = "./Veiculo_remover.jsp";
                 %>
 
-                <form id="contentRight" action="./Veiculo_remover.jsp" method="post">
+                <form id="contentRight" action="Veiculo_remover.jsp" method="post">
                     <%
                         // VERIFICACAO MANUAL DO LOGIN
                         if (session.getAttribute("user_name") == null) {
@@ -50,7 +50,7 @@
                         if (((veiculos == null) || (veiculos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="./OperadorSistema_administrarVeiculos.jsp" method="post">
+                    <form id="contentRight" action="Veiculo_remover.jsp" method="post">
                         Nenhum veículo pode ser excluído do sistema.
                         <input type="submit" name="voltar" value="Voltar" />
                     </form>
@@ -108,13 +108,13 @@
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
-                <form id="contentRight" action="./OperadorSistema_administrarVeiculos.jsp" method="post">
+                <form id="contentRight" action="Veiculo_remover.jsp" method="post">
                     Veículo excluído
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
-                <form id="contentRight" action="./OperadorSistema_administrarVeiculos.jsp" method="post">
+                <form id="contentRight" action="Veiculo_remover.jsp" method="post">
                     Erro ao excluir veículo
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
