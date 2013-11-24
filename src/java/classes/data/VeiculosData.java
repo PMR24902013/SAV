@@ -8,19 +8,20 @@ public class VeiculosData {
     
     public void incluir(VeiculosDO veiculo, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Veiculos (ModeloID, Quilometragem, Ar_Condicionado"
+        String sql = "insert into Veiculos (Modelo_ID, Estacionamento_ID, Quilometragem, Ar_Condicionado,"
                 + "Direcao_Hidraulica, Freio_ABS, GPS, Cambio_Automatico, Estado, Placa)"
                 + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, veiculo.getModeloID());
-        ps.setInt(2, veiculo.getQuilometragem());
-        ps.setBoolean(3, veiculo.getArCondicionado());
-        ps.setBoolean(4, veiculo.getDirecaoHidraulica());
-        ps.setBoolean(5, veiculo.getFreioABS());
-        ps.setBoolean(6, veiculo.getGPS());
-        ps.setBoolean(7, veiculo.getCambioAutomatico());
-        ps.setString(8, veiculo.getEstado());
-        ps.setString(9, veiculo.getPlaca());
+        ps.setInt(2, veiculo.getEstacionamentoID());
+        ps.setInt(3, veiculo.getQuilometragem());
+        ps.setBoolean(4, veiculo.getArCondicionado());
+        ps.setBoolean(5, veiculo.getDirecaoHidraulica());
+        ps.setBoolean(6, veiculo.getFreioABS());
+        ps.setBoolean(7, veiculo.getGPS());
+        ps.setBoolean(8, veiculo.getCambioAutomatico());
+        ps.setString(9, veiculo.getEstado());
+        ps.setString(10, veiculo.getPlaca());
         int result = ps.executeUpdate();
     } // incluir
     
@@ -79,7 +80,7 @@ public class VeiculosData {
         Connection con = tr.obterConexao();
         String sql = "select * from Veiculos where Placa=?";
         PreparedStatement ps = con.prepareStatement (sql);
-        ps.setString(12, placa);
+        ps.setString(1, placa);
         ResultSet rs = ps.executeQuery();
         
         return rs.next();
