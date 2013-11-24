@@ -3,6 +3,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Vector" %>
+<%@ page import="classes.transacoes.*" %>
+<%@ page import="classes.data.*" %>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +18,81 @@
         <div id="base">
             <div id ="cima"></div>
             <div id="tudo">
+                
+                <%
+                    boolean direcao = false;
+                    boolean ar = false;
+                    boolean freio = false;
+                    boolean GPS = false;
+                    boolean cambio = false;
+                    
+                    if ( null != request.getParameter("incluir")){
+                        String marca = request.getParameter("marca");
+                        String modelo = request.getParameter("modelo");
+                        String ano = request.getParameter("ano");
+                        String placa = request.getParameter("placa");
+                        String quilometragem = request.getParameter("quilometragem");
+                        String manutencao = request.getParameter("manutencao");
+                        String motivo = request.getParameter("motivo");
+                        
+                        if (request.getParameter("direcao") != null){
+                            direcao = true;
+                        }
+                        if (request.getParameter("ar") != null){
+                            ar = true;
+                        }
+                        if (request.getParameter("freio") != null){
+                            freio = true;
+                        }
+                        if (request.getParameter("GPS") != null){
+                            GPS = true;
+                        }
+                        if (request.getParameter("cambio") != null){
+                            cambio = true;
+                        }
+                        
+                        VeiculosDO veiculo = new VeiculosDO();
+                        Veiculos v = new Veiculos();
+                       
+                        if (v.isEmpty(placa) || v.isEmpty(quilometragem)  ){
+                            %>
+                            
+                            Favor preencher todos os campos!
+                            
+                            <form action="Veiculo_cadastrar.jsp" method="post">
+                            <input type="submit" name="confirmar" value="Confirmar" />
+                            </form>
+                            
+                            <%
+                        }
+                        
+                        if (!v.jaExiste(placa)){
+                            %>
+                            Veiculo ja cadastrado!
+                            
+                            <form action="Veiculo_cadastrar.jsp" method="post">
+                            <input type="submit" name="confirmar" value="Confirmar" />
+                            </form>
+                                    <%
+                        }
+                        
+                        veiculo.setId(1);
+                        veiculo.setArCondicionado(ar);
+                        veiculo.setCambioAutomatico(cambio);
+                        veiculo.setDirecaoHidraulica(direcao);
+                        veiculo.setEstado("Disponivel");
+                        veiculo.setFreioABS(freio);
+                        veiculo.setGPS(GPS);
+                        veiculo.setModeloID(1);
+                        veiculo.setPlaca(placa);
+                        veiculo.setQuilometragem(Integer.parseInt(quilometragem));
+                        
+                        
+                    }
+                %>
                 <h1>
+                    
+                    <form id ="content" action ="Veiculo_cadastrar.jsp" method ="post">
                         <table border="0">
                         <thead>
                             <tr>
@@ -25,7 +103,7 @@
                         <tbody>
                             <tr>
                                 <td>*Modelo do carro:   </td>
-                                <td><input type="text" name="marca" value="" size="15" /></td>
+                                <td><input type="text" name="modelo" value="" size="15" /></td>
                             </tr>
                             <tr>
                                 <td>*Ano do carro:  </td>
@@ -54,29 +132,29 @@
                             </tr>
                             
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="direcao" /> Direção hidráulica</td>                                
+                                <td><input type="checkbox" name="direcao" value="direcao" /> Direção hidráulica</td>                                
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="ar" /> Ar condicionado</td>                                
+                                <td><input type="checkbox" name="ar" value="ar" /> Ar condicionado</td>                                
                                 <td></td>                                
                             </tr>
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="freio"/>  Freio ABS</td>                                
+                                <td><input type="checkbox" name="freio" value="freio"/>  Freio ABS</td>                                
                                 <td></td>                                
                             </tr>
                             
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="GPS"/>    GPS</td>                                
+                                <td><input type="checkbox" name="GPS" value="GPS"/>    GPS</td>                                
                                 <td></td>                                
                             </tr>
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="cambio"/> Câmbio Automático</td>                                
+                                <td><input type="checkbox" name="cambio" value="cambio"/> Câmbio Automático</td>                                
                                 <td></td>                                
                             </tr>
                             <tr>
-                                <td><input type="checkbox" name="perifericos" value="outros"/> Outros</td>                                
-                                <td><textarea name="outros" rows="4" cols="20">
+                                <td><input type="checkbox" name="outros" value="outros"/> Outros</td>                                
+                                <td><textarea name="texto_outros" rows="4" cols="20">
                                     </textarea></td>                                
                             </tr>
                             
@@ -95,7 +173,7 @@
                             
                         </tbody>
                     </table>
-
+                    </form>
                     
                 </h1>
             </div>
