@@ -11,22 +11,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Cadastrar veiculo</title>
         <%@ include file="header.html" %>
     </head>
     <body>
         <div id="base">
             <div id ="cima"></div>
-            <div id="tudo">
+
                 
                 <%
+                           
+                    if (null != request.getParameter("confirmar")){
+                        
                     boolean direcao = false;
                     boolean ar = false;
                     boolean freio = false;
                     boolean GPS = false;
                     boolean cambio = false;
-                    
-                    if ( null != request.getParameter("incluir")){
+                        
                         String marca = request.getParameter("marca");
                         String modelo = request.getParameter("modelo");
                         String ano = request.getParameter("ano");
@@ -54,11 +56,11 @@
                         VeiculosDO veiculo = new VeiculosDO();
                         Veiculos v = new Veiculos();
                        
-                        if (v.isEmpty(placa) || v.isEmpty(quilometragem)  ){
+                        if (v.isEmpty(placa) || v.isEmpty(quilometragem)  ){    
                             %>
                             
-                            Favor preencher todos os campos!
-                            
+                        Favor preencher todos os campos!
+                          
                             <form action="Veiculo_cadastrar.jsp" method="post">
                             <input type="submit" name="confirmar" value="Confirmar" />
                             </form>
@@ -66,13 +68,14 @@
                             <%
                         }
                         
-                        if (!v.jaExiste(placa)){
+                        if (!v.jaExiste(placa)){    
                             %>
-                            Veiculo ja cadastrado!
+                       Veiculo ja cadastrado!
                             
                             <form action="Veiculo_cadastrar.jsp" method="post">
                             <input type="submit" name="confirmar" value="Confirmar" />
                             </form>
+         
                                     <%
                         }
                         
@@ -88,7 +91,7 @@
                         veiculo.setQuilometragem(Integer.parseInt(quilometragem));
                         
                         
-                    }
+                    }   
                 %>
                 <h1>
                     
@@ -160,7 +163,7 @@
                             
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="Confirmar" name="confirmar" />  <input type="submit" value="Cancelar" name="cancelar" /></td>
+                                <td><input type="submit" name="confirmar" value="Confirmar"/>  <input type="submit" value="Cancelar" name="cancelar" /></td>
                             </tr>
                             <tr>
                                 <td>*CRLV do veículo:   </td>
@@ -177,6 +180,6 @@
                     
                 </h1>
             </div>
-        </div>
+  
     </body>
 </html>
