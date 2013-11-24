@@ -22,6 +22,7 @@
             <!--   se for o request inicial, mostrar somente o formulario -->
 
             <%     if (null == request.getParameterValues("incluir")) {
+                    
             %>
             <form id="content" action="./Motorista_cadastrarDados.jsp" method="post">
                 <b>Informações de cadastro</b>
@@ -48,60 +49,67 @@
                     </tr>
                     <tr>
                         <td><input type="submit" name="incluir" value="Finalizar cadastro" /></td>
-                
-            </form>
-            <form action="./index.html" method="post">
-                <td><input type="submit" name="cancelar" value="Cancelar" /></td>
-            </form>
-        </tr>
-    </table>
 
-    <%      } else {
-    %>
-    <! ------------------------------------------------------------------->
-    <!--   se nao for o request inicial, acionar a transacao de negocio -->
-    <%
-        String user = (String) session.getAttribute("user_name");
-        Usuarios tu = new Usuarios();
+                        </form>
+                    <form action="./index.html" method="post">
+                        <td><input type="submit" name="cancelar" value="Cancelar" /></td>
+                    </form>
+                    </tr>
+                </table>
 
-        Vector buscaUser = tu.pesquisar(user);
-        UsuariosDO userCriado = new UsuariosDO();
-        userCriado = (UsuariosDO) buscaUser.get(0);
+                <%      } else {
+                %>
+                <! ------------------------------------------------------------------->
+                <!--   se nao for o request inicial, acionar a transacao de negocio -->
+                <%
+                    String user = (String) session.getAttribute("user_name");
+                    String passwd = (String) session.getAttribute("passwd");
+                    Usuarios tu = new Usuarios();
+                    UsuariosDO musuario = new UsuariosDO();
+                // cria um novo usuario
+                    musuario.setLogin(user);
+                    musuario.setSenha(passwd);
+                    musuario.setTipo("Motorista");
+                    tu.incluir(musuario);
+                    
+//                    Vector buscaUser = tu.pesquisar(user);
+//                    UsuariosDO userCriado = new UsuariosDO();
+//                    userCriado = (UsuariosDO) buscaUser.get(0);
 
-        String nome = request.getParameter("nome");
-        String cpf = request.getParameter("CPF");
-        String email = request.getParameter("Email");
-        String endereco = request.getParameter("Endereco");
-        String telefone = request.getParameter("telefone");
-        
-        Funcionario tn = new Funcionario();
-        FuncionarioDO funcionario = new FuncionarioDO();
-        
-        funcionario.setNome(nome);
-        funcionario.setCPF(cpf);
-        funcionario.setEmail(email);
-        funcionario.setEndereco(endereco);
-        funcionario.setTelefone(telefone);
-        funcionario.setEstado("Aguardando");
-        funcionario.setCategoria("Motorista");
-        funcionario.setId(userCriado.getId());
-        if (tn.incluir(funcionario)) {
-            // avisar usuario que transacao foi feita com sucesso
-    %>
-    Transação realizada com sucesso!
-    <form action="./index.html" method="post">
-        <input type="submit" name="voltar" value="Voltar" />
-    </form>
-    <%     } else {
-        tu.excluir(userCriado);
-    %>
-    Erro ao incluir usuário! Preencha os campos corretamente.            
-    <form action="./Motorista_cadastrarDados.jsp" method="post">
-        <input type="submit" name="retry" value="Repetir" />
-    </form>
-    <%     }
-        }
-    %>
-</div>
-</body>
+                    String nome = request.getParameter("nome");
+                    String cpf = request.getParameter("CPF");
+                    String email = request.getParameter("Email");
+                    String endereco = request.getParameter("Endereco");
+                    String telefone = request.getParameter("telefone");
+
+                    Funcionario tn = new Funcionario();
+                    FuncionarioDO funcionario = new FuncionarioDO();
+
+                    funcionario.setNome(nome);
+                    funcionario.setCPF(cpf);
+                    funcionario.setEmail(email);
+                    funcionario.setEndereco(endereco);
+                    funcionario.setTelefone(telefone);
+                    funcionario.setEstado("Aguardando");
+                    funcionario.setCategoria("Motorista");
+                    funcionario.setId(musuario.getId());
+                    if (tn.incluir(funcionario)) {
+                        // avisar usuario que transacao foi feita com sucesso
+                %>
+                Transação realizada com sucesso!
+                <form action="./index.html" method="post">
+                    <input type="submit" name="voltar" value="Voltar" />
+                </form>
+                <%     } else {
+                   // tu.excluir(userCriado);
+                %>
+                Erro ao incluir usuário! Preencha os campos corretamente.            
+                <form action="./Motorista_cadastrarDados.jsp" method="post">
+                    <input type="submit" name="retry" value="Repetir" />
+                </form>
+                <%     }
+                    }
+                %>
+        </div>
+    </body>
 </html>
