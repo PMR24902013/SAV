@@ -33,8 +33,18 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
         <div id="base">
             <div id ="cima"></div>
             <form id="content" method="post" action=Posto_cadastrarLogin.jsp>
-                login <input type="text" name="login" />
-                senha <input type="password" name="senha" />
+               <b>Informações de login</b>
+                <table>
+                <tr>
+                    <td>login </td><td> <input type="text" name="login" /> </td>
+                </tr>
+                <tr>
+                <td>Senha </td><td> <input type="password" name="senha" /> </td>
+                </tr>
+                <tr>
+                <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
+                </tr>
+                </table>
                 <input type="submit" name="enviar" value="Enviar" />
                 <input type="hidden" name="campo_controle" />
                 <input type="submit" name="Cancelar" value="Cancelar" />
@@ -51,12 +61,14 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
                     String user = request.getParameter("login");
                     // senha a ser criada
                     String passwd = request.getParameter("senha");
+                    // senha a ser criada
+                    String passwd2 = request.getParameter("senha2");
                     // metodo verifica se jah existe tal login
                     classes.transacoes.Usuarios tn = new classes.transacoes.Usuarios();
                     Vector usuarios = tn.pesquisar(user);
                    //se                                                 
                     Posto p = new Posto();
-                    if ((usuarios != null) && (usuarios.size() > 0) || p.isEmpty(passwd) || p.isEmpty(user)) {
+                    if ((usuarios != null) && (usuarios.size() > 0) || p.isEmpty(passwd) || p.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
             login ou senha inválida
             <form action="Posto_cadastrarLogin.jsp" method="post">
