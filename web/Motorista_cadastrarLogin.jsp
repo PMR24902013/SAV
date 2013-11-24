@@ -18,32 +18,31 @@
             <%@ page import="java.text.*" %>
             <%@page import="classes.transacoes.*"  %>
             <%@page import="classes.data.*" %>
-            <form id="content" method="post" action=Motorista_cadastrarLogin.jsp>
+            <form id="content" method="post" action=./Motorista_cadastrarLogin.jsp>
                 <b>Informações de login</b>
                 <table>
-                <tr>
-                    <td>login </td><td> <input type="text" name="login" /> </td>
-                </tr>
-                <tr>
-                <td>Senha </td><td> <input type="password" name="senha" /> </td>
-                </tr>
-                <tr>
-                <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
-                </tr>
+                    <tr>
+                        <td>login </td><td> <input type="text" name="login" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Senha </td><td> <input type="password" name="senha" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
+                    </tr>
                 </table>
                 <input type="submit" name="enviar" value="Enviar" />
-                <input type="hidden" name="campo_controle" />
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form>
 
             <!--    "Cancelar"  volta pro inicio -->
             <%     if (null != request.getParameter("Cancelar")) {
-            %>        <jsp:forward page="index.html" />
+            %>        <jsp:forward page="./index.html" />
             <%        return;
                 }
             %>
             <%
-                if (request.getParameter("campo_controle") != null) {
+                if (request.getParameter("enviar") != null) {
                     // login a ser criado  
                     String user = request.getParameter("login");
                     // senha a ser criada
@@ -58,23 +57,22 @@
                     if (m.isEmpty(passwd) || m.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
             Login ou senha inválida
-            <form action="Motorista_cadastrarLogin.jsp" method="post">
+            <form action="./Motorista_cadastrarLogin.jsp" method="post">
                 <input type="submit" name="Voltar" value="Voltar" />
             </form>
-            <%	   }
-                    else if ((usuarios != null) && (usuarios.size() > 0)) {
+            <%	   } else if ((usuarios != null) && (usuarios.size() > 0)) {
             %>
             Usuário já cadastrado
-            <form action="Motorista_cadastrarLogin.jsp" method="post">
+            <form action="./Motorista_cadastrarLogin.jsp" method="post">
                 <input type="submit" name="Voltar" value="Voltar" />
             </form>
             <%        } else {
-                UsuariosDO pusuario = new UsuariosDO();
+                UsuariosDO musuario = new UsuariosDO();
                 // cria um novo usuario
-                pusuario.setLogin(user);
-                pusuario.setSenha(passwd);
-                pusuario.setTipo("Motorista");
-                tn.incluir(pusuario);
+                musuario.setLogin(user);
+                musuario.setSenha(passwd);
+                musuario.setTipo("Motorista");
+                tn.incluir(musuario);
                 session.setAttribute("user_name", user);
             %>
             <jsp:forward page="Motorista_cadastrarDados.jsp" />
