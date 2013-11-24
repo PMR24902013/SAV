@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastrar dados do posto</title>
+        <title>Cadastrar dados do cliente</title>
         <%@ include file="header.html" %>
     </head>
     <body>
