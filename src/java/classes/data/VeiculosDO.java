@@ -14,6 +14,7 @@ public class VeiculosDO {
     private boolean _cambioAutomatico;
     private String _estado;
     private String _placa;
+            
     private int _modeloID;
     
     public int getId() {
@@ -95,4 +96,5 @@ public class VeiculosDO {
     public void setModeloID(int modeloID){
         _modeloID = modeloID;
     } // setModeloID
+      
 }

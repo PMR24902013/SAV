@@ -74,4 +74,15 @@ public class VeiculosData {
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         return veiculo;
     } // buscar
+    
+    public boolean jaExiste(String placa, Transacao tr) throws Exception{
+        Connection con = tr.obterConexao();
+        String sql = "select * from Veiculos where Placa=?";
+        PreparedStatement ps = con.prepareStatement (sql);
+        ps.setString(12, placa);
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+                
+    }
 }

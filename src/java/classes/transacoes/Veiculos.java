@@ -87,17 +87,32 @@ public class Veiculos {
 	 }
 	 return null;
   } // buscar
+  
+  public boolean jaExiste(String placa) throws Exception{
+      Transacao tr = new Transacao();
+        try{
+            tr.beginReadOnly();
+            VeiculosData cdata = new VeiculosData();
+            return cdata.jaExiste(placa, tr);
+        }
+        catch (Exception e){
+            tr.rollback();
+            System.out.println("erro ao buscar");
+            e.printStackTrace();
+        }
+        return false;
+  }
 
-
- /* public Vector pesquisar(String placa) {
+/*
+     public Vector pesquisar(String placa) {
      if ( isEmpty(placa) )
         return null;
 
      Transacao tr = new Transacao();
      try {
 	     tr.beginReadOnly();
-          VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.buscar(placa, tr);
+           VeiculosData cdata = new VeiculosData();
+           Vector v = cdata.buscar(Integer.parseInt(placa), tr);
            
 		 tr.commit();
 		 return v;
@@ -108,7 +123,7 @@ public class Veiculos {
      return null;
   } // pesquisar
 */
-  private boolean isEmpty(String s) {
+  public boolean isEmpty(String s) {
      if (null == s)
        return true;
      if (s.length() == 0)
