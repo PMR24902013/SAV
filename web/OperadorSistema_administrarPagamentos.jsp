@@ -27,7 +27,6 @@
 
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
-
             <div id="tudo">
 
                 <! ------------------------------------------------------------------->
@@ -137,7 +136,8 @@
                 <%     }
                     } // updateStatusPagamento
 %>
-                <div id="contentLeft"></div>
+              <div id="contentLeft"></div>
+              <div class="clear"> </div>
             </div>
         </div>
     </body>
