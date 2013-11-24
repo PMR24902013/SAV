@@ -16,15 +16,15 @@ public class ModelosData {
         int result = ps.executeUpdate();
     }
 
-    public void excluir (int idobj, Transacao tr) throws Exception {
+    public void excluir(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "delete from Modelos where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        String id = ""+idobj;
+        String id = "" + idobj;
         ps.setString(1, id);
         int result = ps.executeUpdate();
     } // excluir
-  
+
     public void excluir(ModelosDO modelo, Transacao tr) throws Exception {
         excluir(modelo.getId(), tr);
     } // excluir
@@ -63,7 +63,7 @@ public class ModelosData {
         System.out.println("query executada");
         Vector modelo = new Vector();
         while (rs.next()) {
-            ModelosDO m = new ModelosDO(); 
+            ModelosDO m = new ModelosDO();
             m.setId(rs.getInt("ID"));
             m.setModelo(rs.getString("Modelo"));
             m.setMarca(rs.getString("Marca"));
@@ -72,5 +72,21 @@ public class ModelosData {
         }
         return modelo;
     } // pesquisarTodos
+
+    public ModelosDO pesquisarModelo(Transacao tr, int ModeloID) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from modelos where ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, ModeloID);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        System.out.println("query executada");
+        ModelosDO modelo = new ModelosDO();
+        modelo.setId(rs.getInt("ID"));
+        modelo.setModelo(rs.getString("Modelo"));
+        modelo.setMarca(rs.getString("Marca"));
+        modelo.setAno(rs.getInt("Ano"));
+        return modelo;
+    } // pesquisarModelos
 
 } // ContatoData

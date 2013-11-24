@@ -76,6 +76,31 @@ public class VeiculosData {
         return veiculo;
     } // buscar
     
+    public Vector buscarPorEstado(String estado, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from veiculos where Estado=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, estado);
+        ResultSet rs = ps.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            VeiculosDO veiculo = new VeiculosDO();
+            veiculo.setId(rs.getInt("id"));
+            veiculo.setQuilometragem(rs.getInt("quilometragem"));
+            veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
+            veiculo.setDirecaoHidraulica(rs.getBoolean("Direcao_Hidraulica"));
+            veiculo.setFreioABS(rs.getBoolean("Freio_ABS"));
+            veiculo.setGPS(rs.getBoolean("GPS"));
+            veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
+            veiculo.setEstado(rs.getString("Estado"));
+            veiculo.setPlaca(rs.getString("Placa"));
+            veiculo.setModeloID(rs.getInt("Modelo_ID"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+            v.add(veiculo);
+        }
+        return v;
+    } // buscar
+    
     public boolean jaExiste(String placa, Transacao tr) throws Exception{
         Connection con = tr.obterConexao();
         String sql = "select * from Veiculos where Placa=?";
