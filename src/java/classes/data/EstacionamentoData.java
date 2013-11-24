@@ -97,6 +97,13 @@ public class EstacionamentoData {
         e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
         e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
         e.setTelefone(rs.getString("Telefone"));
+        e.setCEP(rs.getString("CEP"));
+        System.out.println(e.getNome());
+        System.out.println(e.getEndereco());
+        System.out.println(e.getVagas());
+        System.out.println(e.getHorario_De_Funcionamento());
+        System.out.println(e.getCEP());
+        System.out.println(rs.getString("Documento_do_Convenio"));
         return e;
     } // buscar
 

@@ -59,36 +59,41 @@
                         int usuario_ID = tn_u.buscarID((String) session.getAttribute("user_name"));
                         //usuario = tn_u.buscar(usuario_ID);
                         estacionamento = tn_e.buscarPorUsuarioID(usuario_ID);
+                        System.out.println(estacionamento.getNome());
+                        System.out.println(estacionamento.getEndereco());
+                        System.out.println(estacionamento.getVagas());
+                        System.out.println(estacionamento.getHorario_De_Funcionamento());
+                        System.out.println(estacionamento.getCEP());
                 %>        
                 <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
                     <table>
                         <tr>
                             <td>Nome</td>
-                            <td><input type="text" name="nome" value=<%= estacionamento.getNome()%> />
+                            <td><input type="text" name="nome" value="<%= estacionamento.getNome()%>" />
                         </tr>
                         <tr>
                             <td>Endereço</td>
-                            <td><input type="text" name="endereco" value=<%=estacionamento.getEndereco()%> />
+                            <td><input type="text" name="endereco" value="<%=estacionamento.getEndereco()%>" />
                         </tr>
                         <tr>
                             <td>Vagas</td>
-                            <td><input type="text" name="vagas" value=<%=estacionamento.getVagas()%> />
+                            <td><input type="text" name="vagas" value="<%=estacionamento.getVagas()%>" />
                         </tr>
                         <tr>
                             <td>Nome do responsável</td>
-                            <td><input type="text" name="nomeDoResponsavel" value=<%=estacionamento.getNome_Do_Responsavel()%> />
+                            <td><input type="text" name="nomeDoResponsavel" value="<%=estacionamento.getNome_Do_Responsavel()%>" />
                         </tr>
                         <tr>
                             <td>Horário de Funcionamento</td>
-                            <td><input type="text" name="horarioDeFuncionamento" value=<%=estacionamento.getHorario_De_Funcionamento()%> />
+                            <td><input type="text" name="horarioDeFuncionamento" value="<%=estacionamento.getHorario_De_Funcionamento()%>" />
                         </tr>
                         <tr>
                             <td>Telefone</td>
-                            <td><input type="text" name="telefone" value=<%=estacionamento.getTelefone()%> />
+                            <td><input type="text" name="telefone" value="<%=estacionamento.getTelefone()%>" />
                         </tr>
                         <tr>
                             <td>CEP</td>
-                            <td><input type="text" name="cep" value=<%=estacionamento.getCEP()%> />
+                            <td><input type="text" name="cep" value="<%=estacionamento.getCEP()%>" />
                         </tr>
                         <tr>
                             <td>Documento do convênio</td>
@@ -121,21 +126,27 @@
                         String cep = request.getParameter("cep");
 
                         Estacionamento tn_e = new Estacionamento();
-                        EstacionamentoDO estacionamento = new EstacionamentoDO();
+                        EstacionamentoDO estac = new EstacionamentoDO();
 
-                        estacionamento.setNome(nome);
-                        estacionamento.setEndereco(endereco);
-                        estacionamento.setVagas(vagas);
-                        estacionamento.setNome_Do_Responsavel(nomeDoResponsavel);
-                        estacionamento.setDocumento_Do_Convenio(convenio);
-                        estacionamento.setHorario_De_Funcionamento(horarioDeFuncionamento);
-                        estacionamento.setTelefone(telefone);
-                        estacionamento.setCEP(cep);
-                        estacionamento.setId(Integer.parseInt(request.getParameter("id")));
-                        estacionamento.setUsuario_Id(Integer.parseInt(request.getParameter("usuarioid")));
+                        estac.setNome(nome);
+                        estac.setEndereco(endereco);
+                        estac.setVagas(vagas);
+                        estac.setNome_Do_Responsavel(nomeDoResponsavel);
+                        estac.setDocumento_Do_Convenio(convenio);
+                        if (convenio == null) {
+                            estac.setDocumento_Do_Convenio(
+                                    tn_e.buscar(
+                                            Integer.parseInt(
+                                                    request.getParameter("id"))).getDocumento_Do_Convenio());
+                        }
+                        estac.setHorario_De_Funcionamento(horarioDeFuncionamento);
+                        estac.setTelefone(telefone);
+                        estac.setCEP(cep);
+                        estac.setId(Integer.parseInt(request.getParameter("id")));
+                        estac.setUsuario_Id(Integer.parseInt(request.getParameter("usuarioid")));
                         boolean result = false;
                         try {
-                            result = tn_e.atualizar(estacionamento);
+                            result = tn_e.atualizar(estac);
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
                 <%
