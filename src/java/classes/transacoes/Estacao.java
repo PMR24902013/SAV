@@ -149,6 +149,21 @@ public boolean atualizarCadastro(int id, String Estado) throws Exception {
         return null;
     } // pesquisarCadastro
   
+  public Vector pesquisarEstacao() {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            EstacionamentoData edata = new EstacionamentoData();
+            Vector v = edata.pesquisarEstacao(tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar cadastro");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarCadastro
+  
   public boolean isEmpty(String s) {
      if (null == s)
        return true;

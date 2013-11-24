@@ -125,13 +125,36 @@ public class EstacionamentoData {
             e.setTipo(rs.getBoolean("Tipo"));
             e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
             e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
-            e.setHorario_De_Funcionamento(rs.getString("Horairo_de_Funcionamento"));
+            e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
             e.setTelefone(rs.getString("Telefone"));
             estacionamentos.add(e);
         }
         return estacionamentos;
     } // pesquisarPorNome
-
+    public Vector pesquisarEstacao(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Estacionamento where Tipo= ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, 0);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector estacionamentos = new Vector();
+        while (rs.next()) {
+            EstacionamentoDO e = new EstacionamentoDO();
+            e.setId(rs.getInt("ID"));
+            e.setNome(rs.getString("Nome"));
+            System.out.println(" got " + e.getNome());
+            e.setEndereco(rs.getString("Endereco"));
+            e.setVagas(rs.getInt("Vagas"));
+            e.setTipo(rs.getBoolean("Tipo"));
+            e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
+            e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
+            e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
+            e.setTelefone(rs.getString("Telefone"));
+            estacionamentos.add(e);
+        }
+        return estacionamentos;
+    } // pesquisarPorNome
     public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where Estado =?";
