@@ -67,13 +67,15 @@
                 <input type="submit" name="Voltar" value="Voltar" />
             </form>
             <%        } else {
-                UsuariosDO musuario = new UsuariosDO();
-                // cria um novo usuario
-                musuario.setLogin(user);
-                musuario.setSenha(passwd);
-                musuario.setTipo("Motorista");
-                tn.incluir(musuario);
+//                UsuariosDO musuario = new UsuariosDO();
+//                // cria um novo usuario
+//                musuario.setLogin(user);
+//                musuario.setSenha(passwd);
+//                musuario.setTipo("Motorista");
+//                tn.incluir(musuario);
                 session.setAttribute("user_name", user);
+                session.setAttribute("passwd", passwd);
+                
             %>
             <jsp:forward page="Motorista_cadastrarDados.jsp" />
             <%                   }
