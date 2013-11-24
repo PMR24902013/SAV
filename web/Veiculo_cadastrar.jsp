@@ -5,9 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.Vector" %>
-<%@ page import="classes.transacoes.*" %>
-<%@ page import="classes.data.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +14,12 @@
         <%@include file="headerOpSistema.html"%>
     </head>
     <body>
+        <%@ page import="java.util.Vector" %>
+        <%@ page import="classes.transacoes.*" %>
+        <%@ page import="classes.data.*" %>
         <div id="base">
-            <div id ="cima"></div> <%
+            <div id ="cima"><div id = "logo"></div></div>
+            <div id="tudo"><%
                     
                     if (null != request.getParameter("voltar")) {
             %>        <jsp:forward page="OperadorSistema_administrarVeiculos.jsp" />
@@ -166,6 +168,6 @@
                     </form>
                    
             </div>
-  
+        </div>
     </body>
 </html>
