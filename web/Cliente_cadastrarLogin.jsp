@@ -18,20 +18,20 @@
 
         <div id="base">
             <div id ="cima"></div>
-            <form id="content" method="post" action=Cliente_cadastrarLogin.jsp>
-               <b>Informações de login</b>
+            <p class="titulo">Informações de login</p>
+            <form id="content" style="margin-left: 25%;" method="post" action=Cliente_cadastrarLogin.jsp>
                 <table>
-                <tr>
-                    <td>login </td><td> <input type="text" name="login" /> </td>
-                </tr>
-                <tr>
-                <td>Senha </td><td> <input type="password" name="senha" /> </td>
-                </tr>
-                <tr>
-                <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
-                </tr>
+                    <tr>
+                        <td>Login </td><td> <input type="text" name="login" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Senha </td><td> <input type="password" name="senha" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
+                    </tr>
                 </table>
-                <input type="submit" name="enviar" value="Enviar" />
+                <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
                 <input type="hidden" name="campo_controle" />
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form>
@@ -55,19 +55,12 @@
                     Vector usuarios = tn.pesquisar(user);
                     //se existir avisar usuario
                     Clientes p = new Clientes();
-                    if (p.isEmpty(passwd) || p.isEmpty(user)|| (!passwd.equals(passwd2))) {
+                    if (p.isEmpty(passwd) || p.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
-            login ou senha inválida
-            <form action="Cliente_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
-            <%	   }
-                    else if ((usuarios != null) && (usuarios.size() > 0)) {
+            <p style="text-align: center; color: red;">Login ou senha inválida</p>
+            <%	   } else if ((usuarios != null) && (usuarios.size() > 0)) {
             %>
-            usuário já cadastrado
-            <form action="Cliente_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
+            <p style="text-align: center; color: red;">Usuário já cadastrado</p>
             <%        } else {
                 UsuariosDO pusuario = new UsuariosDO();
                 // cria um novo usuario
