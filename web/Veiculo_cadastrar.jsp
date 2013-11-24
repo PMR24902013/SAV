@@ -17,7 +17,7 @@
         <div id="base">
             <div id ="cima"></div><%
                     
-                    if (null != request.getParameter("cancelar")) {
+                    if (null != request.getParameter("voltar")) {
             %>        <jsp:forward page="OperadorSistema_administrarVeiculos.jsp" />
             <%        return;
                 }
@@ -74,7 +74,11 @@
                         veiculo.setQuilometragem(Integer.parseInt(quilometragem));
                         
                         if(v.incluir(veiculo) == true){
-                            %>Veiculo incluido com sucesso!<%
+                            %>Veiculo incluido com sucesso!
+                            <form id="content" action="OperadorSistema_administrarVeiculos.jsp" method="post">
+                            <input type="submit" name="voltar" value="voltar" />
+                            </form>
+                            <%
                            }
                     }
                         }
@@ -144,7 +148,7 @@
                             </tr>                          
                             <tr>
                                 <td></td>
-                                <td><input type="submit" name="confirmar" value="confirmar"/>  <input type="submit" value="cancelar" name="cancelar" /></td>
+                                <td><input type="submit" name="confirmar" value="confirmar"/>  <input type="submit" value="voltar" name="voltar" /></td>
                             </tr>
                             <tr>
                                 <td>*CRLV do veículo:</td>
