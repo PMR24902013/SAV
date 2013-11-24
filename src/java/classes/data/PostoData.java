@@ -66,11 +66,11 @@ public class PostoData {
      ResultSet rs = ps.executeQuery();
      rs.next();
      PostoDO posto = new PostoDO();
-     posto.setID (rs.getInt("id"));
-      posto.setUsuariosID (rs.getInt("Usuarios_ID"));
-     posto.setNome (rs.getString("nome"));
-     posto.setEndereco (rs.getString("endereco"));
-     posto.setTelefone (rs.getString("telefone"));
+     posto.setID (rs.getInt("ID"));
+     posto.setUsuariosID (rs.getInt("Usuarios_ID"));
+     posto.setNome (rs.getString("Nome"));
+     posto.setEndereco (rs.getString("Endereco"));
+     posto.setTelefone (rs.getString("Telefone"));
      posto.setHorario (rs.getString("Horario_de_Funcionamento"));
      posto.setResponsavel (rs.getString("Responsavel"));
      posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
