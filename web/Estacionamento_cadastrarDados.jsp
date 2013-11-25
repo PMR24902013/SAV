@@ -78,11 +78,8 @@
                 po.incluir(p);
 
             %> 
-            <br>
-            Seus dados foram cadastrados com sucesso!
-
-            <form id="content" action="Cliente_menu.html" method="post">
-
+            <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
+            <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
             <% }
