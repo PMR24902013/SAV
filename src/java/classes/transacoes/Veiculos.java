@@ -191,5 +191,18 @@ public class Veiculos {
       }
   } // main
  
-    
+    public Vector pesquisarTodos() {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            VeiculosData vdata = new VeiculosData();
+            Vector v = vdata.pesquisarTodos(tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar modelos");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarTodos
 }

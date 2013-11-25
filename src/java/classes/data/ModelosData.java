@@ -42,7 +42,7 @@ public class ModelosData {
 
     public ModelosDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Modelos where  ID=?";
+        String sql = "select * from Modelos where  Modelo=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
@@ -53,6 +53,25 @@ public class ModelosData {
         modelo.setMarca(rs.getString("Marca"));
         modelo.setAno(rs.getInt("Ano"));
         return modelo;
+    } // buscar
+    
+    public Vector buscar(String modelo, String ano, Transacao tr) throws Exception{
+        Connection con = tr.obterConexao();
+        String sql = "select * from Modelos where Modelo=? and Ano=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, modelo);
+        ps.setString(2, ano);
+        ResultSet rs = ps.executeQuery();
+        Vector v = new Vector();
+        while(rs.next()){
+            ModelosDO m = new ModelosDO();
+            m.setId(rs.getInt("ID"));
+            m.setModelo(rs.getString("Modelo"));
+            m.setMarca(rs.getString("Marca"));
+            m.setAno(rs.getInt("Ano"));
+            v.add(m);
+        }
+        return v;
     } // buscar
 
     public Vector pesquisarTodos(Transacao tr) throws Exception {

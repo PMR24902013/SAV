@@ -194,8 +194,5 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     }
-    
-
-
 
 } // ContatoData

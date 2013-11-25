@@ -81,6 +81,7 @@ public class VeiculosData {
         veiculo.setGPS(rs.getBoolean("GPS"));
         veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
         veiculo.setEstado(rs.getString("Estado"));
+        veiculo.setPlaca(rs.getString("Placa"));
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         return veiculo;
     } // buscar
@@ -121,15 +122,15 @@ public class VeiculosData {
                 
     }
     
-    public Vector buscarPorEstacionamento(int idobj, Transacao tr) throws Exception {
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Veiculos where  Estacionamento_ID=?";
+        String sql = "select * from Veiculos";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
-        Vector v = new Vector();
-        while(rs.next()){
-            VeiculosDO veiculo = new VeiculosDO();
+        System.out.println("query executada");
+        Vector veiculos = new Vector();
+        while (rs.next()) {
+            VeiculosDO veiculo = new VeiculosDO(); 
             veiculo.setId(rs.getInt("ID"));
             veiculo.setQuilometragem(rs.getInt("Quilometragem"));
             veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
@@ -138,11 +139,10 @@ public class VeiculosData {
             veiculo.setGPS(rs.getBoolean("GPS"));
             veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
             veiculo.setEstado(rs.getString("Estado"));
-            veiculo.setModeloID(rs.getInt("Modelo_ID"));
             veiculo.setPlaca(rs.getString("Placa"));
-            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
-            v.add(veiculo);
+            veiculo.setModeloID(rs.getInt("Modelo_ID"));
+            veiculos.add(veiculo);
         }
-        return v;
-    } // buscar
+        return veiculos;
+    } // pesquisarTodos
 }
