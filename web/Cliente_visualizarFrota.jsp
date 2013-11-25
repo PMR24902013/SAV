@@ -26,7 +26,7 @@
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
             <div id="tudo">
-                <form id="contentRight" action="Cliente_visualizarFrota.jsp" method="post">
+                
             
             <%
             ArrayList <String> modelo = new ArrayList<String>();
