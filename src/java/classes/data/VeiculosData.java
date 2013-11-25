@@ -170,4 +170,25 @@ public class VeiculosData {
         }
         return v;
     } // buscar
+    
+            public VeiculosDO buscarPorVeiculoID(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Veiculos where  Veiculo_ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        VeiculosDO veiculo = new VeiculosDO();
+        veiculo.setId(rs.getInt("ID"));
+        veiculo.setQuilometragem(rs.getInt("Quilometragem"));
+        veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
+        veiculo.setDirecaoHidraulica(rs.getBoolean("Direcao_Hidraulica"));
+        veiculo.setFreioABS(rs.getBoolean("Freio_ABS"));
+        veiculo.setGPS(rs.getBoolean("GPS"));
+        veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
+        veiculo.setEstado(rs.getString("Estado"));
+        veiculo.setPlaca(rs.getString("Placa"));
+        veiculo.setModeloID(rs.getInt("Modelo_ID"));
+        return veiculo;
+    } // buscar
 }

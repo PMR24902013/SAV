@@ -205,4 +205,20 @@ public class Veiculos {
         }
         return null;
     } // pesquisarTodos
+    
+        public VeiculosDO buscarPorVeiculoID(int idobj ) throws Exception {
+     
+     Transacao tr = new Transacao();
+     try {
+	     tr.beginReadOnly();
+           VeiculosData cdata = new VeiculosData();
+           VeiculosDO v = cdata.buscarPorVeiculoID(idobj, tr);
+           	 tr.commit();
+		 return v;
+     } catch(Exception e) {
+         System.out.println("erro ao pesquisar "+idobj );
+         e.printStackTrace();
+     }
+     return null;
+  } // pesquisar
 }
