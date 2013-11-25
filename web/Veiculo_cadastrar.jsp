@@ -35,6 +35,9 @@
                             boolean freio = false;
                             boolean GPS = false;
                             boolean cambio = false;
+                            int modeloId;
+                            int estacionamentoId;
+                            int vagaId;
 
                             String marca = request.getParameter("marca");
                             String modelo = request.getParameter("modelo");
@@ -43,6 +46,8 @@
                             String quilometragem = request.getParameter("quilometragem");
                             String manutencao = request.getParameter("manutencao");
                             String motivo = request.getParameter("motivo");
+                            String estacionamento = request.getParameter("estacionamento");
+                            String numero_vaga = request.getParameter("numero_vaga");
 
                             if (request.getParameter("direcao") != null) {
                                 direcao = true;
@@ -63,19 +68,73 @@
                             VeiculosDO veiculo = new VeiculosDO();
                             classes.transacoes.Veiculos v = new classes.transacoes.Veiculos();
 
-                            if (v.isEmpty(placa) || v.isEmpty(quilometragem)) {
+                            if (v.isEmpty(placa) || v.isEmpty(quilometragem) || v.isEmpty(ano) || v.isEmpty(estacionamento) || v.isEmpty(numero_vaga)) {
                     %>Favor preencher todos os campos!<%
                                 } else {
-                                    veiculo.setId(1);
+                                    //procurando o ID do modelo a partir do ano e do modelo digitados pelo usuario
+                                    Modelos m = new Modelos();
+                                    ModelosDO mod = new ModelosDO();
+                                
+                                    Vector modEncontrados = m.buscar(modelo, ano);
+                                    
+                                    if(modEncontrados.isEmpty()){
+                                        mod.setAno(Integer.parseInt(ano));
+                                        mod.setMarca(marca);
+                                        mod.setModelo(modelo);
+                                        m.incluir(mod);
+                                        modEncontrados = m.buscar(modelo, ano);
+                                        mod = (ModelosDO)modEncontrados.get(0);
+                                        modeloId = mod.getId();
+                                    }
+                                    else{
+                                        mod = (ModelosDO)modEncontrados.get(0);
+                                        modeloId = mod.getId();
+                                    }
+                                    
+                                    //encontrando o ID da vaga do veiculo a partir do estacionamento
+                                    EstacionamentoDO estac = new EstacionamentoDO();
+                                    Estacionamento e = new Estacionamento();
+                                    
+                                    Vector estacEncontrados = e.pesquisar(estacionamento);
+                                    if(estacEncontrados.isEmpty()){
+                                        %>Estacionamento não cadastrado, favor cadastrar...
+                                        <form id="content1" action="OperadorSistema_administrarVeiculos.jsp" method="post">
+                                        <input type="submit" name="voltar" value="voltar" />
+                                        </form><%
+                                    }
+                                    else{
+                                    estac = (EstacionamentoDO)estacEncontrados.get(0);
+                                    estacionamentoId = estac.getId();
+                                
+                                    Vector vaga = new Vector();
+                                    Vaga va = new Vaga();
+                                    vagaDO vaga_do = new vagaDO();
+                                    
+                                    vaga = va.buscarPorNumero(Integer.parseInt(numero_vaga), estacionamentoId);
+                                                                        
+                                    if(vaga.isEmpty()){
+                                        vaga_do.setEstacionamento_id(estacionamentoId);
+                                        vaga_do.setEstado(true);
+                                        vaga_do.setNumero(Integer.parseInt(numero_vaga));
+                                        va.incluir(vaga_do);
+                                        vaga = va.buscarPorNumero(Integer.parseInt(numero_vaga), estacionamentoId);
+                                        vaga_do = (vagaDO)vaga.get(0);
+                                        vagaId = vaga_do.getId();
+                                    }
+                                    else{
+                                        vaga_do = (vagaDO)vaga.get(0);
+                                        vagaId = vaga_do.getId();
+                                    }    
                                     veiculo.setArCondicionado(ar);
                                     veiculo.setCambioAutomatico(cambio);
                                     veiculo.setDirecaoHidraulica(direcao);
                                     veiculo.setEstado("Disponivel");
                                     veiculo.setFreioABS(freio);
                                     veiculo.setGPS(GPS);
-                                    veiculo.setModeloID(1);
+                                    veiculo.setModeloID(modeloId);
                                     veiculo.setPlaca(placa);
                                     veiculo.setQuilometragem(Integer.parseInt(quilometragem));
+                                    veiculo.setVagaID(vagaId);
 
                                     if (v.incluir(veiculo) == true) {
                     %>Veiculo incluido com sucesso!
@@ -84,8 +143,9 @@
                     </form>
                     <%
                                 }
-                            }
-                        }
+                              }
+                             }
+                           }
                     %>                   
                     <form id ="content" action ="Veiculo_cadastrar.jsp" method ="post">
                         <table>
@@ -111,6 +171,14 @@
                                 <tr>
                                     <td>*Quilometragem:</td>
                                     <td><input type="text" name="quilometragem" value="" size="15"/></td>
+                                </tr>
+                                <tr>
+                                    <td>*Estacionamento:</td>
+                                    <td><input type="text" name="estacionamento" value="" size="15"/></td>
+                                </tr>
+                                <tr>
+                                    <td>*Numero da Vaga:</td>
+                                    <td><input type="text" name="numero_vaga" value="" size="15"/></td>
                                 </tr>
                                 <tr>
                                     <td>Última Manutenção em:</td>

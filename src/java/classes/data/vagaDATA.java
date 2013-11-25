@@ -18,12 +18,11 @@ public class vagaDATA {
     
      public void incluir(vagaDO e, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "insert into Vaga (ID, Estacionamento_ID, Estado, Numero) values (?, ?, ?, ?)";
+     String sql = "insert into Vaga (Estacionamento_ID, Estado, Numero) values (?, ?, ?)";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, e.getId());
-     ps.setInt(2, e.getEstacionamento_id());
-     ps.setBoolean(3, e.getEstado());
-     ps.setInt(4, e.getNumero());
+     ps.setInt(1, e.getEstacionamento_id());
+     ps.setBoolean(2, e.getEstado());
+     ps.setInt(3, e.getNumero());
      
      int result = ps.executeUpdate();
   }
@@ -70,6 +69,24 @@ public class vagaDATA {
      return e;
   } // buscar
   
+ public Vector pesquisarPorEstacionamentoId(int numero, int estacionamentoId, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Vaga where Estacionamento_ID=? and Numero=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, estacionamentoId);
+     ps.setInt(2, numero);
+     ResultSet rs = ps.executeQuery();
+     System.out.println("query executada");
+     Vector vagas = new Vector();
+     while (rs.next()) {
+        vagaDO v = new vagaDO();
+        v.setId (rs.getInt("id"));
+        v.setEstacionamento_id(rs.getInt("Estacionamento_ID"));
+        v.setEstado(rs.getBoolean("Estado"));
+        vagas.add(v);
+     }
+     return vagas;
+  } // pesquisarPorLogin
 
 }
 

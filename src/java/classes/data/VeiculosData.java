@@ -9,8 +9,8 @@ public class VeiculosData {
     public void incluir(VeiculosDO veiculo, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "insert into Veiculos (Modelo_ID, Vaga_ID, Cliente_ID, Quilometragem, Ar_Condicionado,"
-                + "Direcao_Hidraulica, Freio_ABS, GPS, Cambio_Automatico, Estado, Placa, Estacionamento_ID)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "Direcao_Hidraulica, Freio_ABS, GPS, Cambio_Automatico, Estado, Placa)"
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, veiculo.getModeloID());
         ps.setInt(2, veiculo.getVagaID());
@@ -23,7 +23,6 @@ public class VeiculosData {
         ps.setBoolean(9, veiculo.getCambioAutomatico());
         ps.setString(10, veiculo.getEstado());
         ps.setString(11, veiculo.getPlaca());
-        ps.setInt(12, veiculo.getEstacionamentoID());
         int result = ps.executeUpdate();
     } // incluir
 
