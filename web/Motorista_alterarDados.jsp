@@ -20,108 +20,147 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.util.Vector" %>
-<%@ page import="classes.transacoes.*" %>
-<%@ page import="classes.data.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Alterar dados Cadastrais</title>
+        <%@ include file="headerMotorista.html" %>
     </head>
     <body>
+        <%@ page import="java.util.Vector" %>
+        <%@ page import="java.util.Date" %>
+        <%@ page import="java.text.*" %>
+        <%@page import="classes.transacoes.*"  %>
+        <%@page import="classes.data.*" %>
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
+                <! ------------------------------------------------------------------->
+                <!--   se for o request inicial, mostrar somente o formulario de pesquisa -->
 
+                <%
+                    String action = request.getParameter("action");
+                    if (null == action) {
+                        action = "showEditForm";
+                %>
             <div id="tudo">
-
-                <form id="contentRight" action="Motorista_alterarDados.jsp" method="post">
+                
+                <form  id="contentRight" action="./Motorista_alterarDados.jsp" method="post">
                     <%
-                        classes.transacoes.Funcionario f = new classes.transacoes.Funcionario();
-                        Vector tn = new Vector();
+                        // VERIFICACAO MANUAL DO LOGIN
+                        if (session.getAttribute("user_name") == null) {
+                            pageContext.forward("index.jsp");
+                        }
+                    %>
+                </form>
+                <%
+                    }
 
-                        UsuariosDO usuariologado = new UsuariosDO();
-                        Usuarios users = new Usuarios();
-                        tn = users.pesquisar((String) session.getAttribute("user_name"));
-                        usuariologado = (UsuariosDO) tn.get(0);
+                %>
+                
+                <! ------------------------------------------------------------------->
 
-                        FuncionarioDO funcionariologado = new FuncionarioDO();
-            funcionariologado = f.buscarPorUsuarioID(usuariologado.getId());%>
-
-                    Bem vindo <%= session.getAttribute("user_name")%>
-                    <!-- mostra os valores atuais -->
+                <!--   mostra formulario para atualizacao                           -->
+                <%     if (action.equals("showEditForm")) {
+                        FuncionarioDO motorista = new FuncionarioDO();
+                        Usuarios tn_u = new Usuarios();
+                        Funcionario tn_e = new Funcionario();
+                        //UsuariosDO usuario = new UsuariosDO();
+                        int usuario_ID = tn_u.buscarID((String) session.getAttribute("user_name"));
+                        //usuario = tn_u.buscar(usuario_ID);
+                        motorista = tn_e.buscarPorUsuarioID(usuario_ID);
+                        System.out.println(motorista.getNome());
+                        System.out.println(motorista.getCPF());
+                        System.out.println(motorista.getEmail());
+                        System.out.println(motorista.getEndereco());
+                        System.out.println(motorista.getTelefone());
+                %>        
+                <form  id="contentRight" action="./Motorista_alterarDados.jsp" method="post">
                     <table>
                         <tr>
+                            <td>Nome</td>
+                            <td><input type="text" name="nome" value="<%= motorista.getNome()%>" />
+                        </tr>
+                        <tr>
+                            <td>CPF</td>
+                            <td><input type="text" name="endereco" value="<%=motorista.getCPF()%>" />
+                        </tr>
+                        <tr>
                             <td>Email</td>
-                            <td><input type="text" value=<%=funcionariologado.getEmail()%> name="email" />
+                            <td><input type="text" name="vagas" value="<%=motorista.getEmail()%>" />
                         </tr>
                         <tr>
                             <td>Endereco</td>
-                            <td><input type="text" value="<%=funcionariologado.getEndereco()%>" name="endereco" />
+                            <td><input type="text" name="nomeDoResponsavel" value="<%=motorista.getEndereco()%>" />
                         </tr>
-
+         
                         <tr>
                             <td>Telefone</td>
-                            <td><input type="text" value=<%=funcionariologado.getTelefone()%> name="telefone" />
+                            <td><input type="text" name="telefone" value="<%=motorista.getTelefone()%>" />
                         </tr>
-
-
-                        <tr>
-                            <td>Senha</td>
-                            <td><input type="text" value=<%=usuariologado.getSenha()%> name="senha" />
-                        </tr>
+                       
+                       
                     </table>
-                    <input type="submit" name="alterar" value="alterar" />
-                    <input type="submit" name="cancelar" value="cancelar" />
+                    <input type="submit" name="atualizar" value="atualizar" />
+                    <input type="hidden" name="id" value=<%=motorista.getId()%> /> 
+                    <input type="hidden" name="usuarioid" value=<%=motorista.getUsuarioId()%> /> 
+                    <input type="hidden" name="action" value="updateValues" />
+                    <form action="./Estacionamento_alterarDados.jsp" method="post">
+                        <input type="submit" name="voltar" value="Voltar" />
+                    </form>
                 </form>
+                <%
+                    } // showEditForm
+                %>
 
+                <! ------------------------------------------------------------------->
+                <!--   atualizar valores -->
+                <%
+                    if (action.equals("updateValues")) {
+                        String nome = request.getParameter("Nome");
+                        String CPF = request.getParameter("CPF");
+                        String endereco = request.getParameter("Endereco");
+                        String telefone = request.getParameter("Telefone");
+                        String email = request.getParameter("email");
+                        
+                        Funcionario tn_e = new Funcionario();
+                        FuncionarioDO motor = new FuncionarioDO();
 
-                <!--   se apertar  "cancelar" volta para o menu do motorista -->
-
-                <%     if (null != request.getParameter("cancelar")) {
-                %>        <jsp:forward page="Motorista_menu.html" />
+                        motor.setNome(nome);
+                        motor.setCPF(CPF);
+                        motor.setEndereco(endereco);
+                        motor.setTelefone(telefone);
+                        motor.setEmail(email);
+                        motor.setId(Integer.parseInt(request.getParameter("id")));
+                        motor.setUsuarioId(Integer.parseInt(request.getParameter("usuarioid")));
+                        boolean result = false;
+                        try {
+                            result = tn_e.atualizar(motor);
+                        } catch (Exception e) {
+                %>           <%= e.toString()%>
                 <%
                     }
-                //se apertar alterar
-                    if (null != request.getParameterValues("alterar")) {
-                        // se tiver campo vazio
-                        Funcionario fu = new Funcionario();
-
-                        if (fu.isEmpty(request.getParameter("endereco")) || fu.isEmpty(request.getParameter("email")) || fu.isEmpty(request.getParameter("telefone")) || fu.isEmpty(request.getParameter("senha"))) {
+                    if (result) {
+                        // avisar usuario que transacao foi feita com sucesso
                 %>
-                <form id="contentRight" action="Cliente_alterarDados.jsp" method="post">
-                    Preencha todos os campos, por favor.
-                    <input type="submit" name="voltar" value="voltar" />
+                Transação realizada com sucesso!
+                <form  id="contentRight" action="./Estacionamento_menu.html" method="post">
+                    <input type="submit" name="voltar" value="Voltar" />
                 </form>
-
-
-                <%
-                } else {//se nao tiver
-                    String email = request.getParameter("email");
-                    String endereco = request.getParameter("endereco");
-                    String telefone = request.getParameter("telefone");
-
-                    String senha = request.getParameter("senha");
-
-                    funcionariologado.setEmail(email);
-                    funcionariologado.setEndereco(endereco);
-
-                    funcionariologado.setTelefone(telefone);
-                    f.atualizar(funcionariologado);
-                    usuariologado.setSenha(senha);
-                    users.atualizar(usuariologado);
-                %>   
-                <!--cria botao voltar-->
-                <form id="contentRight" action="Cliente_menu.html" method="post">
-                    Dados alterados com sucesso
-                    <input type="submit" name="voltar" value="voltar" />
-                </form>
-                <%    
-         }
-         }
+                <%     } else {
                 %>
+                Erro ao atualizar dados.
+                <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
+                    <input type="submit" name="retry" value="Repetir" />
+                </form>
+                <%     }
+                    } // updateValues
+%>
                 <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
