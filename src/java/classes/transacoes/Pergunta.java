@@ -39,4 +39,53 @@ public class Pergunta {
      return false;
   } // incluir
      
+     public boolean atualizar(PerguntaDO pergunta) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    PerguntaData cdata = new PerguntaData();
+	     cdata.atualizar(pergunta, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao atualizar" + pergunta.getNome());
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
+     
+      public Vector buscarPorEstado(boolean estado) {
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            PerguntaData cdata = new PerguntaData();
+            Vector v = cdata.buscarPorEstado(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar ");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
+      
+       public PerguntaDO buscar(int idobj) {
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            PerguntaData cdata = new PerguntaData();
+            PerguntaDO pergunta = cdata.buscar(idobj, tr);
+            tr.commit();
+            return pergunta;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar ");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
+     
 }

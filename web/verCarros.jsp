@@ -118,27 +118,27 @@
                 <td>
                 <% if(arcondicionado.get(j)=="true"){
                     %>
-                    ar condicionado 
+                    Ar condicionado 
                     <%
                 }%>
                 <% if(direcaohidraulica.get(j)=="true"){
                     %>
-                    direcao hidraulica; 
+                    Direção hidráulica; 
                     <%
                 }%>
                 <% if(freioabs.get(j)=="true"){
                     %>
-                    freioabs; 
+                    Freios ABS; 
                     <%
                 }%>
                 <% if(gps.get(j)=="true"){
                     %>
-                    gps; 
+                    GPS; 
                     <%
                 }%>
                 <% if(cambioauto.get(j)=="true"){
                     %>
-                    cambioauto; 
+                    Câmbio automático; 
                     <%
                 }%>
                 </td>

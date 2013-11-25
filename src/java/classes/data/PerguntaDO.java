@@ -13,11 +13,20 @@ package classes.data;
 
 
 public class PerguntaDO {
+    int _ID;
     int _funcionarioID;
     String _nome;
     String _email;
     String _pergunta;
     boolean _estado;
+    
+    public void setID(int ID){
+        _ID = ID;
+    }
+    
+    public int getID(){
+        return _ID;
+    }
     
     public void setNome(String nome){
         _nome = nome;         
