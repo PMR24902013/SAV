@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Devolver veículo</title>
         <%@ include file="headerCliente.html" %>
         <%@ page import="classes.data.*" %>
         <%@ page import="classes.transacoes.*" %>
@@ -36,6 +36,7 @@
                                 Veiculos vTransacao = new Veiculos();
                                 VeiculosDO veiculo = vTransacao.buscar(Integer.parseInt(placa));
                                 veiculo.setEstado("Disponivel");
+                                veiculo.setClienteID(0);
                                 vTransacao.atualizar(veiculo);
                             }
                         %>
@@ -65,7 +66,6 @@
                             </tr>
                         </table>
                         <input name="concluir" value="Concluir" type="submit"/>
-                        <input name="cancelar" value="Cancelar" type="submit"/>
                     </form>
                 </div>
                 <div id="contentLeft">
