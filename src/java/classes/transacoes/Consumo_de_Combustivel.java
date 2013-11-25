@@ -19,6 +19,22 @@ public class Consumo_de_Combustivel {
         Consumo_de_CombustivelDO consumo = new Consumo_de_CombustivelDO();
     }
     
+    public void incluir (Consumo_de_CombustivelDO consumo) throws Exception{
+        Transacao tr = new Transacao();
+        try{
+            tr.beginReadOnly();
+            Consumo_de_CombustivelData ccdata = new Consumo_de_CombustivelData();
+            ccdata.incluir(consumo, tr);
+            tr.commit();           
+        }
+        catch (Exception e){
+            tr.rollback();
+            System.out.println("Erro ao incluir");
+            e.printStackTrace();
+        }
+ 
+    }
+    
     public Consumo_de_CombustivelDO buscar (int idobj) throws Exception{
         Transacao tr = new Transacao();
         try{
