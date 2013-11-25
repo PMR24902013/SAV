@@ -43,6 +43,21 @@ public class Modelos {
         return null;
     } // buscar
     
+    public ModelosDO pesquisarModelo(int ID) {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            ModelosData mdata = new ModelosData();
+            ModelosDO modelos = mdata.pesquisarModelo(tr, ID);
+            tr.commit();
+            return modelos;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar modelos");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarTodos
+    
     public static void main(String[] args) {
         Modelos m = new Modelos();
       ModelosDO modelos = new ModelosDO();

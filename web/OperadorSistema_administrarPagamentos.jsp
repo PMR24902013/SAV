@@ -27,7 +27,6 @@
 
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
-
             <div id="tudo">
 
                 <! ------------------------------------------------------------------->
@@ -54,7 +53,7 @@
                         if (((pagamentos == null) || (pagamentos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
+                    <form id="contentRight" action="./OperadorSistema_menu.html" method="post">
                         Nenhum pagamento em aberto.
                         <input type="submit" name="voltar" value="Voltar" />
                     </form>
@@ -95,7 +94,7 @@
                         %>       
                         <td></td>
                         <td></td>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
+                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
                                 <input type="submit" name="cancelar" value="cancelar" />
                             </form></td>
                     </table>   
@@ -124,7 +123,7 @@
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
-                <form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
+                <form id="contentRight" action="./OperadorSistema_administrarPagamentos.jsp" method="post">
                     Pagamento Atualizado
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
@@ -137,7 +136,8 @@
                 <%     }
                     } // updateStatusPagamento
 %>
-                <div id="contentLeft"></div>
+              <div id="contentLeft"></div>
+              <div class="clear"> </div>
             </div>
         </div>
     </body>

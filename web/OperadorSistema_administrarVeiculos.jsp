@@ -14,14 +14,16 @@
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
 
-            <div id="tudo">
+
                 <div id="contentRight"><h1>
-                    
+                        <br>
                         <a href="Veiculo_cadastrar.jsp">Cadastrar novo veículo</a>    
-                    
+                        
+                        <br>
+                        <a href="Veiculo_remover.jsp">Remover veículo</a>  
                     </h1></div>
                 <div id="contentLeft"></div>
-            </div>
+
         </div>
     </body>
 </html>

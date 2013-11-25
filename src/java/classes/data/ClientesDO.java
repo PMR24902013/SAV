@@ -15,6 +15,12 @@ public class ClientesDO {
         return _id;
     } // getId
     
+    /** Set ID do Cliente
+
+     * @param  id int - ID do cliente.
+
+     */
+
     public void setId(int id) {
         _id = id;
     } // setId

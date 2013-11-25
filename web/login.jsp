@@ -37,10 +37,7 @@
                         if ((usuarios == null) || (usuarios.size() == 0)) {
                             // avisar usuario que nao ha' contatos com este nome
                 %>
-                Este usuário não existe!<br><br>
-                <form action="index.html" method="post">
-                    <input type="submit" name="voltar" value="Voltar" />
-                </form>
+                <p style="text-align: center; margin-top: 50px;">Usuário ou Senha invalidos!</p>
                 <%     } else {
                     UsuariosDO usuario = new UsuariosDO();
                     usuario = (UsuariosDO) usuarios.get(0);
@@ -55,12 +52,8 @@
                             Clientes cli = new Clientes();
                             cliente = cli.buscarPorUsuarioID(usuario.getId());
                             if ((cliente.getEstado()).equals("bloqueado")) {
-                %>  <form action="index.html">
-
-                    Este login está bloqueado!
-                </form>
-
-
+                %> 
+                <p style="text-align: center; margin-top: 50px;">Este login está bloqueado!</p>
                 <%
                         } else {
                             session.setAttribute("user_tipo", "Cliente");
@@ -91,17 +84,17 @@
 
                 } else {
                 %>
-                Usuario ou Senha invalidos!
+                <p style="text-align: center; margin-top: 50px;">Usuário ou Senha invalidos!</p>
                 <%
                             }
                         }
                     }
                     // show login form
                 %>
-                <form id="content" method="post" action=login.jsp>
-                    Usuário <input type="text" name="usuario" />
-                    Senha <input type="password" name="senha" />
-                    <input type="submit" name="enviar" value="Enviar" />
+                <form style="margin-left: 30%; margin-top: 30px;" id="content" method="post" action=login.jsp>
+                    Usuário <input type="text" name="usuario" /><br>
+                    Senha   <input style="margin-left: 8px;" type="password" name="senha" /><br><br>
+                    <input style="margin-left: 15%;" type="submit" name="enviar" value="Enviar" />
                     <input type="hidden" name="campo_controle" />
                 </form>
         </div>
