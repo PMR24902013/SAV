@@ -80,7 +80,7 @@
             %>
             <form id="content" action="Estacionamento_cadastrarDados.jsp" method="post">
 
-                <br>Login criado, insira seus dados
+                <p class="titulo">Insira seus dados</p>
 
                 <table>
                     <tr>

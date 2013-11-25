@@ -18,8 +18,8 @@
             <%@ page import="java.text.*" %>
             <%@page import="classes.transacoes.*"  %>
             <%@page import="classes.data.*" %>
-            <form id="content" method="post" action=./Motorista_cadastrarLogin.jsp>
-                <b>Informações de login</b>
+            <p class="titulo">Informações de login</p>
+            <form id="content" style="margin-left: 25%;" method="post" action=Motorista_cadastrarLogin.jsp>
                 <table>
                     <tr>
                         <td>login </td><td> <input type="text" name="login" /> </td>
@@ -31,7 +31,7 @@
                         <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
                     </tr>
                 </table>
-                <input type="submit" name="enviar" value="Enviar" />
+                 <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form>
 

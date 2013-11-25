@@ -9,81 +9,80 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Incluir Funcionário de Manutenção</title>
+        <title>Cadastro de funcionário de manutenção</title>
         <%@ include file="header.html" %>
     </head>
     <body>
-        <%@ page import="classes.data.FuncionarioDO" %>
-        <%@ page import="classes.data.UsuariosDO" %>
-        <%@ page import="classes.transacoes.Funcionario" %>
-        <%@ page import="java.util.Vector" %>
-
         <div id="base">
             <div id ="cima"></div>
-            <! ------------------------------------------------------------>
-            <!--   se for o request inicial, mostrar somente o formulario -->
-
-            <%     if (null == request.getParameterValues("incluir")) {
-            %>
-            <form id="content" action="./Manutencao_cadastrarLogin.jsp" method="post">
-                <b>Informações de login</b>
+            <%@ page import="java.util.Vector" %>
+            <%@ page import="java.util.Date" %>
+            <%@ page import="java.text.*" %>
+            <%@page import="classes.transacoes.*"  %>
+            <%@page import="classes.data.*" %>
+            <p class="titulo">Informações de login</p>
+            <form id="content" style="margin-left: 25%;" method="post" action=Manutencao_cadastrarLogin.jsp>
                 <table>
                     <tr>
-                        <td>Usuário</td>
-                        <td><input type="text" name="user" />
-                    </tr>       
-                    <tr>
-                        <td>Senha</td>
-                        <td><input type="password" name="password" />
+                        <td>login </td><td> <input type="text" name="login" /> </td>
                     </tr>
                     <tr>
-                        <td>Re-digite sua senha</td>
-                        <td><input type="password" name="validaPassword">
+                        <td>Senha </td><td> <input type="password" name="senha" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
                     </tr>
                 </table>
-                <input type="submit" name="incluir" value="Enviar" />
-                <form action="./index.html" method="post">
-                    <input type="submit" name="cancelar" value="Cancelar" />
-                </form>
+                 <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
+                <input type="submit" name="Cancelar" value="Cancelar" />
             </form>
 
-            <%      } else {
-            %>
-            <! ------------------------------------------------------------------->
-            <!--   se nao for o request inicial, acionar a transacao de negocio -->
-            <%     String user = request.getParameter("user");
-                String senha = request.getParameter("password");
-                String senhaValidacao = request.getParameter("validaPassword");
-
-                if (!senha.equals(senhaValidacao)) {
-            %>
-            As senhas digitadas não conferem!            
-            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="retry" value="Repetir" />
-            </form>
-            <%       }
-                classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
-                classes.data.UsuariosDO usuario = new classes.data.UsuariosDO();
-                usuario.setLogin(user);
-                usuario.setSenha(senha);
-                usuario.setTipo("OpManut");
-                if (!tu.incluir(usuario)) {
-
-            %>
-            Erro ao adicionar usuário. Verifique os campos.
-            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="retry" value="Repetir" />
-            </form>
-            <%     } else {
-                session.setAttribute("user_name", user);
-            %>
-            Usuário criado com sucesso. 
-            <form action="./FuncManut_cadastrarDados.jsp" method="post">
-                <input type="submit" name="continuar" value="Continue" />
-            </form>
-            <%     }
+            <!--    "Cancelar"  volta pro inicio -->
+            <%     if (null != request.getParameter("Cancelar")) {
+            %>        <jsp:forward page="./index.html" />
+            <%        return;
                 }
             %>
-        </div>
+            <%
+                if (request.getParameter("enviar") != null) {
+                    // login a ser criado  
+                    String user = request.getParameter("login");
+                    // senha a ser criada
+                    String passwd = request.getParameter("senha");
+                    // senha a ser criada
+                    String passwd2 = request.getParameter("senha2");
+                    // metodo verifica se jah existe tal login
+                    Usuarios tn = new Usuarios();
+                    Vector usuarios = tn.pesquisar(user);
+                    //se existir avisar usuario
+                    Funcionario m = new Funcionario();
+                    if (m.isEmpty(passwd) || m.isEmpty(user) || (!passwd.equals(passwd2))) {
+            %>
+            Login ou senha inválida
+            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
+                <input type="submit" name="Voltar" value="Voltar" />
+            </form>
+            <%	   } else if ((usuarios != null) && (usuarios.size() > 0)) {
+            %>
+            Usuário já cadastrado
+            <form action="./Manutencao_cadastrarLogin.jsp" method="post">
+                <input type="submit" name="Voltar" value="Voltar" />
+            </form>
+            <%        } else {
+//                UsuariosDO musuario = new UsuariosDO();
+//                // cria um novo usuario
+//                musuario.setLogin(user);
+//                musuario.setSenha(passwd);
+//                musuario.setTipo("Motorista");
+//                tn.incluir(musuario);
+                session.setAttribute("user_name", user);
+                session.setAttribute("passwd", passwd);
+                
+            %>
+            <jsp:forward page="FuncManut_cadastrarDados.jsp" />
+            <%                   }
+                }
+            %>
+        </div>      
     </body>
 </html>

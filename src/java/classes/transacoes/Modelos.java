@@ -28,7 +28,22 @@ public class Modelos {
         return null;
     } // pesquisarTodos
     
-     public ModelosDO pesquisarModelo(int ID) {
+    public Vector buscar(String modelo, String ano){
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            ModelosData mdata = new ModelosData();
+            Vector v = mdata.buscar(modelo, ano, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao buscar modelos");
+            e.printStackTrace();
+        }
+        return null;
+    } // buscar
+    
+    public ModelosDO pesquisarModelo(int ID) {
         Transacao tr = new Transacao();
         try {
             tr.beginReadOnly();

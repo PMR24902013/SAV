@@ -84,6 +84,24 @@ public class Clientes {
 	 }
 	 return null;
   } // buscar
+  
+  // Eduardo
+  public ClientesDO buscar(String nome) throws Exception{
+     Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	   ClientesData cdata = new ClientesData();
+	   ClientesDO c = cdata.buscar(nome, tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao buscar" + nome);
+	   e.printStackTrace();
+	 }
+	 return null;
+  } // buscar
+  
    public ClientesDO buscarPorUsuarioID(int idobj) throws Exception{
      Transacao tr = new Transacao();
 	 try{

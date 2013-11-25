@@ -13,9 +13,9 @@
         <%@ include file="header.html" %>
     </head>
     <body>
-        <%@ page import="classes.data.FuncionarioDO" %>
-        <%@ page import="classes.data.UsuariosDO" %>
-        <%@ page import="classes.transacoes.Funcionario" %>
+        <%@ page import="classes.data.*" %>
+        <%@ page import="classes.data.*" %>
+        <%@ page import="classes.transacoes.*" %>
         <%@ page import="java.util.Vector" %>
         <div id="base">
             <div id ="cima"></div>
@@ -25,7 +25,7 @@
             <%     if (null == request.getParameterValues("incluir")) {
             %>
             <form id="content" action="./FuncManut_cadastrarDados.jsp" method="post">
-                <b>Informações de cadastro</b>
+                <p class="titulo">Insira seus dados</p>
                 <table>
                     <tr>
                         <td>Nome</td>
@@ -62,11 +62,16 @@
     <!--   se nao for o request inicial, acionar a transacao de negocio -->
     <%
         String user = (String) session.getAttribute("user_name");
-        classes.transacoes.Usuarios tu = new classes.transacoes.Usuarios();
+        String passwd = (String) session.getAttribute("passwd");
+        Usuarios tu = new Usuarios();
+        UsuariosDO musuario = new UsuariosDO();
+        // cria um novo usuario
+        musuario.setLogin(user);
+        musuario.setSenha(passwd);
+        musuario.setTipo("OpManut");
+        tu.incluir(musuario);
 
-        Vector buscaUser = tu.pesquisar(user);
-        UsuariosDO userCriado = new UsuariosDO();
-        userCriado = (UsuariosDO) buscaUser.get(0);
+        int usuarioid = tu.buscarID(user);
 
         String nome = request.getParameter("nome");
         String cpf = request.getParameter("CPF");
@@ -74,16 +79,16 @@
         String endereco = request.getParameter("Endereco");
         String telefone = request.getParameter("telefone");
         String estado = request.getParameter("estado");
-        classes.transacoes.Funcionario tn = new classes.transacoes.Funcionario();
-        classes.data.FuncionarioDO funcionario = new classes.data.FuncionarioDO();
+        Funcionario tn = new Funcionario();
+        FuncionarioDO funcionario = new FuncionarioDO();
         funcionario.setNome(nome);
         funcionario.setCPF(cpf);
         funcionario.setEmail(email);
         funcionario.setEndereco(endereco);
         funcionario.setTelefone(telefone);
-        funcionario.setEstado("Aguardando Aprovacao");
+        funcionario.setEstado("Aguardando");
         funcionario.setCategoria("OpManut");
-        funcionario.setId(userCriado.getId());
+        funcionario.setUsuarioId(usuarioid);
         if (tn.incluirFuncionarioManutencao(funcionario)) {
             // avisar usuario que transacao foi feita com sucesso
     %>
@@ -92,7 +97,6 @@
         <input type="submit" name="voltar" value="Voltar" />
     </form>
     <%     } else {
-        tu.excluir(userCriado);
     %>
     Erro ao incluir usuário! Preencha os campos corretamente.            
     <form action="./IncluirFuncionarioManutencao.jsp" method="post">

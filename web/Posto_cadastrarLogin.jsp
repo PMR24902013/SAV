@@ -32,8 +32,8 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
     <body>
         <div id="base">
             <div id ="cima"></div>
-            <form id="content" method="post" action=Posto_cadastrarLogin.jsp>
-               <b>Informações de login</b>
+            <p class="titulo">Informações de login</p>
+           <form id="content" style="margin-left: 25%;" method="post" action=Manutencao_cadastrarLogin.jsp>
                 <table>
                 <tr>
                     <td>login </td><td> <input type="text" name="login" /> </td>
@@ -45,7 +45,7 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
                 <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
                 </tr>
                 </table>
-                <input type="submit" name="enviar" value="Enviar" />
+                <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
                 <input type="hidden" name="campo_controle" />
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form>

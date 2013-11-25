@@ -6,6 +6,7 @@ package classes.data;
 
 import java.util.*;
 import java.text.*;
+import java.sql.*;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Operacoes_de_CaixaDO {
 
     private int _id;
     private float _valorDoPagamento;
-    private String _dataDoPagamento;
+    private java.sql.Date _dataDoPagamento;
     private int _usuario_id;
     private String _estado;
 
@@ -27,7 +28,7 @@ public class Operacoes_de_CaixaDO {
         return _valorDoPagamento;
     }
 
-    public String getDataDoPagamento() {
+    public java.sql.Date getDataDoPagamento() {
         return _dataDoPagamento;
     }
 
@@ -43,10 +44,8 @@ public class Operacoes_de_CaixaDO {
         _valorDoPagamento = valorDoPagamento;
     }
 
-    public void setDataDoPagamento(String dataDoPagamento) {
-
+    public void setDataDoPagamento(java.sql.Date dataDoPagamento) {
         _dataDoPagamento = dataDoPagamento;
-
     }
 
     public void setUsuarioID(int UsuarioID) {

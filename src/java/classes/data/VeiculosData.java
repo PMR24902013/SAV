@@ -56,6 +56,15 @@ public class VeiculosData {
         int result = ps.executeUpdate();
     } // atualizar
     
+        public void realocar(VeiculosDO veiculo, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "update Veiculos set Estacionamento_ID=? where ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, veiculo.getEstacionamentoID());
+        ps.setInt(2, veiculo.getId());
+        int result = ps.executeUpdate();
+    } // atualizar
+    
     public VeiculosDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Veiculos where  ID=?";
@@ -72,6 +81,7 @@ public class VeiculosData {
         veiculo.setGPS(rs.getBoolean("GPS"));
         veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
         veiculo.setEstado(rs.getString("Estado"));
+        veiculo.setPlaca(rs.getString("Placa"));
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         return veiculo;
     } // buscar
@@ -111,4 +121,28 @@ public class VeiculosData {
         return rs.next();
                 
     }
+    
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Veiculos";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector veiculos = new Vector();
+        while (rs.next()) {
+            VeiculosDO veiculo = new VeiculosDO(); 
+            veiculo.setId(rs.getInt("ID"));
+            veiculo.setQuilometragem(rs.getInt("Quilometragem"));
+            veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
+            veiculo.setDirecaoHidraulica(rs.getBoolean("Direcao_Hidraulica"));
+            veiculo.setFreioABS(rs.getBoolean("Freio_ABS"));
+            veiculo.setGPS(rs.getBoolean("GPS"));
+            veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
+            veiculo.setEstado(rs.getString("Estado"));
+            veiculo.setPlaca(rs.getString("Placa"));
+            veiculo.setModeloID(rs.getInt("Modelo_ID"));
+            veiculos.add(veiculo);
+        }
+        return veiculos;
+    } // pesquisarTodos
 }

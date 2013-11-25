@@ -16,11 +16,12 @@ public class Operacoes_de_CaixaData {
 
     public void incluir(Operacoes_de_CaixaDO operacao, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Operacoes_de_Caixa (Valor, Data_de_Pagamento, Usuario_ID) values (?, ?, ?)";
+        String sql = "insert into Operacoes_de_Caixa (Valor, Data_de_Pagamento, Estado, Usuario_ID) values (?,?,?,?);";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setFloat(1, operacao.getValorDoPagamento());
-        ps.setString(2, operacao.getDataDoPagamento());
-        ps.setInt(3, operacao.getUsuarioID());
+        ps.setDate(2, operacao.getDataDoPagamento());
+        ps.setString(3, operacao.getEstado());
+        ps.setInt(4, operacao.getUsuarioID());
         int result = ps.executeUpdate();
     }
 
@@ -42,7 +43,7 @@ public class Operacoes_de_CaixaData {
         String sql = "update Operacoes_de_Caixa set Valor=?, Data_de_Pagamento=?, Usuario_ID=?, Estado=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setFloat(1, operacao.getValorDoPagamento());
-        ps.setString(2, operacao.getDataDoPagamento());
+        ps.setDate(2, operacao.getDataDoPagamento());
         ps.setInt(3, operacao.getUsuarioID());
         ps.setString(4, operacao.getEstado());
         ps.setInt(5, operacao.getID());
@@ -59,7 +60,7 @@ public class Operacoes_de_CaixaData {
         Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
         operacao.setID(rs.getInt("id"));
         operacao.setValorDoPagamento(rs.getFloat("Valor"));
-        operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
+        operacao.setDataDoPagamento(rs.getDate("Data_De_Pagamento"));
         operacao.setUsuarioID(rs.getInt("Usuario_ID"));
         return operacao;
     } // buscar
@@ -75,7 +76,7 @@ public class Operacoes_de_CaixaData {
             Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
             operacao.setID(rs.getInt("id"));
             operacao.setValorDoPagamento(rs.getFloat("Valor"));
-            operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
+            operacao.setDataDoPagamento(rs.getDate("Data_De_Pagamento"));
             operacao.setUsuarioID(rs.getInt("Usuario_ID"));
             v.add(operacao);
         }
@@ -93,7 +94,7 @@ public class Operacoes_de_CaixaData {
             Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
             operacao.setID(rs.getInt("id"));
             operacao.setValorDoPagamento(rs.getFloat("Valor"));
-            operacao.setDataDoPagamento(rs.getString("Data_De_Pagamento"));
+            operacao.setDataDoPagamento(rs.getDate("Data_De_Pagamento"));
             operacao.setUsuarioID(rs.getInt("Usuario_ID"));
             operacao.setEstado(rs.getString("Estado"));
             v.add(operacao);

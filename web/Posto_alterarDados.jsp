@@ -18,7 +18,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Alterar Dados Cadastrais do Posto</title>
+        <title>Posto - Alterar dados cadastrais</title>
         <%@ include file="headerPosto.html" %>
     </head>
     <body>

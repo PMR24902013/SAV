@@ -138,4 +138,24 @@ public class ClientesData {
      ps.setInt(2, id);
      int result = ps.executeUpdate();
   }// atualizarCadastro
+      
+      public ClientesDO buscar(String nome, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Cliente where  Nome=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nome);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        ClientesDO cliente = new ClientesDO();
+        cliente.setId (rs.getInt("id"));
+        cliente.setUsuarioId (rs.getInt("Usuario_ID"));
+        cliente.setNome (rs.getString("Nome"));
+        cliente.setCPF (rs.getString("CPF"));
+        cliente.setEmail (rs.getString("email"));
+        cliente.setEndereco (rs.getString("Endereco"));
+        cliente.setTelefone (rs.getString("Telefone"));
+        cliente.setCNH(rs.getString("CNH"));
+        cliente.setEstado(rs.getString("Estado"));
+        return cliente;
+      }
 }
