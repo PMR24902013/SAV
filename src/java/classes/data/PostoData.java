@@ -48,14 +48,14 @@ public class PostoData {
      Connection con = tr.obterConexao();
      String sql = "update Posto set Usuarios_ID=?, Nome=?, Endereco=?, Telefone=?, Horario_de_Funcionamento=?, Responsavel=?, Documento_de_Licenciamento=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, posto.getID());
-     ps.setInt(2, posto.getUsuariosID());
-     ps.setString(3, posto.getNome());
-     ps.setString(4, posto.getEndereco());
-     ps.setString(5, posto.getTelefone());
-     ps.setString(6, posto.getHorario());
-     ps.setString(7, posto.getResponsavel());
-     ps.setString(8, posto.getDocumento());
+     ps.setInt(1, posto.getUsuariosID());
+     ps.setString(2, posto.getNome());
+     ps.setString(3, posto.getEndereco());
+     ps.setString(4, posto.getTelefone());
+     ps.setString(5, posto.getHorario());
+     ps.setString(6, posto.getResponsavel());
+     ps.setString(7, posto.getDocumento());
+     ps.setInt(8, posto.getID());
      int result = ps.executeUpdate();
   } // atualizar
 

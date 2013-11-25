@@ -143,10 +143,14 @@
                     String alcool = request.getParameter("alcool");
                     String telefone = request.getParameter("telefone");
                     String horario = request.getParameter("horario");
+                    String id = request.getParameter("id");
+                    String usuarioID = request.getParameter("usuarioid");
                     
                     Posto tn_p = new Posto();
                     classes.data.PostoDO p = new classes.data.PostoDO();
                     
+                    p.setID(Integer.parseInt(id));
+                    p.setUsuariosID(Integer.parseInt(usuarioID));
                     p.setNome(nome);
                     p.setResponsavel(responsavel);
                     p.setDocumento(documento);
