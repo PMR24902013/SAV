@@ -62,13 +62,14 @@
             %>
             <p style="text-align: center; color: red;">Usuário já cadastrado</p>
             <%        } else {
-                UsuariosDO pusuario = new UsuariosDO();
-                // cria um novo usuario
-                pusuario.setLogin(user);
-                pusuario.setSenha(passwd);
-                pusuario.setTipo("Cliente");
-                tn.incluir(pusuario);
+//                UsuariosDO pusuario = new UsuariosDO();
+//                // cria um novo usuario
+//                pusuario.setLogin(user);
+//                pusuario.setSenha(passwd);
+//                pusuario.setTipo("Cliente");
+//                tn.incluir(pusuario);
                 session.setAttribute("user_name", user);
+                session.setAttribute("passwd", passwd);
             %>
             <jsp:forward page="Cliente_cadastrarDados.jsp" />
             <%                   }
