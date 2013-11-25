@@ -94,8 +94,8 @@ public class PostoData {
      posto.setHorario (rs.getString("Horario_de_Funcionamento"));
      posto.setResponsavel (rs.getString("Responsavel"));
      posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
-     posto.setGasolina(rs.getString("Gasolina"));
-     posto.setAlcool(rs.getString("Alcool"));
+     posto.setGasolina(rs.getString("Preco_da_gasolina"));
+     posto.setAlcool(rs.getString("Preco_do_alcool"));
      return posto;
   } // buscar
 
