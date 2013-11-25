@@ -78,11 +78,8 @@
                 po.incluir(p);
 
             %> 
-            <br>
-            Seus dados foram cadastrados com sucesso!
-
-            <form id="content" action="Cliente_menu.html" method="post">
-
+            <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
+            <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
             <% }
@@ -93,10 +90,10 @@
                 }
 
             %>
+            <% if (null == request.getParameter("incluir")) {
+            %>
+            <p class="titulo">Insira seus dados</p>
             <form id="content" action="Estacionamento_cadastrarDados.jsp" method="post">
-
-                <p class="titulo">Insira seus dados</p>
-
                 <table>
                     <tr>
                         <td>Nome do Estacionamento</td>
@@ -137,6 +134,7 @@
                 <input type="submit" name="incluir" value="Finalizar Cadastro" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form> 
+            <% } %>
         </div>
     </body>
 </html>

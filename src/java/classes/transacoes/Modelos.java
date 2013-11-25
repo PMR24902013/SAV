@@ -58,6 +58,22 @@ public class Modelos {
         return null;
     } // pesquisarTodos
     
+    public ModelosDO buscar(int idobj){
+        Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	   ModelosData cdata = new ModelosData();
+	   ModelosDO c = cdata.buscar(idobj, tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) {
+	   //tr.rollback();
+	   System.out.println("erro ao buscar" + idobj);
+	   e.printStackTrace();
+	 }
+	 return null;
+    }
+    
     public static void main(String[] args) {
         Modelos m = new Modelos();
       ModelosDO modelos = new ModelosDO();

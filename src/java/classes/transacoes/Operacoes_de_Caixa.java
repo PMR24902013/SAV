@@ -123,7 +123,22 @@ public class Operacoes_de_Caixa {
         }
         return false;
     }
-
+    
+    public int lastId(){
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            Operacoes_de_CaixaData cdata = new Operacoes_de_CaixaData();
+            int i = cdata.lastId(tr);
+            tr.commit();
+            return i;
+        } catch (Exception e) {
+            System.out.println("erro ao achar ultimo");
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
     public static void main(String[] args) {
         Operacoes_de_Caixa c = new Operacoes_de_Caixa();
         Operacoes_de_CaixaDO op = new Operacoes_de_CaixaDO();
