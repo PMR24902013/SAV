@@ -54,7 +54,7 @@
                         Posto p = new Posto();
 
                         
-                            nome= ((String) request.getParameter("nome"));
+                            nome = ((String) request.getParameter("nome"));
                             Vector postoPesquisado=new Vector();
                             postoPesquisado = p.pesquisar(nome);
                          

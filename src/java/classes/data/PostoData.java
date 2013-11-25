@@ -98,6 +98,27 @@ public class PostoData {
      posto.setAlcool(rs.getString("Preco_do_alcool"));
      return posto;
   } // buscar
+  
+  public PostoDO buscarPorNome(String nome, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Posto where Nome=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, Integer.parseInt (nome));
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     PostoDO posto = new PostoDO();
+     posto.setID (rs.getInt("id"));
+     posto.setUsuariosID (rs.getInt("Usuarios_ID"));
+     posto.setNome (rs.getString("nome"));
+     posto.setEndereco (rs.getString("endereco"));
+     posto.setTelefone (rs.getString("telefone"));
+     posto.setHorario (rs.getString("Horario_de_Funcionamento"));
+     posto.setResponsavel (rs.getString("Responsavel"));
+     posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
+     posto.setGasolina(rs.getString("Preco_da_gasolina"));
+     posto.setAlcool(rs.getString("Preco_do_alcool"));
+     return posto;
+  } // buscar
 
   public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
