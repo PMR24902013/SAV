@@ -52,8 +52,7 @@
                     if (null != request.getParameter("Confirmar")) {
 
                         Posto p = new Posto();
-
-                        
+                    
                             nome = ((String) request.getParameter("nome"));
                             PostoDO postoPesquisado=new PostoDO();
                             postoPesquisado = p.buscarPorNome(nome);
@@ -69,17 +68,19 @@
                        else{
                       
 
-                        estado = posto.getEstado();
+                        estado = postoPesquisado.getEstado();
 
                         if (estado.equals("bloqueado")) {
                             // pageContext.forward("./OperadorSistema_administrarClientes.jsp?action=desbloquear");
                             estadoProcesso = "desbloquear";
-                        } else {
+                        }else if(estado.equals("Ativo")) {
 
                             // pageContext.forward("./OperadorSistema_administrarClientes.jsp?action=bloquear");
                             estadoProcesso = "bloquear";
                         }
-
+                        else{
+                            %>O cadastro do posto não foi efetivado<%
+                        }
                     }
                     }
                     if (estadoProcesso.equals("bloquear")) {
@@ -90,7 +91,7 @@
                     <table>
 
                         <tr>
-                            <td>Deseja bloquear <%=posto.getNome()%> </td>
+                            <td>Deseja bloquear <%=nome%>? </td>
 
                         </tr>
                         <input type="submit" name="Confirme" value="Confirme" /> 
