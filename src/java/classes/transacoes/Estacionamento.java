@@ -137,25 +137,6 @@ public class Estacionamento {
         }
         return null;
     } // pesquisar
-    
-        public Vector pesquisarCadastro(int idobj) {
-        if (isEmpty(idobj)) {
-            return null;
-        }
-
-        Transacao tr = new Transacao();
-        try {
-            tr.beginReadOnly();
-            EstacionamentoData cdata = new EstacionamentoData();
-            Vector v = cdata.buscarPorEstacionamento(idobj, tr);
-            tr.commit();
-            return v;
-        } catch (Exception e) {
-            System.out.println("erro ao pesquisar cadastro");
-            e.printStackTrace();
-        }
-        return null;
-    } // pesquisar
 
     public boolean atualizarCadastro(int id, String Estado) throws Exception {
      Transacao tr = new Transacao();

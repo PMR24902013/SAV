@@ -55,6 +55,23 @@ public class Veiculos {
 	 }
 	 return false;
   } // atualizar
+  
+    public boolean realocar(VeiculosDO funcionario) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    VeiculosData cdata = new VeiculosData();
+	     cdata.realocar(funcionario, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao atualizar" + funcionario.getPlaca());
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
 
   public boolean excluir(VeiculosDO veiculo) throws Exception {
      Transacao tr = new Transacao();
@@ -103,6 +120,21 @@ public class Veiculos {
      }
      return null;
   } // pesquisar
+    public Vector buscarPorEstacionamento(int idobj) {
+     
+     Transacao tr = new Transacao();
+     try {
+	     tr.beginReadOnly();
+           VeiculosData cdata = new VeiculosData();
+           Vector v = cdata.buscarPorEstacionamento(idobj, tr);
+		 tr.commit();
+		 return v;
+     } catch(Exception e) {
+         System.out.println("erro ao pesquisar " );
+         e.printStackTrace();
+     }
+     return null;
+  } // pesquisar
   
   public boolean jaExiste(String placa) throws Exception{
       Transacao tr = new Transacao();
@@ -139,6 +171,7 @@ public class Veiculos {
      return null;
   } // pesquisar
 */
+  
   public boolean isEmpty(String s) {
      if (null == s)
        return true;

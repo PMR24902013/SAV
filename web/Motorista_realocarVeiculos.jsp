@@ -114,6 +114,7 @@
                         classes.transacoes.Estacionamento listaEstacionamentos = new classes.transacoes.Estacionamento();
                         classes.data.EstacionamentoDO listagemEstacionamentos = new classes.data.EstacionamentoDO();
                         listagemEstacionamentos = listaEstacionamentos.buscar(1);
+                        if(request.getParameter("cancelarRealocar") == null && request.getParameter("selecaoDestino") == null){
                 %>
 
                 <form id="contentRight" action="#" method="post">
@@ -137,7 +138,7 @@
                         </tr>
                     </table>
                 </form>
-                <%if (request.getParameter("cancelarRealocar") != null) {
+                <%}if (request.getParameter("cancelarRealocar") != null) {
                         String redirectURL = "./Motorista_menu.html";
                         response.sendRedirect(redirectURL);
                     }
@@ -153,7 +154,7 @@
                 </form>
                 <%} else {
                 %>
-                Erro ao atualizar infotmações           
+                Erro ao atualizar informações           
                 <form action="./Motorista_realocarVeiculos.jsp" method="post">
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
