@@ -23,7 +23,7 @@
 
         <div id="base">
             <div id ="cima"><div id="logo"></div>
-
+                 <div id="tudo">
 
                 <! ------------------------------------------------------------------->
                 <!--   se for o request inicial, mostrar somente o formulario de pesquisa -->
@@ -49,7 +49,7 @@
                         if (((veiculos == null) || (veiculos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <p>Nenhum veículo pode ser excluído do sistema.</p>
+                    <p id="contentRight">Nenhum veículo pode ser excluído do sistema.</p>
                         
                     <%     } else {
                     %>

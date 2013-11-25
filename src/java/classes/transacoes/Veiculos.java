@@ -120,13 +120,13 @@ public class Veiculos {
      }
      return null;
   } // pesquisar
-    public Vector buscarPorEstacionamento(int idobj) {
+    public Vector buscarPorVaga(int idobj) {
      
      Transacao tr = new Transacao();
      try {
 	     tr.beginReadOnly();
            VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.buscarPorEstacionamento(idobj, tr);
+           Vector v = cdata.buscarPorVaga(idobj, tr);
 		 tr.commit();
 		 return v;
      } catch(Exception e) {
