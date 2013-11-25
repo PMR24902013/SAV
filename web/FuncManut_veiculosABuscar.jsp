@@ -14,7 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Veiculos a Buscar</title>
-        <%@ include file="headerOpSistema.html" %>
+        <%@ include file="headerManutencao.html" %>
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -46,22 +46,22 @@
 
                     <%
                         classes.transacoes.Manutencao tn = new classes.transacoes.Manutencao();
-                        String estado = "Buscar";
+                        String estado = "Consertando";
                         Vector busca = tn.buscarPorEstado(estado);
                         if (((busca == null) || (busca.size() == 0))) {
                             // avisar usuario que nao ha' veiculos a buscar
                     %>
-                    <form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                        Nenhum veiculo a ser buscado.
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
+                   
+                    <p>Nenhum veiculo a ser buscado.</p>
+                        
                     <%     } else {
                     %>
                     <table>
                         <tr>
                             <td>Veiculo</td>
-                            <td>Funcionario</td>
-                            <td>Data </td>
+                            <td>ModeloID</td>
+                            <td>EstacionamentoID</td>
+                            <td>Estado </td>
                         </tr>
                         <%           for (int i = 0; i < busca.size(); i++) {
                                 classes.data.ManutencaoDO op = (classes.data.ManutencaoDO) busca.elementAt(i);
@@ -69,26 +69,25 @@
                                 int usuarioid = op.getVeiculoID();
                                 //String tipo = tn_u.buscar(usuarioid);
                                 String placa = null;
-                                int modelo;
+                                int modeloID;
                                 
-                                    classes.transacoes.Veiculos tn_c = new classes.transacoes.Veiculos();
-                                    classes.data.VeiculosDO carro = tn_c.buscarPorVeiculoID(usuarioid);
-                                    placa = carro.getPlaca();
-                                    modelo = carro.getModeloID();
-                               
+
+                                // classes.transacoes.Veiculos tn_c = new classes.transacoes.Veiculos();
+                                classes.data.VeiculosDO carro = tn_u.buscarPorVeiculoID(usuarioid);
+                                placa = carro.getPlaca();
+                                modeloID = carro.getModeloID();
                                 
+
+
                         %>              <tr>
                             <td><%=placa%></td>
-                            <td><%= modelo%></td>
+                            <td><%= modeloID%></td>
                             <td><a href=FuncManut_veiculosABuscar.jsp?action=updateStatusManutencao&id=<%= op.getId()%>> Veiculo a buscar</a></td>
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
                         <td></td>
                         <td></td>
-                        <td><form id="contentRight" action="./FuncManut_menu.html" method="post">
-                                <input type="submit" name="cancelar" value="cancelar" />
-                            </form></td>
                     </table>   
                 </form>         
                 <%     } // reservas retornados
@@ -127,9 +126,9 @@
                 </form>
                 <%     }
                     } // updateStatusPagamento
-%>
-              <div id="contentLeft"></div>
-              <div class="clear"> </div>
+                %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
