@@ -25,7 +25,7 @@
             <%     if (null == request.getParameterValues("incluir")) {
             %>
             <form id="content" action="./FuncManut_cadastrarDados.jsp" method="post">
-                <b>Informações de cadastro</b>
+                <p class="titulo">Insira seus dados</p>
                 <table>
                     <tr>
                         <td>Nome</td>

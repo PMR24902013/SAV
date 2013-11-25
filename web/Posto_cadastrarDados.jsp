@@ -76,8 +76,7 @@
 
             %>
             <form id="content" action="Posto_cadastrarDados.jsp" method="post">
-
-                Login criado, insira seus dados
+               <p class="titulo">Insira seus dados</p>
                 <table>
                     <tr>
                         <td>Nome do Posto</td>

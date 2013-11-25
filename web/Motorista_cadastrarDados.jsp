@@ -25,7 +25,7 @@
                     
             %>
             <form id="content" action="./Motorista_cadastrarDados.jsp" method="post">
-                <b>Informações de cadastro</b>
+                <p class="titulo">Insira seus dados</p>
                 <table>
                     <tr>
                         <td>Nome</td>
