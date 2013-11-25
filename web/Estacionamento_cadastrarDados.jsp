@@ -22,6 +22,18 @@
             <%
                 if (null != request.getParameter("incluir")) {
 
+                    String user = (String) session.getAttribute("user_name");
+                    String passwd = (String) session.getAttribute("passwd");
+                    Usuarios tu = new Usuarios();
+                    UsuariosDO musuario = new UsuariosDO();
+                    // cria um novo usuario
+                    musuario.setLogin(user);
+                    musuario.setSenha(passwd);
+                    musuario.setTipo("Estacionamento");
+                    tu.incluir(musuario);
+
+                    int usuarioid = tu.buscarID(user);
+                    
                     String nome = request.getParameter("nome");
                     String local = request.getParameter("local");
                     int vagas = Integer.parseInt(request.getParameter("vagas"));
@@ -33,11 +45,11 @@
 
                     EstacionamentoDO p = new EstacionamentoDO();
                     //arrumar  arquivo 
-                    String nomeatual = (String) session.getAttribute("user_name");
-                    Usuarios tn = new Usuarios();
-                    Vector ps = tn.pesquisar(nomeatual);
-                    UsuariosDO estacionamentoCriado = new UsuariosDO();
-                    estacionamentoCriado = (UsuariosDO) ps.get(0);
+//                    String nomeatual = (String) session.getAttribute("user_name");
+//                    Usuarios tn = new Usuarios();
+//                    Vector ps = tn.pesquisar(nomeatual);
+//                    UsuariosDO estacionamentoCriado = new UsuariosDO();
+//                    estacionamentoCriado = (UsuariosDO) ps.get(0);
 
                     Estacionamento c = new Estacionamento();
                     if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(vagas) || c.isEmpty(proprietario) || c.isEmpty(documento) || c.isEmpty(horario) || c.isEmpty(telefone)) {
@@ -49,7 +61,7 @@
 
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form><%     } else {
-                p.setUsuario_Id(estacionamentoCriado.getId());
+                p.setUsuario_Id(usuarioid);
                 p.setNome(nome);
                 p.setEndereco(local);
                 p.setVagas(vagas);
@@ -58,8 +70,8 @@
                 p.setDocumento_Do_Convenio(documento);
                 p.setHorario_De_Funcionamento(horario);
                 p.setTelefone(telefone);
-
-                classes.transacoes.Estacionamento po = new classes.transacoes.Estacionamento();
+                p.setEstado("Aguardando");
+                Estacionamento po = new Estacionamento();
                 po.incluir(p);
 
             %> 
@@ -115,7 +127,7 @@
                     </tr>
 
                 </table>
-                <input type="submit" name="incluir" value="incluir" /> 
+                <input type="submit" name="incluir" value="Finalizar Cadastro" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form> 
         </div>
