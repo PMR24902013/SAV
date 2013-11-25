@@ -56,6 +56,15 @@ public class VeiculosData {
         int result = ps.executeUpdate();
     } // atualizar
     
+        public void realocar(VeiculosDO veiculo, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "update Veiculos set Estacionamento_ID=? where ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, veiculo.getEstacionamentoID());
+        ps.setInt(2, veiculo.getId());
+        int result = ps.executeUpdate();
+    } // atualizar
+    
     public VeiculosDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Veiculos where  ID=?";
