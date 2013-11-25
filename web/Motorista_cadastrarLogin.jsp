@@ -19,7 +19,7 @@
             <%@page import="classes.transacoes.*"  %>
             <%@page import="classes.data.*" %>
             <p class="titulo">Informações de login</p>
-            <form id="content" style="margin-left: 25%;" method="post" action=Estacionamento_cadastrarLogin.jsp>
+            <form id="content" style="margin-left: 25%;" method="post" action=Motorista_cadastrarLogin.jsp>
                 <table>
                     <tr>
                         <td>login </td><td> <input type="text" name="login" /> </td>

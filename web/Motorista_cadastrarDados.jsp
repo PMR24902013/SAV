@@ -22,7 +22,7 @@
             <!--   se for o request inicial, mostrar somente o formulario -->
 
             <%     if (null == request.getParameterValues("incluir")) {
-                    
+
             %>
             <form id="content" action="./Motorista_cadastrarDados.jsp" method="post">
                 <p class="titulo">Insira seus dados</p>
@@ -66,12 +66,13 @@
                     String passwd = (String) session.getAttribute("passwd");
                     Usuarios tu = new Usuarios();
                     UsuariosDO musuario = new UsuariosDO();
-                // cria um novo usuario
+                    // cria um novo usuario
                     musuario.setLogin(user);
                     musuario.setSenha(passwd);
                     musuario.setTipo("Motorista");
                     tu.incluir(musuario);
-                    
+
+                    int usuarioid = tu.buscarID(user);
 //                    Vector buscaUser = tu.pesquisar(user);
 //                    UsuariosDO userCriado = new UsuariosDO();
 //                    userCriado = (UsuariosDO) buscaUser.get(0);
@@ -92,7 +93,7 @@
                     funcionario.setTelefone(telefone);
                     funcionario.setEstado("Aguardando");
                     funcionario.setCategoria("Motorista");
-                    funcionario.setId(musuario.getId());
+                    funcionario.setUsuarioId(usuarioid);
                     if (tn.incluir(funcionario)) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
@@ -101,7 +102,7 @@
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
-                   // tu.excluir(userCriado);
+                    // tu.excluir(userCriado);
                 %>
                 Erro ao incluir usuário! Preencha os campos corretamente.            
                 <form action="./Motorista_cadastrarDados.jsp" method="post">
