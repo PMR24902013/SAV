@@ -10,7 +10,7 @@ public class VeiculosData {
         Connection con = tr.obterConexao();
         String sql = "insert into Veiculos (Modelo_ID, Vaga_ID, Cliente_ID, Quilometragem, Ar_Condicionado,"
                 + "Direcao_Hidraulica, Freio_ABS, GPS, Cambio_Automatico, Estado, Placa)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, veiculo.getModeloID());
         ps.setInt(2, veiculo.getVagaID());
