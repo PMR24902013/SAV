@@ -37,8 +37,8 @@
             ArrayList <String> freioabs = new ArrayList<String>();
             ArrayList <String> gps = new ArrayList<String>();
             ArrayList <String> cambioauto = new ArrayList<String>();
-            ArrayList <String> estacionamentoID = new ArrayList<String>();
-            ArrayList <String> modeloID = new ArrayList<String>();
+            int estacionamentoID;
+            int modeloID;
             VeiculosDO veiculo = new VeiculosDO();
             ModelosDO mod = new ModelosDO();
             Modelos m = new Modelos();
@@ -52,24 +52,20 @@
             
             for (int cont=0; cont<vdisp.size() ; cont++ ){
                 veiculo = (VeiculosDO)vdisp.get(cont);
-                estacionamentoID.add(String.valueOf(veiculo.getEstacionamentoID()));
-                modeloID.add(String.valueOf(veiculo.getModeloID()));
+                estacionamentoID=veiculo.getEstacionamentoID();
+                modeloID=veiculo.getModeloID();
                 arcondicionado.add(String.valueOf(veiculo.getArCondicionado()));
                 direcaohidraulica.add(String.valueOf(veiculo.getDirecaoHidraulica()));
                 freioabs.add(String.valueOf(veiculo.getFreioABS()));
                 gps.add(String.valueOf(veiculo.getGPS()));
                 cambioauto.add(String.valueOf(veiculo.getCambioAutomatico()));
-                }
             
-            for (int cont=0; cont<modeloID.size(); cont++){
-               mod = m.pesquisarModelo(Integer.parseInt(modeloID.get(cont)));
+                mod = m.pesquisarModelo(modeloID);
                marca.add(mod.getMarca());
                modelo.add(mod.getModelo());
                ano.add(String.valueOf(mod.getAno()));
-            }
             
-            for (int cont=0; cont<estacionamentoID.size(); cont++){
-                est = e.buscarPorUsuarioID(cont);
+               est = e.buscar(estacionamentoID);
                 estacionamento.add(est.getNome());
                 endereco.add(est.getEndereco());
             }
@@ -104,14 +100,11 @@
             <table>
                 <tr>
                     <td><strong>ESTACIONAMENTO</strong></td>
+                    <td><strong>ENDEREÇO</strong></td>
                     <td><strong>MODELO</strong></td>
                     <td><strong>MARCA</strong></td>
                     <td><strong>ANO</strong></td>
-                    <td><strong>AR CONDICIONADO</strong></td>
-                    <td><strong>DIREÇÃO HIDRÁULICA</strong></td>
-                    <td><strong>FREIOS ABS</strong></td>
-                    <td><strong>GPS</strong></td>
-                    <td><strong>CÂMBIO AUTOMÁTICO</strong></td>
+                    <td><strong>OPCIONAIS</strong></td>
                 </tr>
                 
                 <%
@@ -122,21 +115,43 @@
                 <td><%=modelo.get(j)%></td>
                 <td><%=marca.get(j)%></td>
                 <td><%=ano.get(j)%></td>
-                <td><%=arcondicionado.get(j)%></td>
-                <td><%=direcaohidraulica.get(j)%></td>
-                <td><%=freioabs.get(j)%></td>
-                <td><%=gps.get(j)%></td>
-                <td><%=cambioauto.get(j)%></td>
+                <td>
+                <% if(arcondicionado.get(j)=="true"){
+                    %>
+                    ar condicionado 
+                    <%
+                }%>
+                <% if(direcaohidraulica.get(j)=="true"){
+                    %>
+                    direcao hidraulica; 
+                    <%
+                }%>
+                <% if(freioabs.get(j)=="true"){
+                    %>
+                    freioabs; 
+                    <%
+                }%>
+                <% if(gps.get(j)=="true"){
+                    %>
+                    gps; 
+                    <%
+                }%>
+                <% if(cambioauto.get(j)=="true"){
+                    %>
+                    cambioauto; 
+                    <%
+                }%>
+                </td>
             </tr>
             <%                
             }%>
             
             </table>
             
-            <% if(null != request.getParameter("voltarMenu")){
+           <% /*if(null != request.getParameter("voltarMenu")){
                 response.sendRedirect(request.getContextPath() + "/index.html");
                 return;
-            }
+            }*/
             %>
             
             <form name="content" action="index.html">
