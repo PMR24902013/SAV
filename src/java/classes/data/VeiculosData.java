@@ -23,7 +23,6 @@ public class VeiculosData {
         ps.setBoolean(9, veiculo.getCambioAutomatico());
         ps.setString(10, veiculo.getEstado());
         ps.setString(11, veiculo.getPlaca());
-        ps.setInt(12, veiculo.getEstacionamentoID());
         int result = ps.executeUpdate();
     } // incluir
 
