@@ -21,15 +21,15 @@
             <p class="titulo">Informações de login</p>
             <form id="content" style="margin-left: 25%;" method="post" action=Estacionamento_cadastrarLogin.jsp>
                 <table>
-                <tr>
-                    <td>login </td><td> <input type="text" name="login" /> </td>
-                </tr>
-                <tr>
-                <td>Senha </td><td> <input type="password" name="senha" /> </td>
-                </tr>
-                <tr>
-                <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
-                </tr>
+                    <tr>
+                        <td>login </td><td> <input type="text" name="login" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Senha </td><td> <input type="password" name="senha" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Re-digite sua senha </td><td> <input type="password" name="senha2" /> </td>
+                    </tr>
                 </table>
                 <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
                 <input type="hidden" name="campo_controle" />
@@ -65,13 +65,8 @@
             <p style="text-align: center; color: red;">Usuário já cadastrado</p>
             <%
             } else {
-                UsuariosDO pusuario = new UsuariosDO();
-                // cria um novo usuario
-                pusuario.setLogin(user);
-                pusuario.setSenha(passwd);
-                pusuario.setTipo("Estacionamento");
-                tn.incluir(pusuario);
                 session.setAttribute("user_name", user);
+                session.setAttribute("passwd", passwd);
             %>
             <jsp:forward page="Estacionamento_cadastrarDados.jsp" />
             <%                   }
