@@ -38,32 +38,26 @@
                         action = "showSearchForm";
                 %>
 
-                <form id="contentRight" action="./OperadorSistema_administrarPagamentos.jsp" method="post">
                     <%
                         // VERIFICACAO MANUAL DO LOGIN
                         if (session.getAttribute("user_name") == null) {
                             pageContext.forward("index.jsp");
                         }
-                    %>
-
-                    <%
                         classes.transacoes.Operacoes_de_Caixa tn = new classes.transacoes.Operacoes_de_Caixa();
                         String estado = "Aberto";
                         Vector pagamentos = tn.buscarPorEstado(estado);
                         if (((pagamentos == null) || (pagamentos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                        Nenhum pagamento em aberto.
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
-                    <%     } else {
+                    <p id="contentRight">Não há pagamentos em aberto.</p>
+                    <%} else {
                     %>
+                <form id="contentRight" action="./OperadorSistema_administrarPagamentos.jsp" method="post">
                     <table>
                         <tr>
-                            <td>Cliente</td>
-                            <td>Data </td>
-                            <td>Valor </td>
+                            <td><b>Cliente</b></td>
+                            <td><b>Data</b></td>
+                            <td><b>Valor</b></td>
                         </tr>
                         <%           for (int i = 0; i < pagamentos.size(); i++) {
                                 classes.data.Operacoes_de_CaixaDO op = (classes.data.Operacoes_de_CaixaDO) pagamentos.elementAt(i);
@@ -92,11 +86,6 @@
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
-                        <td></td>
-                        <td></td>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                                <input type="submit" name="cancelar" value="cancelar" />
-                            </form></td>
                     </table>   
                 </form>         
                 <%     } // reservas retornados
@@ -135,9 +124,9 @@
                 </form>
                 <%     }
                     } // updateStatusPagamento
-%>
-              <div id="contentLeft"></div>
-              <div class="clear"> </div>
+                %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
