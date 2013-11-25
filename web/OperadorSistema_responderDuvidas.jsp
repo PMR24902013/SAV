@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Responder dúvidas</title>
         <%@ include file="headerOpSistema.html" %>
     </head>
     <body>
@@ -142,13 +142,13 @@
                             // avisar usuario que transacao foi feita com sucesso
                     %>
                     <form id="contentRight" action="./OperadorSistema_responderDuvidas.jsp" method="post">
-                        E-mail com a resposta enviado
+                        E-mail com a resposta enviado <br>
                         <input type="submit" name="voltar" value="Voltar" />
                     </form>
                     <%     } else {
                     %>
                     <form id="contentRight" action="./OperadorSistema_responderDuvidas.jsp" method="post">
-                        Erro ao responder a dúvida.
+                        Erro ao responder a dúvida. <br>
                         <input type="submit" name="retry" value="Repetir" />
                     </form>
                     <%     }
