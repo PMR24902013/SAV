@@ -71,11 +71,6 @@
                         int usuario_ID = tn_u.buscarID((String) session.getAttribute("user_name"));
                         //usuario = tn_u.buscar(usuario_ID);
                         manutencao = tn_e.buscarPorUsuarioID(usuario_ID);
-                        System.out.println(manutencao.getNome());
-                        System.out.println(manutencao.getCPF());
-                        System.out.println(manutencao.getEmail());
-                        System.out.println(manutencao.getEndereco());
-                        System.out.println(manutencao.getTelefone());
                 %>        
                 <form  id="contentRight" action="./FuncManut_alterarDados.jsp" method="post">
                     <table>
@@ -85,15 +80,15 @@
                         </tr>
                         <tr>
                             <td>CPF</td>
-                            <td><input type="text" name="endereco" value="<%=manutencao.getCPF()%>" />
+                            <td><input type="text" name="cpf" value="<%=manutencao.getCPF()%>" />
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td><input type="text" name="vagas" value="<%=manutencao.getEmail()%>" />
+                            <td><input type="text" name="email" value="<%=manutencao.getEmail()%>" />
                         </tr>
                         <tr>
                             <td>Endereco</td>
-                            <td><input type="text" name="nomeDoResponsavel" value="<%=manutencao.getEndereco()%>" />
+                            <td><input type="text" name="endereco" value="<%=manutencao.getEndereco()%>" />
                         </tr>
          
                         <tr>
@@ -119,10 +114,10 @@
                 <!--   atualizar valores -->
                 <%
                     if (action.equals("updateValues")) {
-                        String nome = request.getParameter("Nome");
-                        String CPF = request.getParameter("CPF");
-                        String endereco = request.getParameter("Endereco");
-                        String telefone = request.getParameter("Telefone");
+                        String nome = request.getParameter("nome");
+                        String CPF = request.getParameter("cpf");
+                        String endereco = request.getParameter("endereco");
+                        String telefone = request.getParameter("telefone");
                         String email = request.getParameter("email");
                         
                         Funcionario tn_e = new Funcionario();
@@ -137,7 +132,7 @@
                         manut.setUsuarioId(Integer.parseInt(request.getParameter("usuarioid")));
                         boolean result = false;
                         try {
-                            result = tn_e.atualizar(manut);
+                            result = tn_e.atualizarDados(manut);
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
                 <%
@@ -146,13 +141,13 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 Transação realizada com sucesso!
-                <form  id="contentRight" action="./Estacionamento_menu.html" method="post">
+                <form  id="contentRight" action="./FuncManut_menu.html" method="post">
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 Erro ao atualizar dados.
-                <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
+                <form  id="contentRight" action="./FuncManut_alterarDados.jsp" method="post">
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
