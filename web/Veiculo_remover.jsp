@@ -123,6 +123,7 @@
                     } // removerVeiculo
                 %>
                 <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
