@@ -50,35 +50,55 @@ public class ReservasData {
 
  public void atualizar(ReservasDO reserva, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=? where id=?";
+     String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=?, Horario_de_Devolucao=?, Veiculos_ID=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      java.util.Date utilDate1 = reserva.getDataDeReserva();
      java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
      java.util.Date utilDate2 = reserva.getHorarioDeRetirada();
      java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+     java.util.Date utilDate3 = reserva.getHorarioDeDevolucao();
+     java.sql.Date sqlDate3 = new java.sql.Date(utilDate2.getTime());
      ps.setDate(1, sqlDate1);
      ps.setDate(2, sqlDate2);
      ps.setInt(3, reserva.getModeloID());
      ps.setInt(4, reserva.getEstacionamentoID());
      ps.setInt(5, reserva.getID());
+     ps.setDate(6, sqlDate3);
+     ps.setInt(7,reserva.getVeiculoID());
      int result = ps.executeUpdate();
   } // atualizar
+ 
+ public void atualizarEstado(ReservasDO reserva, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update reservas set Estado=? where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, reserva.getEstado());
+     ps.setInt(2, reserva.getID());
+     int result = ps.executeUpdate();
+  } // atualizar 
 
   public ReservasDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from Reservas where  id=?";
+     String sql = "select * from reservas where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, idobj);
      ResultSet rs = ps.executeQuery();
      rs.next();
      ReservasDO reserva = new ReservasDO();
+     reserva.setID(rs.getInt("id"));
+     reserva.setVeiculoID(rs.getInt("Veiculos_ID"));
      reserva.setDataDeReserva(rs.getDate("Data_da_Reserva"));
      reserva.setModeloID(rs.getInt("Modelos_ID"));
      reserva.setHorarioDeRetirada(rs.getTime("Horario_da_Retirada"));
      reserva.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+     
+     reserva.setEstado(rs.getString("Estado"));
+     reserva.setHorarioDeDevolucao(rs.getTime("Horario_da_Devolucao"));
+     
      return reserva;
   } // buscar
   
+    
   public Vector pesquisar(int idobj, String estado, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Reservas where Cliente_Id=? and Estado =?";
@@ -92,6 +112,7 @@ public class ReservasData {
         ReservasDO r = new ReservasDO();
         r.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
         r.setDataDeReserva(rs.getDate("Data_da_Reserva"));
+        r.setEstado(rs.getString("Estado"));
         r.setID(rs.getInt("ID"));
         reserva.add(r);
      }

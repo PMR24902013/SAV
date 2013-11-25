@@ -60,7 +60,6 @@
                         <tr>
                             <td>Veiculo</td>
                             <td>ModeloID</td>
-                            <td>EstacionamentoID</td>
                             <td>Estado </td>
                         </tr>
                         <%           for (int i = 0; i < busca.size(); i++) {
@@ -69,13 +68,13 @@
                                 int usuarioid = op.getVeiculoID();
                                 //String tipo = tn_u.buscar(usuarioid);
                                 String placa = null;
-                                int vagaID;
+                                int modeloID;
                                 
 
                                 // classes.transacoes.Veiculos tn_c = new classes.transacoes.Veiculos();
                                 classes.data.VeiculosDO carro = tn_u.buscarPorVeiculoID(usuarioid);
                                 placa = carro.getPlaca();
-                                vagaID = carro.getVagaID();
+                                modeloID = carro.getModeloID();
                                 
 
 
