@@ -109,7 +109,7 @@ public class PostoData {
      PostoDO posto = new PostoDO();
      posto.setID (rs.getInt("id"));
      posto.setUsuariosID (rs.getInt("Usuarios_ID"));
-     posto.setNome (rs.getString("nome"));
+     posto.setNome (rs.getString("Nome"));
      posto.setEndereco (rs.getString("endereco"));
      posto.setTelefone (rs.getString("telefone"));
      posto.setHorario (rs.getString("Horario_de_Funcionamento"));
