@@ -59,23 +59,20 @@
                         if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0)) && ((cadastrosF == null) || (cadastrosF.size() == 0)) && ((cadastrosE == null) || (cadastrosE.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="./OperadorSistema_menu.jsp" method="post">
-                        Nenhum cadastro em aguardo foi encontrado
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
+                    <p>Nenhum cadastro em aguardo foi encontrado</p>
                     <%     } else {
                     %>
                     <table>
                         <tr>
-                            <td>Nome </td>
-                            <td>Tipo de Cadastro </td>
+                            <td><strong>Nome</strong> </td>
+                            <td><strong>Tipo de Cadastro</strong> </td>
                         </tr>
                         <%           for (int i = 0; i < cadastrosC.size(); i++) {
                                 classes.data.ClientesDO c = (classes.data.ClientesDO) cadastrosC.elementAt(i);
                         %>              <tr>
                             <td><%= c.getNome()%></td>
                             <td>Cliente</td>
-                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showClienteEditForm&id=<%= c.getId()%>>Administrar</a>
+                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showClienteEditForm&id=<%= c.getId()%>>Administrar</a></td>
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
@@ -83,8 +80,8 @@
                                 classes.data.PostoDO p = (classes.data.PostoDO) cadastrosP.elementAt(i);
                         %>              <tr>
                             <td><%= p.getNome()%></td>
-                            <td>Postos</td>
-                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showPostoEditForm&id=<%= p.getID()%>>Administrar</a>
+                            <td>Posto</td>
+                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showPostoEditForm&id=<%= p.getID()%>>Administrar</a></td>
                         </tr>        
                         <%           } // for i Posto     
                         %>
@@ -93,14 +90,14 @@
                         %>              <tr>
                             <td><%= f.getNome()%></td>
                             <% String categoria = f.getCategoria();
-                    if (categoria.equals("OpSist")) {%>
+                                if (categoria.equals("OpSist")) {%>
                             <td>Operador do Sistema</td>
                             <%} else if (categoria.equals("Motorista")) {%>
                             <td>Motorista</td>
                             <%} else if (categoria.equals("OpManut")) {%>
                             <td>Operador de Manutenção</td>
                             <%}%>
-                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showFuncionarioEditForm&id=<%= f.getId()%>>Administrar</a>
+                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showFuncionarioEditForm&id=<%= f.getId()%>>Administrar</a></td>
                         </tr>        
                         <%           } // for i Funcionario     
                         %>
@@ -110,15 +107,10 @@
                         %>              <tr>
                             <td><%= e.getNome()%></td>
                             <td>Estacionamento</td>
-                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showEstacionamentoEditForm&id=<%= e.getId()%>>Administrar</a>
+                            <td><a href=OperadorSistema_administrarCadastros.jsp?action=showEstacionamentoEditForm&id=<%= e.getId()%>>Administrar</a></td>
                         </tr>        
                         <%           } // for i Estacionamento     
                         %>
-                        <td></td>
-                        <td></td>
-                        <td><form action="./OperadorSistema_menu.html" method="post">
-                                <input type="submit" name="cancelar" value="cancelar" />
-                            </form>
                     </table>    
                 </form>        
                 <%     } // reservas retornados
@@ -203,7 +195,7 @@
                             <td>Documento de Licensiamento</td>
                             <td><%= posto.getDocumento()%></td>
                         </tr>
-                    </table>
+                    </table><br>
                     <input type="submit" name="ativar" value="ativar" />
                     <input type="hidden" name="id" value=<%= id%> /> 
                     <input type="submit" name="recusar" value="recusar" />
@@ -435,8 +427,9 @@
                 </form>
                 <%     }
                     } // updateEstaacionamentoValues
-                %>
+%>
                 <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
