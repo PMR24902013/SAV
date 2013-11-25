@@ -16,7 +16,7 @@ public class VeiculosDO {
     private String _placa;
     private int _modeloID;
     private int _estacionamentoID;
-            
+    private int _vagaID;
     
     public int getId() {
         return _id;
@@ -104,6 +104,14 @@ public class VeiculosDO {
     
     public void setEstacionamentoID(int estacionamentoID){
         _estacionamentoID = estacionamentoID;
+    } // setEstacionamentoID
+    
+    public int getVagaID(){
+        return _vagaID;
+    } // getEstacionamentoID
+    
+    public void setVagaID(int vagaID){
+        _vagaID = vagaID;
     } // setEstacionamentoID
     
       

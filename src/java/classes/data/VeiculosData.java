@@ -8,12 +8,12 @@ public class VeiculosData {
     
     public void incluir(VeiculosDO veiculo, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Veiculos (Modelo_ID, Estacionamento_ID, Quilometragem, Ar_Condicionado,"
+        String sql = "insert into Veiculos (Modelo_ID, Vaga_ID, Quilometragem, Ar_Condicionado,"
                 + "Direcao_Hidraulica, Freio_ABS, GPS, Cambio_Automatico, Estado, Placa)"
                 + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, veiculo.getModeloID());
-        ps.setInt(2, veiculo.getEstacionamentoID());
+        ps.setInt(2, veiculo.getVagaID());
         ps.setInt(3, veiculo.getQuilometragem());
         ps.setBoolean(4, veiculo.getArCondicionado());
         ps.setBoolean(5, veiculo.getDirecaoHidraulica());
@@ -58,9 +58,9 @@ public class VeiculosData {
     
         public void realocar(VeiculosDO veiculo, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Veiculos set Estacionamento_ID=? where ID=?";
+        String sql = "update Veiculos set Vaga_ID=? where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, veiculo.getEstacionamentoID());
+        ps.setInt(1, veiculo.getVagaID());
         ps.setInt(2, veiculo.getId());
         int result = ps.executeUpdate();
     } // atualizar
@@ -105,7 +105,7 @@ public class VeiculosData {
             veiculo.setEstado(rs.getString("Estado"));
             veiculo.setPlaca(rs.getString("Placa"));
             veiculo.setModeloID(rs.getInt("Modelo_ID"));
-            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+            veiculo.setVagaID(rs.getInt("Vaga_ID"));
             v.add(veiculo);
         }
         return v;
@@ -146,9 +146,9 @@ public class VeiculosData {
         return veiculos;
     } // pesquisarTodos
     
-    public Vector buscarPorEstacionamento(int idobj, Transacao tr) throws Exception {
+    public Vector buscarPorVaga(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Veiculos where  Estacionamento_ID=?";
+        String sql = "select * from Veiculos where  Vaga_ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
@@ -165,7 +165,7 @@ public class VeiculosData {
             veiculo.setEstado(rs.getString("Estado"));
             veiculo.setModeloID(rs.getInt("Modelo_ID"));
             veiculo.setPlaca(rs.getString("Placa"));
-            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+            veiculo.setVagaID(rs.getInt("Vaga_ID"));
             v.add(veiculo);
         }
         return v;

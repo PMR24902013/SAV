@@ -69,13 +69,13 @@
                                 int usuarioid = op.getVeiculoID();
                                 //String tipo = tn_u.buscar(usuarioid);
                                 String placa = null;
-                                int modeloID;
+                                int vagaID;
                                 
 
                                 // classes.transacoes.Veiculos tn_c = new classes.transacoes.Veiculos();
                                 classes.data.VeiculosDO carro = tn_u.buscarPorVeiculoID(usuarioid);
                                 placa = carro.getPlaca();
-                                modeloID = carro.getModeloID();
+                                vagaID = carro.getVagaID();
                                 
 
 
