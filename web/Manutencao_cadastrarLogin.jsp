@@ -23,10 +23,10 @@
             <! ------------------------------------------------------------>
             <!--   se for o request inicial, mostrar somente o formulario -->
 
-            <%     if (null == request.getParameterValues("incluir")) {
+            <%     if (null == request.getParameterValues("enviar")) {
             %>
-            <form id="content" action="./Manutencao_cadastrarLogin.jsp" method="post">
-                <b>Informações de login</b>
+           <p class="titulo">Informações de login</p>
+           <form id="content" style="margin-left: 25%;" method="post" action=Manutencao_cadastrarLogin.jsp>
                 <table>
                     <tr>
                         <td>Usuário</td>
@@ -41,7 +41,7 @@
                         <td><input type="password" name="validaPassword">
                     </tr>
                 </table>
-                <input type="submit" name="incluir" value="Enviar" />
+               <input style="margin-left: 10%;" type="submit" name="enviar" value="Enviar" />
                 <form action="./index.html" method="post">
                     <input type="submit" name="cancelar" value="Cancelar" />
                 </form>
