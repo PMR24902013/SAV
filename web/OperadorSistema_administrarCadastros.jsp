@@ -39,7 +39,7 @@
                         action = "showSearchForm";
                 %>
 
-                <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
+               
                     <%
                         // VERIFICACAO MANUAL DO LOGIN
                         if (session.getAttribute("user_name") == null) {
@@ -59,9 +59,10 @@
                         if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0)) && ((cadastrosF == null) || (cadastrosF.size() == 0)) && ((cadastrosE == null) || (cadastrosE.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <p>Nenhum cadastro em aguardo foi encontrado</p>
+                    <p id="contentRight">Nenhum cadastro em aguardo foi encontrado</p>
                     <%     } else {
                     %>
+                    <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
                     <table>
                         <tr>
                             <td><strong>Nome</strong> </td>

@@ -15,8 +15,8 @@ public class VeiculosDO {
     private String _estado;
     private String _placa;
     private int _modeloID;
-    private int _estacionamentoID;
-            
+    private int _vagaID;
+    private int _clienteID;
     
     public int getId() {
         return _id;
@@ -98,13 +98,19 @@ public class VeiculosDO {
         _modeloID = modeloID;
     } // setModeloID
     
-    public int getEstacionamentoID(){
-        return _estacionamentoID;
+    public int getVagaID(){
+        return _vagaID;
     } // getEstacionamentoID
     
-    public void setEstacionamentoID(int estacionamentoID){
-        _estacionamentoID = estacionamentoID;
+    public void setVagaID(int vagaID){
+        _vagaID = vagaID;
     } // setEstacionamentoID
     
-      
+    public int getClienteID(){
+        return _clienteID;
+    } // getEstacionamentoID
+    
+    public void setClienteID(int clienteID){
+        _clienteID = clienteID;
+    } // setEstacionamentoID
 }
