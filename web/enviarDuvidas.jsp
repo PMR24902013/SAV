@@ -37,7 +37,7 @@
                     p.setPergunta(pergunta);
                     
                     Pergunta pTrans = new Pergunta();
-                    pTrans.incluir(p);
+                    if(pTrans.incluir(p) == true){
                     %>
     <br><br>
                     Dúvida enviada com sucesso!<br>
@@ -46,9 +46,14 @@
                     </form>
                     <%
                     
+                    } 
+                    else{%><br><br>
+                    Erro ao enviar, tente novamente...<br>
+                    <form action ="index.html">
+                        <input type ="submit" value="Voltar" name="Voltar"/>                       
+                    </form><%
                     }
-                
-            %>
+               }%>
         
 
             <h1>
