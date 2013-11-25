@@ -103,6 +103,22 @@ public class Manutencao {
      return null;
   } // pesquisar
 
+    public Vector buscarPorID(int idobj) {
+     
+     Transacao tr = new Transacao();
+     try {
+	     tr.beginReadOnly();
+           ManutencaoData cdata = new ManutencaoData();
+           Vector v = cdata.buscarPorID(idobj, tr);
+		 tr.commit();
+		 return v;
+     } catch(Exception e) {
+         System.out.println("erro ao pesquisar " );
+         e.printStackTrace();
+     }
+     return null;
+  } // pesquisar
+  
   public boolean isEmpty(String s) {
      if (null == s)
        return true;

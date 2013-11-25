@@ -87,5 +87,20 @@ public class ManutencaoData {
         }
         return v;
     } // buscar
+    
+        public ManutencaoDO buscarPorID(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Manutencao whereID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        ManutencaoDO manut = new ManutencaoDO();
+        manut.setId(rs.getInt("ID"));
+        manut.setDataDaEntradaNaManutencao(rs.getString("Data_da_Entrada_na_Manutencao"));
+        manut.setVeiculoID(rs.getInt("Veiculo_ID"));
+        manut.setFuncionarioId(rs.getInt("Funcionario_ID"));
+        return manut;
+    }
 
 }
