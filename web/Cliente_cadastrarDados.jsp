@@ -72,6 +72,7 @@
                 String endereco = request.getParameter("endereco");
                 String telefone = request.getParameter("telefone");
                 String email = request.getParameter("email");
+                String cnh = request.getParameter("carteira");
 
                 ClientesDO p = new ClientesDO();
                 //arrumar  arquivo 
@@ -97,6 +98,7 @@
                 p.setEmail(email);
                 p.setTelefone(telefone);
                 p.setEstado("Aguardando");
+                p.setCNH(cnh);
                 Clientes po = new Clientes();
                 po.incluir(p);
 

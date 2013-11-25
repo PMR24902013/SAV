@@ -42,7 +42,8 @@
                     String documento = request.getParameter("documento");
                     String horario = request.getParameter("horario");
                     String telefone = request.getParameter("telefone");
-
+                    String cep = request.getParameter("cep");
+                    
                     EstacionamentoDO p = new EstacionamentoDO();
                     //arrumar  arquivo 
 //                    String nomeatual = (String) session.getAttribute("user_name");
@@ -71,6 +72,8 @@
                 p.setHorario_De_Funcionamento(horario);
                 p.setTelefone(telefone);
                 p.setEstado("Aguardando");
+                p.setCEP(cep);
+                
                 Estacionamento po = new Estacionamento();
                 po.incluir(p);
 
@@ -113,7 +116,7 @@
                     </tr>
                     <tr>
                         <td> Documento do convenio</td>
-                        <td><input type ="text" name ="documento"/></td>
+                        <td><input type ="file" name ="documento"/></td>
                     </tr>
 
                     <tr>
@@ -124,6 +127,10 @@
                     <tr>
                         <td> Telefone </td>
                         <td><input type ="text" name ="telefone"/></td>
+                    </tr>
+                    <tr>
+                        <td> CEP </td>
+                        <td><input type ="text" name ="cep"/></td>
                     </tr>
 
                 </table>
