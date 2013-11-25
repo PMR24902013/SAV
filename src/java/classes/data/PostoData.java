@@ -17,7 +17,7 @@ import java.util.Vector;
 public class PostoData {
      public void incluir(PostoDO posto, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "insert into Posto (Usuarios_ID, Nome, Endereco, Telefone, Horario_de_Funcionamento, Responsavel, Documento_de_Licenciamento) VALUES (?,?,?,?,?,?,?)";
+     String sql = "insert into Posto (Usuarios_ID, Nome, Endereco, Telefone, Horario_de_Funcionamento, Responsavel, Documento_de_Licenciamento, Estado) VALUES (?,?,?,?,?,?,?,?)";
      PreparedStatement ps = con.prepareStatement(sql);
      
      ps.setInt(1, posto.getUsuariosID());
@@ -27,6 +27,7 @@ public class PostoData {
      ps.setString(5, posto.getHorario());
      ps.setString(6, posto.getResponsavel());
      ps.setString(7, posto.getDocumento());
+     ps.setString(8, posto.getEstado());
      int result = ps.executeUpdate();
   }
 
