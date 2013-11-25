@@ -194,5 +194,31 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     }
+    public Vector buscarPorEstacionamento(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Veiculos where  Estacionamento_ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        Vector v = new Vector();
+        while(rs.next()){
+            VeiculosDO veiculo = new VeiculosDO();
+            veiculo.setId(rs.getInt("ID"));
+            veiculo.setQuilometragem(rs.getInt("Quilometragem"));
+            veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
+            veiculo.setDirecaoHidraulica(rs.getBoolean("Direcao_Hidraulica"));
+            veiculo.setFreioABS(rs.getBoolean("Freio_ABS"));
+            veiculo.setGPS(rs.getBoolean("GPS"));
+            veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
+            veiculo.setEstado(rs.getString("Estado"));
+            veiculo.setModeloID(rs.getInt("Modelo_ID"));
+            veiculo.setPlaca(rs.getString("Placa"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+            v.add(veiculo);
+        }
+        return v;
+    } // buscar
+
+
 
 } // ContatoData
