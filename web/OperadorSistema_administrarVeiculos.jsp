@@ -13,17 +13,15 @@
     <body>
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
-
-
-                <div id="contentRight"><h1>
-                        <br>
+            <div id="tudo">
+                <div id="contentRight">
                         <a href="Veiculo_cadastrar.jsp">Cadastrar novo veículo</a>    
-                        
                         <br>
-                        <a href="Veiculo_remover.jsp">Remover veículo</a>  
-                    </h1></div>
+                        <a href="Veiculo_remover.jsp">Remover veículo</a>
+                </div>
                 <div id="contentLeft"></div>
-
+                <div class="clear"> </div>
+            </div>
         </div>
     </body>
 </html>
