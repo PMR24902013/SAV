@@ -166,10 +166,8 @@
                         result = tn_p.atualizar(p);
                     }
                     catch (Exception e){
-                %>
-                <% e.toString()%>
-                <%;
-                   }
+                 e.toString();
+                }
                     if (result) {
                 %>
                 
