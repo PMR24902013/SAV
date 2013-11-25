@@ -39,18 +39,17 @@ public class Veiculos {
      return false;
   } // incluir
 
-  public boolean atualizar(VeiculosDO funcionario) throws Exception {
+  public boolean atualizar(VeiculosDO veiculo) throws Exception {
      Transacao tr = new Transacao();
 	 try{
-	   // inserir validacoes de regras de negocio
 	   tr.begin();
-  	    VeiculosData cdata = new VeiculosData();
-	     cdata.atualizar(funcionario, tr);
+  	   VeiculosData cdata = new VeiculosData();
+	   cdata.atualizar(veiculo, tr);
 	   tr.commit();
 	   return true;
 	 } catch (Exception e) {
 	   tr.rollback();
-	   System.out.println("erro ao atualizar" + funcionario.getPlaca());
+	   System.out.println("erro ao atualizar" + veiculo.getPlaca());
 	   e.printStackTrace();
 	 }
 	 return false;

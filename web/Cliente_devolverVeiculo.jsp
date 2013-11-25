@@ -9,6 +9,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@ include file="headerCliente.html" %>
+        <%@ page import="classes.data.*" %>
+        <%@ page import="classes.transacoes.*" %>
+        <%@ page import="java.util.*"%>
+        <%@ page import="java.sql.*"%>
         
         <style>
             .fixed-size{
@@ -25,19 +29,35 @@
 
             <div id="tudo">
                 <div id="contentRight">
-                    <form>
+                    <form id="content" method="post">
+                        <%
+                            if(null != request.getParameter("concluir")){
+                                String placa = request.getParameter("veiculo");
+                                Veiculos vTransacao = new Veiculos();
+                                VeiculosDO veiculo = vTransacao.buscar(Integer.parseInt(placa));
+                                veiculo.setEstado("Disponivel");
+                                vTransacao.atualizar(veiculo);
+                            }
+                        %>
                         <table>
                             <tr>
                                 <th>Veículo<th>
                                 <th>
-                                    <select class="fixed-size">
+                                    <select name="veiculo" class="fixed-size">
                                         <option selected="selected" disabled>Selecione</option>
                                         <%
-                                            
+                                            Veiculos vTransacao = new Veiculos();
+                                            Vector veiculos = vTransacao.pesquisarTodos();
+                                            Usuarios uTransacao = new Usuarios();
+                                            Clientes cTransacao = new Clientes();
+                                            Vector usuario = uTransacao.pesquisar((String) session.getAttribute("user_name"));
+                                            ClientesDO cliente = cTransacao.buscarPorUsuarioID(((UsuariosDO)usuario.elementAt(0)).getId());
                                             for(int i = 0; i < veiculos.size(); i++){
-                                                int id = veiculos.elementAt(i);
-                                                String placa = veiculos.elementAt(i);
-                                                %><option value=<%=id%>><%=placa%></option><%
+                                                if(((VeiculosDO)veiculos.elementAt(i)).getClienteID() == cliente.getId()){
+                                                    int id = ((VeiculosDO)veiculos.elementAt(i)).getId();
+                                                    String placa = ((VeiculosDO)veiculos.elementAt(i)).getPlaca();
+                                                    %><option value=<%=id%>><%=placa%></option><%
+                                                }
                                             }
                                         %>
                                     </select>
