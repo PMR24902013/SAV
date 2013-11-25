@@ -22,6 +22,7 @@ public class ReservasDO {
     private int _cliente_id;
     private Date _horarioDeRetirada;
     private Date _dataDeReserva;
+    private Date _horarioDeDevolucao;
     private String _estado;
     
     SimpleDateFormat data = new SimpleDateFormat ("dd/MM/yyyy");
@@ -58,6 +59,11 @@ public class ReservasDO {
     public Date getHorarioDeRetirada(){
         return _horarioDeRetirada;
     }
+    
+    public Date getHorarioDeDevolucao(){
+        return _horarioDeDevolucao;
+    }
+    
     
     public Date getDataDeReserva(){
         return _dataDeReserva;
@@ -97,6 +103,10 @@ public class ReservasDO {
     
     public void setHorarioDeRetirada(Date horarioDeRetirada){
             _horarioDeRetirada = horarioDeRetirada;
+    }
+    
+    public void setHorarioDeDevolucao(Date horarioDeDevolucao){
+            _horarioDeDevolucao = horarioDeDevolucao;
     }
     
     public void setDataDeReserva(Date dataDeReserva){

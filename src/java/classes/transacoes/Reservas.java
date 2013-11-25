@@ -34,6 +34,23 @@ public class Reservas {
 	 return false;
   } // atualizar
 
+    public boolean atualizarEstado(ReservasDO Reserva) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	     ReservasData rdata = new ReservasData();
+	     rdata.atualizarEstado(Reserva, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao atualizar reserva");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
+    
   public boolean excluir(ReservasDO Reserva) throws Exception {
       return false;
   } // excluir
