@@ -173,7 +173,8 @@ public class VeiculosData {
     
             public VeiculosDO buscarPorVeiculoID(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Veiculos where  Veiculo_ID=?";
+        System.out.println("to aqui" + idobj);
+        String sql = "select * from Veiculos where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
@@ -189,6 +190,7 @@ public class VeiculosData {
         veiculo.setEstado(rs.getString("Estado"));
         veiculo.setPlaca(rs.getString("Placa"));
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
+        System.out.println(veiculo.getQuilometragem());
         return veiculo;
     } // buscar
 }
