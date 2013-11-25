@@ -138,4 +138,20 @@ public class FuncionarioData {
      ps.setInt(2, id);
      int result = ps.executeUpdate(); 
   }// atualizarCadastro
+        
+          public void atualizarDados(FuncionarioDO funcionario, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "update Funcionario set Nome=?, CPF=? ,email=?, Endereco=?, Telefone=?, where id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     
+     ps.setString(1, funcionario.getNome());
+     ps.setString(2, funcionario.getCPF());
+     ps.setString(3, funcionario.getEmail());
+     ps.setString(4, funcionario.getEndereco());
+     ps.setString(5, funcionario.getTelefone());
+     ps.setInt(6, funcionario.getId());
+     int result = ps.executeUpdate();
+  }
+        
+        
 }

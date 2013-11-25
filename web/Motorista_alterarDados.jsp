@@ -136,7 +136,7 @@
                         motor.setUsuarioId(Integer.parseInt(request.getParameter("usuarioid")));
                         boolean result = false;
                         try {
-                            result = tn_e.atualizar(motor);
+                            result = tn_e.atualizarDados(motor);
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
                 <%

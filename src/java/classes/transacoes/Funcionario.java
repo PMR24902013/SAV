@@ -200,6 +200,23 @@ public class Funcionario {
           e.printStackTrace();
       }
   } // main
+  
+    public boolean atualizarDados(FuncionarioDO funcionario) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    FuncionarioData cdata = new FuncionarioData();
+	     cdata.atualizar(funcionario, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao atualizar" + funcionario.getNome());
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
  
     
 }
