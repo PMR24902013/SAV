@@ -55,10 +55,10 @@
 
                         
                             nome = ((String) request.getParameter("nome"));
-                            Vector postoPesquisado=new Vector();
-                            postoPesquisado = p.pesquisar(nome);
+                            PostoDO postoPesquisado=new PostoDO();
+                            postoPesquisado = p.buscarPorNome(nome);
                          
-                   if(p.isEmpty(nome)|| postoPesquisado.size()==0||postoPesquisado==null) {    
+                   if(p.isEmpty(nome)|| postoPesquisado==null) {    
                 %>
                 <form  id="contentRight" action="./OperadorSistema_administrarPostos.jsp" method="post">
                     Este Posto não existe!  
@@ -67,7 +67,7 @@
                 <%
                    }
                        else{
-                      posto=(PostoDO)postoPesquisado.get(0);  
+                      
 
                         estado = posto.getEstado();
 
@@ -119,10 +119,9 @@
                     if (estadoProcesso.equals("bloqueioconfirmado")) {
  
                            Posto p = new Posto();
-                                   Vector postoPesquisado=new Vector();
-                            postoPesquisado = p.pesquisar(nome);
-                       posto=(PostoDO)postoPesquisado.get(0);
-                        p.atualizarCadastro(posto.getID(), "bloqueado");
+                           PostoDO postoPesquisado=new PostoDO();
+                           postoPesquisado = p.buscarPorNome(nome);
+                           p.atualizarCadastro(posto.getID(), "bloqueado");
 
                 %>
                 <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">
@@ -163,9 +162,8 @@
                     }
                     if (estadoProcesso.equals("desbloqueioconfirmado")) {
                         Posto p = new Posto();
-                                   Vector postoPesquisado=new Vector();
-                        postoPesquisado = p.pesquisar(nome);
-                       posto=(PostoDO)postoPesquisado.get(0);
+                        PostoDO postoPesquisado = new PostoDO();
+                        postoPesquisado = p.buscarPorNome(nome);
                         p.atualizarCadastro(posto.getID(), "normal");
                 %>
                 <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">

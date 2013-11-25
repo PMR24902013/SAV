@@ -103,7 +103,7 @@ public class PostoData {
      Connection con = tr.obterConexao();
      String sql = "select * from Posto where Nome=?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, Integer.parseInt (nome));
+     ps.setString(1, nome);
      ResultSet rs = ps.executeQuery();
      rs.next();
      PostoDO posto = new PostoDO();
