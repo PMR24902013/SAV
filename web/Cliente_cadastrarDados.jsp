@@ -55,19 +55,32 @@
             <%
             } else if (null != request.getParameter("incluir")) {
 
+                String user = (String) session.getAttribute("user_name");
+                String passwd = (String) session.getAttribute("passwd");
+                Usuarios tu = new Usuarios();
+                UsuariosDO musuario = new UsuariosDO();
+                // cria um novo usuario
+                musuario.setLogin(user);
+                musuario.setSenha(passwd);
+                musuario.setTipo("Cliente");
+                tu.incluir(musuario);
+
+                int usuarioid = tu.buscarID(user);
+
                 String nome = request.getParameter("nome");
                 String CPF = request.getParameter("CPF");
                 String endereco = request.getParameter("endereco");
                 String telefone = request.getParameter("telefone");
                 String email = request.getParameter("email");
+                String cnh = request.getParameter("carteira");
 
                 ClientesDO p = new ClientesDO();
                 //arrumar  arquivo 
-                String nomeatual = (String) session.getAttribute("user_name");
-                Usuarios tn = new Usuarios();
-                Vector ps = tn.pesquisar(nomeatual);
-                UsuariosDO clientecriado = new UsuariosDO();
-                clientecriado = (UsuariosDO) ps.get(0);
+                //String nomeatual = (String) session.getAttribute("user_name");
+                //Usuarios tn = new Usuarios();
+                //Vector ps = tn.pesquisar(nomeatual);
+                //UsuariosDO clientecriado = new UsuariosDO();
+                //clientecriado = (UsuariosDO) ps.get(0);
 
                 Clientes c = new Clientes();
                 if (c.isEmpty(nome) || c.isEmpty(CPF) || c.isEmpty(telefone) || c.isEmpty(endereco) || c.isEmpty(email)) {
@@ -78,22 +91,21 @@
                 <input type="submit" name="retry" value="Repetir" />
             </form>
             <%   } else {
-                p.setUsuarioId(clientecriado.getId());
+                p.setUsuarioId(usuarioid);
                 p.setNome(nome);
                 p.setEndereco(endereco);
                 p.setCPF(CPF);
                 p.setEmail(email);
                 p.setTelefone(telefone);
-
-                classes.transacoes.Clientes po = new classes.transacoes.Clientes();
+                p.setEstado("Aguardando");
+                p.setCNH(cnh);
+                Clientes po = new Clientes();
                 po.incluir(p);
 
             %> <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
             <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
-
-
             <% }
                 }
                 if (null != request.getParameter("Cancelar")) {

@@ -49,11 +49,8 @@
                         if (((veiculos == null) || (veiculos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="Veiculo_remover.jsp" method="post">
-                        Nenhum veículo pode ser excluído do sistema.
-                        <br>
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
+                    <p>Nenhum veículo pode ser excluído do sistema.</p>
+                        
                     <%     } else {
                     %>
                     <table>
@@ -80,10 +77,6 @@
                         </tr>        
                         <%           } // for i Cliente     
                         %> 
-                        <br><br>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                                <input type="submit" name="cancelar" value="Cancelar" />
-                            </form></td>
                     </table>   
                 </form>         
                 <%     } // reservas retornados
@@ -123,6 +116,7 @@
                     } // removerVeiculo
                 %>
                 <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>

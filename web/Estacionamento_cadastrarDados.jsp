@@ -22,6 +22,18 @@
             <%
                 if (null != request.getParameter("incluir")) {
 
+                    String user = (String) session.getAttribute("user_name");
+                    String passwd = (String) session.getAttribute("passwd");
+                    Usuarios tu = new Usuarios();
+                    UsuariosDO musuario = new UsuariosDO();
+                    // cria um novo usuario
+                    musuario.setLogin(user);
+                    musuario.setSenha(passwd);
+                    musuario.setTipo("Estacionamento");
+                    tu.incluir(musuario);
+
+                    int usuarioid = tu.buscarID(user);
+                    
                     String nome = request.getParameter("nome");
                     String local = request.getParameter("local");
                     int vagas = Integer.parseInt(request.getParameter("vagas"));
@@ -30,14 +42,15 @@
                     String documento = request.getParameter("documento");
                     String horario = request.getParameter("horario");
                     String telefone = request.getParameter("telefone");
-
+                    String cep = request.getParameter("cep");
+                    
                     EstacionamentoDO p = new EstacionamentoDO();
                     //arrumar  arquivo 
-                    String nomeatual = (String) session.getAttribute("user_name");
-                    Usuarios tn = new Usuarios();
-                    Vector ps = tn.pesquisar(nomeatual);
-                    UsuariosDO estacionamentoCriado = new UsuariosDO();
-                    estacionamentoCriado = (UsuariosDO) ps.get(0);
+//                    String nomeatual = (String) session.getAttribute("user_name");
+//                    Usuarios tn = new Usuarios();
+//                    Vector ps = tn.pesquisar(nomeatual);
+//                    UsuariosDO estacionamentoCriado = new UsuariosDO();
+//                    estacionamentoCriado = (UsuariosDO) ps.get(0);
 
                     Estacionamento c = new Estacionamento();
                     if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(vagas) || c.isEmpty(proprietario) || c.isEmpty(documento) || c.isEmpty(horario) || c.isEmpty(telefone)) {
@@ -49,7 +62,7 @@
 
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form><%     } else {
-                p.setUsuario_Id(estacionamentoCriado.getId());
+                p.setUsuario_Id(usuarioid);
                 p.setNome(nome);
                 p.setEndereco(local);
                 p.setVagas(vagas);
@@ -58,16 +71,15 @@
                 p.setDocumento_Do_Convenio(documento);
                 p.setHorario_De_Funcionamento(horario);
                 p.setTelefone(telefone);
-
-                classes.transacoes.Estacionamento po = new classes.transacoes.Estacionamento();
+                p.setEstado("Aguardando");
+                p.setCEP(cep);
+                
+                Estacionamento po = new Estacionamento();
                 po.incluir(p);
 
             %> 
-            <br>
-            Seus dados foram cadastrados com sucesso!
-
-            <form id="content" action="Cliente_menu.html" method="post">
-
+            <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
+            <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
             <% }
@@ -78,10 +90,10 @@
                 }
 
             %>
+            <% if (null == request.getParameter("incluir")) {
+            %>
+            <p class="titulo">Insira seus dados</p>
             <form id="content" action="Estacionamento_cadastrarDados.jsp" method="post">
-
-                <br>Login criado, insira seus dados
-
                 <table>
                     <tr>
                         <td>Nome do Estacionamento</td>
@@ -101,7 +113,7 @@
                     </tr>
                     <tr>
                         <td> Documento do convenio</td>
-                        <td><input type ="text" name ="documento"/></td>
+                        <td><input type ="file" name ="documento"/></td>
                     </tr>
 
                     <tr>
@@ -113,11 +125,16 @@
                         <td> Telefone </td>
                         <td><input type ="text" name ="telefone"/></td>
                     </tr>
+                    <tr>
+                        <td> CEP </td>
+                        <td><input type ="text" name ="cep"/></td>
+                    </tr>
 
                 </table>
-                <input type="submit" name="incluir" value="incluir" /> 
+                <input type="submit" name="incluir" value="Finalizar Cadastro" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form> 
+            <% } %>
         </div>
     </body>
 </html>

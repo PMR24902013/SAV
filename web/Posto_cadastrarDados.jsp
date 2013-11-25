@@ -22,20 +22,31 @@
             <%
                 if (null != request.getParameter("incluir")) {
 
+                    String user = (String) session.getAttribute("user_name");
+                    String passwd = (String) session.getAttribute("passwd");
+                    Usuarios tu = new Usuarios();
+                    UsuariosDO musuario = new UsuariosDO();
+                    // cria um novo usuario
+                    musuario.setLogin(user);
+                    musuario.setSenha(passwd);
+                    musuario.setTipo("Posto");
+                    tu.incluir(musuario);
+
+                    int usuarioid = tu.buscarID(user);
+
                     String nome = request.getParameter("nome");
-
                     String local = request.getParameter("local");
-
                     String dono = request.getParameter("dono");
                     String telefone = request.getParameter("telefone");
                     String horario = request.getParameter("horario");
+                    String licenciamento = request.getParameter("licenciamento");
                     PostoDO p = new PostoDO();
-                    //arrumar  arquivo 
-                    String nomeatual = (String) session.getAttribute("user_name");
-                    Usuarios tn = new Usuarios();
-                    Vector ps = tn.pesquisar(nomeatual);
-                    UsuariosDO postocriado = new UsuariosDO();
-                    postocriado = (UsuariosDO) ps.get(0);
+//                    //arrumar  arquivo 
+//                    String nomeatual = (String) session.getAttribute("user_name");
+//                    Usuarios tn = new Usuarios();
+//                    Vector ps = tn.pesquisar(nomeatual);
+//                    UsuariosDO postocriado = new UsuariosDO();
+//                    postocriado = (UsuariosDO) ps.get(0);
 
                     Posto c = new Posto();
                     if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(telefone) || c.isEmpty(horario) || c.isEmpty(horario)) {
@@ -45,22 +56,20 @@
             <form action="Posto_cadastrarDados.jsp" method="post">
 
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
-            </form><%     } else {
-                p.setUsuariosID(postocriado.getId());
-
+            </form>
+            <%            } else {
+                p.setUsuariosID(usuarioid);
                 p.setNome(nome);
-
                 p.setEndereco(local);
-
                 p.setTelefone(telefone);
                 p.setHorario(horario);
                 p.setResponsavel(dono);
-
-                p.setDocumento("sei lah");
-                classes.transacoes.Posto po = new classes.transacoes.Posto();
+                p.setDocumento(licenciamento);
+                p.setEstado("Aguardando");
+                Posto po = new Posto();
                 po.incluir(p);
-
-            %> Seus dados foram cadastrados com sucesso!
+            %> 
+            Seus dados foram cadastrados com sucesso!
 
             <form id="content" action="Posto_menu.html" method="post">
 
@@ -72,12 +81,10 @@
             %>        <jsp:forward page="index.html" />
             <%        return;
                 }
-
-
+                if (null == request.getParameter("incluir")) {
             %>
+            <p class="titulo">Insira seus dados</p>
             <form id="content" action="Posto_cadastrarDados.jsp" method="post">
-
-                Login criado, insira seus dados
                 <table>
                     <tr>
                         <td>Nome do Posto</td>
@@ -92,9 +99,9 @@
                         <td><input type="text" name="dono" />
                     </tr>
                     <tr>
-                        <td>Documento de licensiamento</td>
+                        <td>Documento de licenciamento</td>
                         <!--nao sei como fazer pra carregar -->
-                        <td><input type="file"   /></td>
+                        <td><input type="file" name="licenciamento"  /></td>
 
                     </tr>
                     <tr>
@@ -107,6 +114,7 @@
                 <input type="submit" name="incluir" value="incluir" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form> 
+            <% } %>
         </div>
     </body>
 </html>

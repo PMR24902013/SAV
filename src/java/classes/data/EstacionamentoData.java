@@ -8,7 +8,7 @@ public class EstacionamentoData {
 
     public void incluir(EstacionamentoDO e, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Estacionamento (Usuario_ID, Nome, Endereco, Vagas, Tipo, Nome_do_Responsavel, Documento_do_Convenio, Horario_de_Funcionamento, Telefone) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into Estacionamento (Usuario_ID, Nome, Endereco, Vagas, Tipo, Nome_do_Responsavel, Documento_do_Convenio, Horario_de_Funcionamento, Telefone, Estado, CEP) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, e.getUsuario_Id());
         ps.setString(2, e.getNome());
@@ -19,6 +19,9 @@ public class EstacionamentoData {
         ps.setString(7, e.getDocumento_Do_Convenio());
         ps.setString(8, e.getHorario_De_Funcionamento());
         ps.setString(9, e.getTelefone());
+        ps.setString(10, e.getEstado());
+        ps.setString(11, e.getCEP());
+        
         int result = ps.executeUpdate();
     }
 

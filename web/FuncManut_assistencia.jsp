@@ -5,6 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
     <script>
         var select = document.getElementById("estado");
         select.onchange = function() {
@@ -12,9 +13,9 @@
             var selValue = select.options(selIndex).innerHTML;
         };
     </script>
-    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Responder Assistência</title>
+        <%@ include file="headerManutencao.html" %>
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -79,7 +80,8 @@
                 </form>
                 <%      } else {
                 %>
-                <table>
+                <form id="contentRight" action="./FuncManut_assistencia.jsp" method="post">
+                    <table>
                     <tr>
                         <td>Data</td>
                         <td>Queixa</td>
@@ -102,12 +104,11 @@
                             } //if
                         } //for i
                     %>
-                    <td></td>
-                    <td></td>
-                    <td><form id="contentRight" action="./FuncManut_menu.html" method="post">
+                </table>
+                </form>
+                    <form id="contentRight" action="./FuncManut_menu.html" method="post">
                             <input type="submit" name="cancelar" value="cancelar" />
                         </form>
-                </table>
                 <%
                         }
                     }
@@ -133,6 +134,7 @@
                 </form>
                 <%      } else {
                 %>
+                <form id="contentRight" action="./FuncManut_assistencia.jsp" method="post">
                 <table>
                     <tr>
                         <td>Data</td>
@@ -149,18 +151,15 @@
                         <td><%= assistencia.getQueixa()%></td>
                         <td><%= assistencia.getEndereco()%></td>
                     </tr>
-
-                    n
                     <%
                             } //if
                         } //for i
                     %>
-                    <td></td>
-                    <td></td>
-                    <td><form id="contentRight" action="./FuncManut_menu.html" method="post">
+                </table>
+                </form>
+                    <form id="contentRight" action="./FuncManut_menu.html" method="post">
                             <input type="submit" name="cancelar" value="cancelar" />
                         </form>
-                </table>
                 <%
                         }
                     }
