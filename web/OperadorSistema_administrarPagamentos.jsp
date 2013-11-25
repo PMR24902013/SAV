@@ -53,17 +53,14 @@
                         if (((pagamentos == null) || (pagamentos.size() == 0))) {
                             // avisar usuario que nao ha' reserva
                     %>
-                    <form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                        Nenhum pagamento em aberto.
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
-                    <%     } else {
+                    <p>Não há pagamentos em aberto.</p>
+                    <%} else {
                     %>
                     <table>
                         <tr>
-                            <td>Cliente</td>
-                            <td>Data </td>
-                            <td>Valor </td>
+                            <td><b>Cliente</b></td>
+                            <td><b>Data</b></td>
+                            <td><b>Valor</b></td>
                         </tr>
                         <%           for (int i = 0; i < pagamentos.size(); i++) {
                                 classes.data.Operacoes_de_CaixaDO op = (classes.data.Operacoes_de_CaixaDO) pagamentos.elementAt(i);
@@ -94,9 +91,7 @@
                         %>       
                         <td></td>
                         <td></td>
-                        <td><form id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                                <input type="submit" name="cancelar" value="cancelar" />
-                            </form></td>
+
                     </table>   
                 </form>         
                 <%     } // reservas retornados
@@ -135,9 +130,9 @@
                 </form>
                 <%     }
                     } // updateStatusPagamento
-%>
-              <div id="contentLeft"></div>
-              <div class="clear"> </div>
+                %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
