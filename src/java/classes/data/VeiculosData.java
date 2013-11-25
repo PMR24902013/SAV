@@ -233,6 +233,7 @@ public class VeiculosData {
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         veiculo.setVagaID(rs.getInt("Vaga_ID"));
         veiculo.setClienteID(rs.getInt("Cliente_ID"));
+        veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
         return veiculo;
     } // buscar
 }

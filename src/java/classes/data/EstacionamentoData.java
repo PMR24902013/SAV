@@ -197,5 +197,17 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     }
+    
+    public String buscarNome(int idobj, Transacao tr) throws Exception{
+        
+        Connection con = tr.obterConexao();
+        String sql = "select Nome from Estacionamento where ID =?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1,idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String nome = rs.getString("Nome");
+        return nome;
+    }
 
 } // ContatoData

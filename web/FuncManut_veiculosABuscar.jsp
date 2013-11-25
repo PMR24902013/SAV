@@ -59,7 +59,7 @@
                     <table>
                         <tr>
                             <td>Veiculo</td>
-                            <td>ModeloID</td>
+                            <td>Estacionamento</td>
                             <td>Estado </td>
                         </tr>
                         <%           for (int i = 0; i < busca.size(); i++) {
@@ -68,20 +68,26 @@
                                 int usuarioid = op.getVeiculoID();
                                 //String tipo = tn_u.buscar(usuarioid);
                                 String placa = null;
-                                int modeloID;
-                                
+                                int estacionamentoID;
+                                String estacionamentoNome;
 
                                 // classes.transacoes.Veiculos tn_c = new classes.transacoes.Veiculos();
                                 classes.data.VeiculosDO carro = tn_u.buscarPorVeiculoID(usuarioid);
                                 placa = carro.getPlaca();
-                                modeloID = carro.getModeloID();
+                                estacionamentoID = carro.getEstacionamentoID();
+                                
+                                classes.transacoes.Estacionamento estac = new classes.transacoes.Estacionamento();
+                                estacionamentoNome = estac.buscarNome(estacionamentoID);
+                                
+                                
                                 
 
 
                         %>              <tr>
                             <td><%=placa%></td>
-                            <td><%= modeloID%></td>
+                            <td><%= estacionamentoNome%></td>
                             <td><a href=FuncManut_veiculosABuscar.jsp?action=updateStatusManutencao&id=<%= op.getId()%>> Veiculo a buscar</a></td>
+                            
                         </tr>        
                         <%           } // for i Cliente     
                         %>       
@@ -104,7 +110,7 @@
                         boolean result = false;
                         try {
                             op = tn.buscar(id);
-                            op.setEstado("Consertando");
+                            op.setEstado("Buscado");
                             result = tn.atualizar(op);
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
