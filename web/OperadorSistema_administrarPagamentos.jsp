@@ -26,7 +26,7 @@
         <%@page import="classes.data.*" %>
 
         <div id="base">
-            <div id ="cima"><div id="logo"></div></div>
+            <div id ="cima"><div id="logo"></div>
             <div id="tudo">
 
                 <! ------------------------------------------------------------------->
