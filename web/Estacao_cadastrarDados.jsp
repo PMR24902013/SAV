@@ -68,7 +68,7 @@
 
                 if (null != request.getParameter("Cancelar")) {
             %>
-            <jsp:forward page="index.html" />
+            <jsp:forward page="OperadorSistema_menu.html" />
 
             <%
                     return;
@@ -97,6 +97,8 @@
                         <td><input type="text" name="telefone"/>
                     </tr>
                 </table>
+                <input style="margin-left: 30%;" type="submit" name="incluir" value="Finalizar" /> 
+                <input type="submit" name="Cancelar" value="Cancelar" />
             </form>
         </div>
     </body>

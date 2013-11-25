@@ -101,6 +101,21 @@ public class Posto {
 	 }
 	 return null;
   } // buscar
+  public PostoDO buscarPorNome(String nome) throws Exception{
+     Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	     PostoData cdata = new PostoData();
+	     PostoDO c = cdata.buscarPorNome(nome, tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao buscar" + nome);
+	   e.printStackTrace();
+	 }
+	 return null;
+  }
 
    public boolean atualizarCadastro(int id, String Estado) throws Exception {
      Transacao tr = new Transacao();

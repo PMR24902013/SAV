@@ -154,6 +154,25 @@ public class Estacionamento {
 	 }
 	 return false;
   } // atualizar
+    
+        public String buscarNome(int id) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	    EstacionamentoData cdata = new EstacionamentoData();
+            
+	    String c = cdata.buscarNome(id,tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) { 
+	   tr.rollback();
+	   System.out.println("erro ao atualizar situação do cadastro");
+	   e.printStackTrace();
+	 }
+	 return null;
+  } // atualizar
+        
   public boolean isEmpty(String s) {
      if (null == s)
        return true;

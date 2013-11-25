@@ -18,6 +18,8 @@
                         <a href="Veiculo_cadastrar.jsp">Cadastrar novo veículo</a>    
                         <br>
                         <a href="Veiculo_remover.jsp">Remover veículo</a>
+                         <br>
+                        <a href="Veiculo_bloquear.jsp">Bloquear veículo</a>
                 </div>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>

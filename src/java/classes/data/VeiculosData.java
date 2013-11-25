@@ -23,6 +23,7 @@ public class VeiculosData {
         ps.setBoolean(9, veiculo.getCambioAutomatico());
         ps.setString(10, veiculo.getEstado());
         ps.setString(11, veiculo.getPlaca());
+        ps.setInt(12, veiculo.getEstacionamentoID());
         int result = ps.executeUpdate();
     } // incluir
 
@@ -43,7 +44,7 @@ public class VeiculosData {
         Connection con = tr.obterConexao();
         String sql = "update Veiculos set Modelo_ID=?, Vaga_ID=?, Cliente_ID=?, Quilometragem=?, "
                 + "Ar_Condicionado=?, Direcao_Hidraulica=?, Freio_ABS=?,"
-                + "GPS=?, Cambio_Automatico=?, Estado=?, Placa=? where ID=?";
+                + "GPS=?, Cambio_Automatico=?, Estado=?, Placa=?, Estacionamento_ID=? where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, veiculo.getModeloID());
         ps.setInt(2, veiculo.getVagaID());
@@ -56,15 +57,16 @@ public class VeiculosData {
         ps.setBoolean(9, veiculo.getCambioAutomatico());
         ps.setString(10, veiculo.getEstado());
         ps.setString(11, veiculo.getPlaca());
-        ps.setInt(12, veiculo.getId());
+        ps.setInt(12, veiculo.getEstacionamentoID());
+        ps.setInt(13, veiculo.getId());
         int result = ps.executeUpdate();
     } // atualizar
 
     public void realocar(VeiculosDO veiculo, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Veiculos set Vaga_ID=? where ID=?";
+        String sql = "update Veiculos set Estacionamento_ID=? where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, veiculo.getVagaID());
+        ps.setInt(1, veiculo.getEstacionamentoID());
         ps.setInt(2, veiculo.getId());
         int result = ps.executeUpdate();
     } // atualizar
@@ -89,6 +91,7 @@ public class VeiculosData {
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         veiculo.setVagaID(rs.getInt("Vaga_ID"));
         veiculo.setClienteID(rs.getInt("Cliente_ID"));
+        veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));    
         return veiculo;
     } // buscar
 
@@ -113,6 +116,7 @@ public class VeiculosData {
             veiculo.setModeloID(rs.getInt("Modelo_ID"));
             veiculo.setVagaID(rs.getInt("Vaga_ID"));
             veiculo.setClienteID(rs.getInt("Cliente_ID"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
             v.add(veiculo);
         }
         return v;
@@ -150,6 +154,7 @@ public class VeiculosData {
             veiculo.setModeloID(rs.getInt("Modelo_ID"));
             veiculo.setVagaID(rs.getInt("Vaga_ID"));
             veiculo.setClienteID(rs.getInt("Cliente_ID"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
             veiculos.add(veiculo);
         }
         return veiculos;
@@ -176,6 +181,32 @@ public class VeiculosData {
             veiculo.setModeloID(rs.getInt("Modelo_ID"));
             veiculo.setVagaID(rs.getInt("Vaga_ID"));
             veiculo.setClienteID(rs.getInt("Cliente_ID"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
+            v.add(veiculo);
+        }
+        return v;
+    } // buscar
+    
+        public Vector buscarPorEstacionamento(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Veiculos where  Estacionamento_ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        Vector v = new Vector();
+        while(rs.next()){
+            VeiculosDO veiculo = new VeiculosDO();
+            veiculo.setId(rs.getInt("ID"));
+            veiculo.setQuilometragem(rs.getInt("Quilometragem"));
+            veiculo.setArCondicionado(rs.getBoolean("Ar_Condicionado"));
+            veiculo.setDirecaoHidraulica(rs.getBoolean("Direcao_Hidraulica"));
+            veiculo.setFreioABS(rs.getBoolean("Freio_ABS"));
+            veiculo.setGPS(rs.getBoolean("GPS"));
+            veiculo.setCambioAutomatico(rs.getBoolean("Cambio_Automatico"));
+            veiculo.setEstado(rs.getString("Estado"));
+            veiculo.setModeloID(rs.getInt("Modelo_ID"));
+            veiculo.setPlaca(rs.getString("Placa"));
+            veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
             v.add(veiculo);
         }
         return v;
@@ -202,6 +233,7 @@ public class VeiculosData {
         veiculo.setModeloID(rs.getInt("Modelo_ID"));
         veiculo.setVagaID(rs.getInt("Vaga_ID"));
         veiculo.setClienteID(rs.getInt("Cliente_ID"));
+        veiculo.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
         return veiculo;
     } // buscar
 }
