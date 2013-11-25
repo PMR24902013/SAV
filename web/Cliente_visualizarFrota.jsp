@@ -11,8 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>verCarros</title>
-        <%@ include file="header.html" %>
+        <title>Visualizar Frota</title>
+        <%@ include file="headerCliente.html" %>
     </head>
     <body>
          <%@ page import="java.util.Vector" %>
@@ -24,7 +24,9 @@
         <%@ page import="java.util.Arrays" %>
         
         <div id="base">
-            <div id ="cima"></div>
+            <div id ="cima"><div id="logo"></div></div>
+            <div id="tudo">
+                <form id="contentRight" action="Cliente_visualizarFrota.jsp" method="post">
             
             <%
             ArrayList <String> modelo = new ArrayList<String>();
