@@ -16,7 +16,7 @@ public class Operacoes_de_CaixaData {
 
     public void incluir(Operacoes_de_CaixaDO operacao, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Operacoes_de_Caixa (Valor, Data_de_Pagamento, Estado, Usuario_ID) values (?,?,?,?);";
+        String sql = "insert into Operacoes_de_Caixa (Valor,Data_de_Pagamento,Estado,Usuario_ID) values (?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setFloat(1, operacao.getValorDoPagamento());
         ps.setDate(2, operacao.getDataDoPagamento());
@@ -101,4 +101,13 @@ public class Operacoes_de_CaixaData {
         }
         return v;
     } // buscar
+    
+    public int lastId(Transacao tr) throws Exception{
+        Connection con = tr.obterConexao();
+        String sql = "SELECT MAX(ID) FROM Operacoes_de_Caixa";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("MAX(ID)");
+    }
 }
