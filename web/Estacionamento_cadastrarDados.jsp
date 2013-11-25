@@ -90,10 +90,10 @@
                 }
 
             %>
+            <% if (null == request.getParameter("incluir")) {
+            %>
+            <p class="titulo">Insira seus dados</p>
             <form id="content" action="Estacionamento_cadastrarDados.jsp" method="post">
-
-                <p class="titulo">Insira seus dados</p>
-
                 <table>
                     <tr>
                         <td>Nome do Estacionamento</td>
@@ -134,6 +134,7 @@
                 <input type="submit" name="incluir" value="Finalizar Cadastro" /> 
                 <input type="submit" name="Cancelar" value="Cancelar" />
             </form> 
+            <% } %>
         </div>
     </body>
 </html>
