@@ -104,9 +104,7 @@
                     <input type="hidden" name="id" value=<%=estacionamento.getId()%> /> 
                     <input type="hidden" name="usuarioid" value=<%=estacionamento.getUsuario_Id()%> /> 
                     <input type="hidden" name="action" value="updateValues" />
-                    <form action="./Estacionamento_alterarDados.jsp" method="post">
-                        <input type="submit" name="voltar" value="Voltar" />
-                    </form>
+                    <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%
                     } // showEditForm
@@ -116,52 +114,57 @@
                 <!--   atualizar valores -->
                 <%
                     if (action.equals("updateValues")) {
-                        String nome = request.getParameter("nome");
-                        String endereco = request.getParameter("endereco");
-                        int vagas = Integer.parseInt(request.getParameter("vagas"));
-                        String nomeDoResponsavel = request.getParameter("nomeDoResponsavel");
-                        String convenio = request.getParameter("documento");
-                        String horarioDeFuncionamento = request.getParameter("horarioDeFuncionamento");
-                        String telefone = request.getParameter("telefone");
-                        String cep = request.getParameter("cep");
+                        if (null != request.getParameter("voltar")) {
+                %>        
+                <jsp:forward page="./Estacionamento_menu.html" />
+                <%        return;
+                    }
+                    String nome = request.getParameter("nome");
+                    String endereco = request.getParameter("endereco");
+                    int vagas = Integer.parseInt(request.getParameter("vagas"));
+                    String nomeDoResponsavel = request.getParameter("nomeDoResponsavel");
+                    String convenio = request.getParameter("documento");
+                    String horarioDeFuncionamento = request.getParameter("horarioDeFuncionamento");
+                    String telefone = request.getParameter("telefone");
+                    String cep = request.getParameter("cep");
 
-                        Estacionamento tn_e = new Estacionamento();
-                        EstacionamentoDO estac = new EstacionamentoDO();
+                    Estacionamento tn_e = new Estacionamento();
+                    EstacionamentoDO estac = new EstacionamentoDO();
 
-                        estac.setNome(nome);
-                        estac.setEndereco(endereco);
-                        estac.setVagas(vagas);
-                        estac.setNome_Do_Responsavel(nomeDoResponsavel);
-                        estac.setDocumento_Do_Convenio(convenio);
-                        if (convenio == null) {
-                            estac.setDocumento_Do_Convenio(
-                                    tn_e.buscar(
-                                            Integer.parseInt(
-                                                    request.getParameter("id"))).getDocumento_Do_Convenio());
-                        }
-                        estac.setHorario_De_Funcionamento(horarioDeFuncionamento);
-                        estac.setTelefone(telefone);
-                        estac.setCEP(cep);
-                        estac.setId(Integer.parseInt(request.getParameter("id")));
-                        estac.setUsuario_Id(Integer.parseInt(request.getParameter("usuarioid")));
-                        boolean result = false;
-                        try {
-                            result = tn_e.atualizar(estac);
-                        } catch (Exception e) {
+                    estac.setNome(nome);
+                    estac.setEndereco(endereco);
+                    estac.setVagas(vagas);
+                    estac.setNome_Do_Responsavel(nomeDoResponsavel);
+                    estac.setDocumento_Do_Convenio(convenio);
+                    if (convenio == null) {
+                        estac.setDocumento_Do_Convenio(
+                                tn_e.buscar(
+                                        Integer.parseInt(
+                                                request.getParameter("id"))).getDocumento_Do_Convenio());
+                    }
+                    estac.setHorario_De_Funcionamento(horarioDeFuncionamento);
+                    estac.setTelefone(telefone);
+                    estac.setCEP(cep);
+                    estac.setId(Integer.parseInt(request.getParameter("id")));
+                    estac.setUsuario_Id(Integer.parseInt(request.getParameter("usuarioid")));
+                    boolean result = false;
+                    try {
+                        result = tn_e.atualizar(estac);
+                    } catch (Exception e) {
                 %>           <%= e.toString()%>
                 <%
                     }
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
                 %>
-                Transação realizada com sucesso!
                 <form  id="contentRight" action="./Estacionamento_menu.html" method="post">
+                    Transação realizada com sucesso!
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
-                Erro ao atualizar dados.
                 <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
+                    Erro ao atualizar dados.
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
