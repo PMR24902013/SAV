@@ -57,18 +57,12 @@
                     Estacionamento p = new Estacionamento();
                     if (p.isEmpty(passwd) || p.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
-            login ou senha inválida
-            <form action="Estacionamento_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
+            <p style="text-align: center; color: red;">Login ou senha inválida</p>
             <%	   }
 
-                if ((usuarios != null) && (usuarios.size() > 0)) {
+                    else if ((usuarios != null) && (usuarios.size() > 0)) {
             %>
-            usuário já existente
-            <form action="Estacionamento_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
+            <p style="text-align: center; color: red;">Usuário já cadastrado</p>
             <%
             } else {
                 session.setAttribute("user_name", user);

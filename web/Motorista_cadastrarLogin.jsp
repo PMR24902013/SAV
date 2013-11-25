@@ -56,16 +56,10 @@
                     Funcionario m = new Funcionario();
                     if (m.isEmpty(passwd) || m.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
-            Login ou senha inválida
-            <form action="./Motorista_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
+            <p style="text-align: center; color: red;">Login ou senha inválida</p>
             <%	   } else if ((usuarios != null) && (usuarios.size() > 0)) {
             %>
-            Usuário já cadastrado
-            <form action="./Motorista_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltar" value="Voltar" />
-            </form>
+            <p style="text-align: center; color: red;">Usuário já cadastrado</p>
             <%        } else {
 //                UsuariosDO musuario = new UsuariosDO();
 //                // cria um novo usuario

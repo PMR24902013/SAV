@@ -68,13 +68,16 @@ O sistema mostra um aviso ao ator de que o cadastro foi enviado para análise e 
                     Vector usuarios = tn.pesquisar(user);
                     //se                                                 
                     Posto p = new Posto();
-                    if ((usuarios != null) && (usuarios.size() > 0) || p.isEmpty(passwd) || p.isEmpty(user) || (!passwd.equals(passwd2))) {
+                    if (p.isEmpty(passwd) || p.isEmpty(user) || (!passwd.equals(passwd2))) {
             %>
-            login ou senha inválida
-            <form action="Posto_cadastrarLogin.jsp" method="post">
-                <input type="submit" name="Voltarr" value="Voltar" />
-            </form>
-            <%	   } else {
+            <p style="text-align: center; color: red;">Login ou senha inválida</p>
+            <%	   }
+
+                    else if ((usuarios != null) && (usuarios.size() > 0)) {
+            %>
+            <p style="text-align: center; color: red;">Usuário já cadastrado</p>
+            <%
+            }  else {
 //                UsuariosDO pusuario = new UsuariosDO();
 //                // cria um novo usuario
 //                pusuario.setLogin(user);
