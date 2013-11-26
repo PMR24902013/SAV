@@ -21,7 +21,7 @@ public class PrecosData {
      ResultSet rs = ps.executeQuery();
      rs.next();
      PrecosDO preco = new PrecosDO();
-     preco.setModeloId(rs.getInt("Veiculo_ID"));
+     preco.setModeloId(rs.getInt("Modelo_ID"));
      preco.setPreco1(rs.getFloat("Preco_1"));
      preco.setPreco2(rs.getFloat("Preco_2"));
      preco.setPreco3(rs.getFloat("Preco_3"));
