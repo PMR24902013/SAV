@@ -116,6 +116,21 @@ public class Posto {
 	 }
 	 return null;
   }
+  
+   public Vector pesquisarTodos() {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            PostoData vdata = new PostoData();
+            Vector v = vdata.pesquisarTodos(tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar postos");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarTodos
 
    public boolean atualizarCadastro(int id, String Estado) throws Exception {
      Transacao tr = new Transacao();

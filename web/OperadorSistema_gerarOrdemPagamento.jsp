@@ -12,12 +12,6 @@
 
 <html>
     <head>
-        <%  ClientesDO cliente = new ClientesDO();
-            String estadoProcesso = "nada";
-           String nome ="ninguem";
-            //String estado = "  ";
-
-        %> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Gerar ordem de pagamento</title>
         <%@ include file="headerOpSistema.html" %>
@@ -26,148 +20,125 @@
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
             <div id="tudo">
-                <% if (null == request.getParameter("Confirmar")&& null == request.getParameter("Confirm")&&null == request.getParameter("Confirme")) {%>
+                <% 
+                    String action = request.getParameter("action");
+                if (null == request.getParameter("posto") && null == request.getParameter("cliente") && null == request.getParameter("estacionamento")) {%>
                 <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
-                    Insira o Nome do Cliente para gerar ordem de pagamento
+                    Selecione o tipo de usuário cuja ordem deve ser emitida:
                     <table>
                         <tr>
-                            <td>Nome completo do Cliente</td>
-                            <td><input type="text" name="nome" />
+                            <td>Posto</td>
+                            <td><input type="submit" name="posto" value="Selecionar" /> </td>
+                        </tr>
+                        <tr>
+                            <td>Cliente</td>
+                            <td><input type="submit" name="cliente" value="Selecionar" /> </td>
+                        </tr>
+                        <tr>
+                            <td>Estacionamento</td>
+                            <td><input type="submit" name="estacionamento" value="Selecionar" /> </td>
                         </tr>
 
                     </table>
-                    <input type="submit" name="Confirmar" value="Confirmar" /> 
-
-                    <input type="submit" name="Cancelar" value="Cancelar" />  
-
-
                 </form>
-                <%  }              if (null != request.getParameter("Cancelar")) {
-                %>        <jsp:forward page="./OperadorSistema_menu.html" />
-                <%        return;
-                    }
-                    //String action = request.getParameter("action");
-
-                    if (null != request.getParameter("Confirmar")) {
-
-                        Clientes c = new Clientes();
-
-                        
-                            nome= ((String) request.getParameter("nome"));
-                            Vector clientePesquisado=new Vector();
-                            clientePesquisado = c.pesquisar(nome);
-                           Posto p=new Posto();// soh para usar isEMpty 
-                   if(p.isEmpty(nome)|| clientePesquisado.size()==0||clientePesquisado==null) {    
+                <%  }
+                else if (null != request.getParameter("posto")) {
+                        Posto tn_p = new Posto();
+                        Vector postos = tn_p.pesquisarTodos();
                 %>
-                <form  id="contentRight" action="./OperadorSistema_administrarClientes.jsp" method="post">
-                    Este Cliente não existe!  
-                    <input type="submit" name="voltar" value="Voltar" />
-                </form>
-                <%
-                   }
-                       else{
-                      cliente=(ClientesDO)clientePesquisado.get(0);  
-
-                       int usuarioid = cliente.getUsuarioId();
-
-                       
-
-                    }
-                    }
-                    if (estadoProcesso.equals("bloquear")) {
-                %> 
-
-                <form id="contentRight" action="./OperadorSistema_administrarClientes.jsp"   method="post">
-
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
                     <table>
-
                         <tr>
-                            <td>Deseja bloquear <%=cliente.getNome()%> </td>
-
-                        </tr>
-                        <input type="submit" name="Confirme" value="Confirme" /> 
-                        <input type="hidden" name="guardaNome" value="<%=cliente.getNome()%>" /> 
-                        <input type="submit" name="Cancelar" value="Cancelar"  />                
-                    </table>
-
-
-
-                </form>
-
-                <%
-
-                    }
-
-                    if (null != request.getParameter("Confirme")) {
-
-                        estadoProcesso = "bloqueioconfirmado";
-                        nome = (String)request.getParameter("guardaNome");
-                    }
-                    if (null != request.getParameter("Cancelar")) {
-                %>        <jsp:forward page="./OperadorSistema_menu.html" />
-                <%        return;
-                    }
-
-                    if (estadoProcesso.equals("bloqueioconfirmado")) {
- 
-                           Clientes c = new Clientes();
-                                   Vector clientePesquisado=new Vector();
-                            clientePesquisado = c.pesquisar(nome);
-                       cliente=(ClientesDO)clientePesquisado.get(0);
-                        c.atualizarCadastro(cliente.getId(), "bloqueado");
-
-                %>
-                <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                    Cliente bloqueado com sucesso  
-                    <input type="submit" name="voltar" value="Voltar" />
-                </form>
-
-                <%         }
-
-                    if (estadoProcesso.equals("desbloquear")) {
-                %> 
-
-                <form id="contentRight" action="./OperadorSistema_administrarClientes.jsp"  method="post">
-
-                    <table>
-
+                            <td>Nome</td>
+                        </tr>   
+                        <%
+                            for (int i = 0; i < postos.size(); i++) {
+                                PostoDO posto = (PostoDO) postos.elementAt(i);
+                        %>
                         <tr>
-                            <td>Deseja desbloquear <%=cliente.getNome()%> </td>
+                            <td><%= posto.getNome()%></td>
+                            <td><a href=OperadorSistema_gerarOrdemPagamento.jsp?action=calcularValorPosto&id=<%=posto.getID()%>>Calcular</a></td>                   
+                        </tr>       
+                        <%
+                            }
 
-                        </tr>
-                        <input type="submit" name="Confirm" value="Confirm"  /> 
-                        <input type="hidden" name="guardaNome" value="<%=cliente.getNome()%>" /> 
-
-                        <input type="submit" name="Cancelar" value="Cancelar" />                
+                        %>
                     </table>
                 </form>
-                <%
-                    }
-                    if (null != request.getParameter("Confirm")) {
-
-                        estadoProcesso = "desbloqueioconfirmado";
-                        nome =(String) request.getParameter("guardaNome");
-                    }
-                    if (null != request.getParameter("Cancelar")) {
-                %>        
-                <jsp:forward page="./OperadorSistema_menu.html" />
-                <%        return;
-                    }
-                    if (estadoProcesso.equals("desbloqueioconfirmado")) {
-Clientes c = new Clientes();
-                                   Vector clientePesquisado=new Vector();
-                        clientePesquisado = c.pesquisar(nome);
-                       cliente=(ClientesDO)clientePesquisado.get(0);
-                        c.atualizarCadastro(cliente.getId(), "normal");
+                <% }
+                    else if (null != request.getParameter("cliente")) {
+                        Clientes tn_c = new Clientes();
+                        Vector clientes = tn_c.pesquisarTodos();
                 %>
-                <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                    cliente desbloqueado com sucesso  
-                    <input type="submit" name="voltar" value="Voltar" />
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
+                    <table>
+                        <tr>
+                            <td>Nome</td>
+                        </tr>   
+                        <%
+                            for (int i = 0; i < clientes.size(); i++) {
+                                ClientesDO cliente = (ClientesDO) clientes.elementAt(i);
+                        %>
+                        <tr>
+                            <td><%= cliente.getNome()%></td>
+                            <td><a href=OperadorSistema_gerarOrdemPagamento.jsp?action=calcularValorCliente&id=<%=cliente.getId()%>>Calcular</a></td>                   
+                        </tr>       
+                        <%
+                            }
+
+                        %>
+                    </table>
                 </form>
-                <%         }
-                    
+                <% }
+                    else if (null != request.getParameter("estacionamento")) {
+                        Estacionamento tn_e = new Estacionamento();
+                        Vector estacionamentos = tn_e.pesquisarTodos();
                 %>
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
+                    <table>
+                        <tr>
+                            <td>Nome</td>
+                        </tr>   
+                        <%
+                            for (int i = 0; i < estacionamentos.size(); i++) {
+                                EstacionamentoDO estacionamento = (EstacionamentoDO) estacionamentos.elementAt(i);
+                        %>
+                        <tr>
+                            <td><%= estacionamento.getNome()%></td>
+                            <td><a href=OperadorSistema_gerarOrdemPagamento.jsp?action=calcularValorEstacionamento&id=<%=estacionamento.getId()%>>Calcular</a></td>                   
+                        </tr>       
+                        <%
+                            }
 
+                        %>
+                    </table>
+                </form>
+                <%} else if (action.equals("calcularValorPosto")) {
+                    int posto_id = Integer.parseInt(request.getParameter("id"));
+                    Consumo_de_Combustivel tn_consumo = new Consumo_de_Combustivel();
+                    Vector consumos = tn_consumo.pesquisarPorPostoID(posto_id);
+                %>
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
+                    <table>
+                        <tr>
+                            <td>Tipo</td>
+                            <td>Preço Total</td>
+                        </tr>   
+                        <%
+                    for (int i = 0; i < consumos.size(); i++) {
+                                Consumo_de_CombustivelDO consumo = (Consumo_de_CombustivelDO) consumos.elementAt(i);
+                
+                        %>
+                        <tr>
+                            <td><%= consumo.getTipo()%></td>
+                            <td><%= consumo.getPrecoTotal()%>></td>                   
+                        </tr>  
+                        <%
+                        }
+                        %>
+                    </table>
+                </form>
+                <% } %>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>
             </div>
