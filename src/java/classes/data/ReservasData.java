@@ -17,20 +17,24 @@ public class ReservasData {
 
     public void incluir(ReservasDO reserva, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Reservas ( Vaga_ID, Operacoes_de_caixa_ID, Modelo_ID, Veiculo_ID, Estacionamento_ID,"
-                + " Cliente_ID, Horario_da_Retirada, Data_da_Reserva, Estado, Horario_da_Devolucao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into Reservas ( Vaga_ID, Operacoes_de_caixa_ID, Modelo_ID, Veiculos_ID, Estacionamento_ID, Cliente_ID, Horario_da_Retirada, Data_da_Reserva, Estado, Horario_da_Devolucao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
+        java.util.Date utilDate1 = reserva.getDataDeReserva();
+        java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+        java.util.Date utilDate2 = reserva.getHorarioDeRetirada();
+        java.sql.Time sqlDate2 = new java.sql.Time(utilDate2.getTime());
+        java.util.Date utilDate3 = reserva.getHorarioDeDevolucao();
+        java.sql.Time sqlDate3 = new java.sql.Time(utilDate3.getTime());
         ps.setInt(1, reserva.getVagaID());
         ps.setInt(2, reserva.getOperacoesDeCaixaID());
         ps.setInt(3, reserva.getModeloID());
         ps.setInt(4, reserva.getVeiculoID());
         ps.setInt(5, reserva.getEstacionamentoID());
         ps.setInt(6, reserva.getClienteID());
-        ps.setTime(7, reserva.getHorarioDeRetirada());
-        ps.setDate(8, reserva.getDataDeReserva());
+        ps.setTime(7, sqlDate2);
+        ps.setDate(8, sqlDate1);
         ps.setString(9, reserva.getEstado());
-        ps.setTime(10, reserva.getHorarioDeDevolucao());
-
+        ps.setTime(10, sqlDate3);
         int result = ps.executeUpdate();
     }
 

@@ -69,26 +69,24 @@
                         ClientesDO cliente = cTransacao.buscarPorUsuarioID(((UsuariosDO) usuario.elementAt(0)).getId());
                         int clienteID = cliente.getId();
                         
-                        
                         try {
-                            SimpleDateFormat hora = new SimpleDateFormat("hh:mm:ss"); 
-                            SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd"); 
-                            reservas.setDataDeReserva((DataDeReserva));
+                            SimpleDateFormat hora = new SimpleDateFormat("hh:mm");
+                            SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+                            reservas.setDataDeReserva(data.parse(DataDeReserva));
                             reservas.setHorarioDeRetirada(hora.parse(HorarioDeRetirada));
                             reservas.setHorarioDeDevolucao(hora.parse(HorarioDeDevolucao));
-                            reservas.setOperacoesDeCaixaID(0);
-                            reservas.setVeiculoID(Integer.parseInt(veiculoID));
-                            reservas.setEstacionamentoID(estacionamentoID);
-                            reservas.setClienteID(clienteID);
-                            reservas.setModeloID(veiculo.getModeloID());
-                            reservas.setVagaID(veiculo.getVagaID());
-                            reservas.setEstado("aguardando");
-                            
-                            Reservas rTransacao = new Reservas();
-                            rTransacao.incluir(reservas);
-                            
                         } catch (ParseException e) {
                         }
+                        reservas.setOperacoesDeCaixaID(0);
+                        reservas.setVeiculoID(Integer.parseInt(veiculoID));
+                        reservas.setEstacionamentoID(estacionamentoID);
+                        reservas.setClienteID(clienteID);
+                        reservas.setModeloID(veiculo.getModeloID());
+                        reservas.setVagaID(veiculo.getVagaID());
+                        reservas.setEstado("aguardando");
+
+                        Reservas rTransacao = new Reservas();
+                        rTransacao.incluir(reservas);
                     }
         %>
         
