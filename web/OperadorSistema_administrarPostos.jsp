@@ -29,7 +29,7 @@
             <div id="tudo">
                 <% if (null == request.getParameter("Confirmar")&& null == request.getParameter("Confirm")&&null == request.getParameter("Confirme")) {%>
                 <form id="contentRight" action="./OperadorSistema_administrarPostos.jsp" method="post">
-                    Insira o Nome do Posto a ser bloqueado ou desbloqueado
+                    <p id="contentRight">Insira o Nome do Posto a ser bloqueado ou desbloqueado</p>
                     <table>
                         <tr>
                             <td>Nome do Posto</td>
@@ -60,7 +60,7 @@
                    if(p.isEmpty(nome)|| postoPesquisado==null) {    
                 %>
                 <form  id="contentRight" action="./OperadorSistema_administrarPostos.jsp" method="post">
-                    Este Posto não existe!  
+                    <p id="contentRight">Este Posto não existe!  </p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%
@@ -79,7 +79,9 @@
                             estadoProcesso = "bloquear";
                         }
                         else{
-                            %>O cadastro do posto não foi efetivado<%
+                            %>
+                            <p id="contentRight">O cadastro do posto não foi efetivado</p>
+                            <%
                         }
                     }
                     }
@@ -126,7 +128,7 @@
 
                 %>
                 <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                    Posto bloqueado com sucesso.  
+                    <p id="contentRight">Posto bloqueado com sucesso.</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
 
@@ -168,7 +170,7 @@
                         p.atualizarCadastro(posto.getID(), "normal");
                 %>
                 <form  id="contentRight" action="./OperadorSistema_menu.html" method="post">
-                    Posto desbloqueado com sucesso.  
+                    <p id="contentRight">Posto desbloqueado com sucesso.</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%         }
