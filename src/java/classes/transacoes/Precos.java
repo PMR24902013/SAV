@@ -30,6 +30,22 @@ public class Precos {
 	 return null;
   } // buscar
     
+    public PrecosDO buscarPorModeloID(int idobj) throws Exception{
+     Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	     PrecosData pdata = new PrecosData();
+	     PrecosDO p = pdata.buscarPorModeloID(idobj, tr);
+	   tr.commit();
+	   return p; 
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao buscar" + idobj);
+	   e.printStackTrace();
+	 }
+	 return null;
+  } // buscar
+    
      public boolean atualizar(PrecosDO preco) throws Exception {
      Transacao tr = new Transacao();
 	 try{

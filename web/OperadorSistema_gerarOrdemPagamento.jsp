@@ -170,16 +170,46 @@
                         %>
                 </form>
                 <% } else if (request.getParameter("action").equals("calcularValorCliente")) {
-                    int estacionamento_id = Integer.parseInt(request.getParameter("id"));
-                    Estacionamento tn_e = new Estacionamento();
-                    EstacionamentoDO estacionamento = tn_e.buscar(estacionamento_id);
+                    int cliente_id = Integer.parseInt(request.getParameter("id"));
+                    Clientes tn_c = new Clientes();
+                    ClientesDO cliente = tn_c.buscar(cliente_id);
+                    Reservas tn_r = new Reservas();
+                    Vector reservas = tn_r.pesquisarPorCliente(cliente_id);
                 %>
                 <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post"> 
                         <%
-                    float soma = estacionamento.getVagas()*(float)50.00;
+                   float soma = 0;
+                    for (int i = 0; i < reservas.size(); i++) {
+                                ReservasDO reserva = (ReservasDO) reservas.elementAt(i);
+                                float interval = ((float)reserva.getHorarioDeDevolucao().getTime() - (float)reserva.getHorarioDeRetirada().getTime())/(1000*60*60);
+                                if(interval<0){
+                                    interval = interval+24;
+                                }
+                                int modelo_id = reserva.getModeloID();
+                                Precos tn_precos = new Precos();
+                                PrecosDO precos = tn_precos.buscarPorModeloID(modelo_id);
+                                if(interval<1.0){
+                                    soma+=precos.getPreco1()*interval;
+                                }
+                                else if(interval>1.0 && interval < 2.0){
+                                    soma+=precos.getPreco2()*interval;
+                                }
+                                else if(interval>2.0 && interval < 3.0){
+                                    soma+=precos.getPreco3()*interval;
+                                }
+                                else if(interval>3.0 && interval < 4.0){
+                                    soma+=precos.getPreco4()*interval;
+                                }
+                                else if(interval>4.0 && interval < 5.0){
+                                    soma+=precos.getPreco5()*interval;
+                                }
+                                else{
+                                    soma+=precos.getPreco6()*interval;
+                                }                            
+                        }
                         Operacoes_de_Caixa tn_op = new Operacoes_de_Caixa();
                         Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
-                        operacao.setUsuarioID(estacionamento.getUsuario_Id());
+                        operacao.setUsuarioID(cliente.getUsuarioId());
                         operacao.setValorDoPagamento(soma);
                         operacao.setEstado("Aberto");
                         boolean result;

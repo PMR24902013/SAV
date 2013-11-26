@@ -112,7 +112,7 @@
             <%     if (action.equals("showPrice")) {
                     int id = Integer.parseInt(request.getParameter("id"));
                     classes.transacoes.Precos tn = new classes.transacoes.Precos();
-                    classes.data.PrecosDO precos = tn.buscar(id);
+                    classes.data.PrecosDO precos = tn.buscarPorModeloID(id);
             %>        
             <div id="content"><form action="./verPrecos.jsp" method="post">
                     <br>
