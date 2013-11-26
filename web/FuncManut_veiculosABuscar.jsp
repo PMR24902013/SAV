@@ -36,7 +36,6 @@
                         action = "showSearchForm";
                 %>
 
-                <form id="contentRight" action="./FuncManut_veiculosABuscar.jsp" method="post">
                     <%
                         // VERIFICACAO MANUAL DO LOGIN
                         if (session.getAttribute("user_name") == null) {
@@ -46,16 +45,17 @@
 
                     <%
                         classes.transacoes.Manutencao tn = new classes.transacoes.Manutencao();
-                        String estado = "Consertando";
+                        String estado = "Aguardando";
                         Vector busca = tn.buscarPorEstado(estado);
                         if (((busca == null) || (busca.size() == 0))) {
                             // avisar usuario que nao ha' veiculos a buscar
                     %>
                    
-                    <p>Nenhum veiculo a ser buscado.</p>
+                    <p id="contentRight">Nenhum veiculo a ser buscado.</p>
                         
                     <%     } else {
                     %>
+                <form id="contentRight" action="./FuncManut_veiculosABuscar.jsp" method="post">
                     <table>
                         <tr>
                             <td>Veiculo</td>

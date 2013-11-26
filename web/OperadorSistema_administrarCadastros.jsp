@@ -39,30 +39,30 @@
                         action = "showSearchForm";
                 %>
 
-               
-                    <%
-                        // VERIFICACAO MANUAL DO LOGIN
-                        if (session.getAttribute("user_name") == null) {
-                            pageContext.forward("index.jsp");
-                        }
-                    %>
-                    <%
-                        classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
-                        classes.transacoes.Posto tn_p = new classes.transacoes.Posto();
-                        classes.transacoes.Funcionario tn_f = new classes.transacoes.Funcionario();
-                        classes.transacoes.Estacao tn_e = new classes.transacoes.Estacao();
-                        String estado = "aguardando";
-                        Vector cadastrosC = tn_c.pesquisarCadastro(estado);
-                        Vector cadastrosP = tn_p.pesquisarCadastro(estado);
-                        Vector cadastrosF = tn_f.pesquisarCadastro(estado);
-                        Vector cadastrosE = tn_e.pesquisarCadastro(estado);
-                        if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0)) && ((cadastrosF == null) || (cadastrosF.size() == 0)) && ((cadastrosE == null) || (cadastrosE.size() == 0))) {
-                            // avisar usuario que nao ha' reserva
-                    %>
-                    <p id="contentRight">Nenhum cadastro em aguardo foi encontrado</p>
-                    <%     } else {
-                    %>
-                    <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
+
+                <%
+                    // VERIFICACAO MANUAL DO LOGIN
+                    if (session.getAttribute("user_name") == null) {
+                        pageContext.forward("index.jsp");
+                    }
+                %>
+                <%
+                    classes.transacoes.Clientes tn_c = new classes.transacoes.Clientes();
+                    classes.transacoes.Posto tn_p = new classes.transacoes.Posto();
+                    classes.transacoes.Funcionario tn_f = new classes.transacoes.Funcionario();
+                    classes.transacoes.Estacao tn_e = new classes.transacoes.Estacao();
+                    String estado = "aguardando";
+                    Vector cadastrosC = tn_c.pesquisarCadastro(estado);
+                    Vector cadastrosP = tn_p.pesquisarCadastro(estado);
+                    Vector cadastrosF = tn_f.pesquisarCadastro(estado);
+                    Vector cadastrosE = tn_e.pesquisarCadastro(estado);
+                    if (((cadastrosC == null) || (cadastrosC.size() == 0)) && ((cadastrosP == null) || (cadastrosP.size() == 0)) && ((cadastrosF == null) || (cadastrosF.size() == 0)) && ((cadastrosE == null) || (cadastrosE.size() == 0))) {
+                        // avisar usuario que nao ha' reserva
+                %>
+                <p id="contentRight">Nenhum cadastro em aguardo foi encontrado</p>
+                <%     } else {
+                %>
+                <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
                     <table>
                         <tr>
                             <td><strong>Nome</strong> </td>
@@ -309,9 +309,9 @@
                         boolean result = false;
                         try {
                             if (null != request.getParameter("ativar")) {
-                                result = tn.atualizarCadastro(id, "ativo");
+                                result = tn.atualizarCadastro(id, "Ativo");
                             } else if (null != request.getParameter("recusar")) {
-                                result = tn.atualizarCadastro(id, "recusado");
+                                result = tn.atualizarCadastro(id, "Recusado");
                             }
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
@@ -321,13 +321,13 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+                    <p id="contentRight">Foi enviado um email para o usuario sobre a situaçao do seu cadastro</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Erro ao atualizar dados do contato
+                    <p id="contentRight">Erro ao atualizar dados do contato</p>
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
@@ -341,9 +341,9 @@
                         boolean result = false;
                         try {
                             if (null != request.getParameter("ativar")) {
-                                result = tn.atualizarCadastro(id, "ativo");
+                                result = tn.atualizarCadastro(id, "Ativo");
                             } else if (null != request.getParameter("recusar")) {
-                                result = tn.atualizarCadastro(id, "recusado");
+                                result = tn.atualizarCadastro(id, "Recusado");
                             }
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
@@ -353,13 +353,13 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+                    <p id="contentRight">Foi enviado um email para o usuario sobre a situação do seu cadastro</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Erro ao atualizar dados do contato
+                    <p id="contentRight">Erro ao atualizar dados do contato</p>
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
@@ -373,9 +373,9 @@
                         boolean result = false;
                         try {
                             if (null != request.getParameter("ativar")) {
-                                result = tn.atualizarCadastro(id, "ativo");
+                                result = tn.atualizarCadastro(id, "Ativo");
                             } else if (null != request.getParameter("recusar")) {
-                                result = tn.atualizarCadastro(id, "recusado");
+                                result = tn.atualizarCadastro(id, "Recusado");
                             }
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
@@ -385,13 +385,13 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+                    <p id="contentRight">Foi enviado um email para o usuario sobre a situaçao do seu cadastro.</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Erro ao atualizar dados do contato
+                    <p id="contentRight">Erro ao atualizar dados do contato</p>
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
@@ -405,9 +405,9 @@
                         boolean result = false;
                         try {
                             if (null != request.getParameter("ativar")) {
-                                result = tn.atualizarCadastro(id, "ativo");
+                                result = tn.atualizarCadastro(id, "Ativo");
                             } else if (null != request.getParameter("recusar")) {
-                                result = tn.atualizarCadastro(id, "recusado");
+                                result = tn.atualizarCadastro(id, "Recusado");
                             }
                         } catch (Exception e) {
                 %>           <%= e.toString()%>
@@ -417,18 +417,18 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+                    <p id="contentRight">Foi enviado um email para o usuario sobre a situaçao do seu cadastro.</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Erro ao atualizar dados do contato
+                    <p id="contentRight">Erro ao atualizar dados do contato</p>
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
                     } // updateEstaacionamentoValues
-%>
+                %>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>
             </div>

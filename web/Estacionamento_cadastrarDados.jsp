@@ -39,7 +39,7 @@
                     int vagas = Integer.parseInt(request.getParameter("vagas"));
                     String proprietario = request.getParameter("proprietario");
                     String tipo = request.getParameter("tipo");
-                    String documento = request.getParameter("documento");
+                    //String documento = request.getParameter("documento");
                     String horario = request.getParameter("horario");
                     String telefone = request.getParameter("telefone");
                     String cep = request.getParameter("cep");
@@ -53,11 +53,10 @@
 //                    estacionamentoCriado = (UsuariosDO) ps.get(0);
 
                     Estacionamento c = new Estacionamento();
-                    if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(vagas) || c.isEmpty(proprietario) || c.isEmpty(documento) || c.isEmpty(horario) || c.isEmpty(telefone)) {
+                    if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(vagas) || c.isEmpty(proprietario) || c.isEmpty(horario) || c.isEmpty(telefone)) {
 
             %> 
-            <br>
-            Preencha todos os campos!
+            <p id="contentRight">Preencha todos os campos!</p>
             <form action="Estacionamento_cadastrarDados.jsp" method="post">
 
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
@@ -68,7 +67,7 @@
                 p.setVagas(vagas);
                 p.setNome_Do_Responsavel(proprietario);
                 p.setTipo(false);
-                p.setDocumento_Do_Convenio(documento);
+                //p.setDocumento_Do_Convenio(documento);
                 p.setHorario_De_Funcionamento(horario);
                 p.setTelefone(telefone);
                 p.setEstado("Aguardando");
@@ -79,7 +78,7 @@
 
             %> 
             <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
-            <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
+            <form action="./Estacionamento_menu.html" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
             <% }
@@ -111,11 +110,6 @@
                         <td>Nome do proprietário</td>
                         <td><input type="text" name="proprietario"  /></td>
                     </tr>
-                    <tr>
-                        <td> Documento do convenio</td>
-                        <td><input type ="file" name ="documento"/></td>
-                    </tr>
-
                     <tr>
                         <td> Horario de Funcionamento </td>
                         <td><input type ="text" name ="horario"/></td>
