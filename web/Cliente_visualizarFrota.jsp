@@ -32,6 +32,7 @@
             ArrayList <String> marca = new ArrayList<String>();
             ArrayList <String> ano = new ArrayList<String>();
             ArrayList <String> estacionamento = new ArrayList<String>();
+            ArrayList <String> placa = new ArrayList<String>();
             ArrayList <String> endereco = new ArrayList<String>();
             ArrayList <String> arcondicionado = new ArrayList<String>();
             ArrayList <String> direcaohidraulica = new ArrayList<String>();
@@ -60,6 +61,7 @@
                 freioabs.add(String.valueOf(veiculo.getFreioABS()));
                 gps.add(String.valueOf(veiculo.getGPS()));
                 cambioauto.add(String.valueOf(veiculo.getCambioAutomatico()));
+                placa.add(veiculo.getPlaca());
             
                 mod = m.pesquisarModelo(modeloID);
                marca.add(mod.getMarca());
@@ -78,6 +80,7 @@
                 <tr>
                     <td><strong>ESTACIONAMENTO</strong></td>
                     <td><strong>ENDEREÇO</strong></td>
+                    <td><strong>PLACA</strong></td>
                     <td><strong>MODELO</strong></td>
                     <td><strong>MARCA</strong></td>
                     <td><strong>ANO</strong></td>
@@ -89,6 +92,7 @@
             <tr>
                 <td><%=estacionamento.get(j)%></td>
                 <td><%=endereco.get(j)%></td>
+                <td><%=placa.get(j)%></td>
                 <td><%=modelo.get(j)%></td>
                 <td><%=marca.get(j)%></td>
                 <td><%=ano.get(j)%></td>

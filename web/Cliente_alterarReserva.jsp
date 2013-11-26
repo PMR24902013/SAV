@@ -21,6 +21,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Alterar Reserva</title>
         <%@ include file="headerCliente.html" %>
+
+
     </head>
     <body>
         <%@ page import="java.util.Vector" %>
@@ -148,54 +150,7 @@
                                 </select></td>
                         </tr>
                     </table>
-                    <table>
-                        <tr>
-                            <td><strong>Modelo</strong></td>
-                            <td><strong>Marca</strong></td>
-                            <td><strong>Ano</strong></td>
-                            <td><strong>Opcionais</strong></td>
-                            <td><strong>Placa</strong></td>
-                        </tr>
-                        <%
-                            for (int i = 0; i < veiculo.size(); i++) {
-                                classes.data.VeiculosDO v = (classes.data.VeiculosDO) veiculo.elementAt(i);
-                                classes.data.ModelosDO modelo = tm.buscar(v.getModeloID());
-
-                        %> 
-                        <tr>
-                            <td><%=modelo.getModelo()%></td>
-                            <td><%=modelo.getMarca()%></td>
-                            <td><%=modelo.getAno()%></td>
-                            <td>
-                                <%
-                                    if (v.getArCondicionado() == true) {
-                                %>
-                                Ar condicionado;
-                                <%                                    }
-                                    if (v.getCambioAutomatico() == true) {
-                                %>
-                                Cambio Automatico;
-                                <%                                    }
-                                    if (v.getDirecaoHidraulica() == true) {
-                                %>
-                                Direçao Hidráulica;
-                                <%                                    }
-                                    if (v.getFreioABS() == true) {
-                                %>
-                                Freio ABS;
-                                <%                                    }
-                                    if (v.getGPS() == true) {
-                                %>
-                                GPS;
-                                <%                                    }
-                                %>
-                            </td>
-                            <td><%=v.getPlaca()%></td>
-                        </tr>
-                        <%                                        } // for
-                        %>
-                    </table>
-
+                    Não sabe qual veículo escolher? Confira nossa <a href="./Cliente_visualizarFrota.jsp">frota disponível</a>!<br>
                     <input type="submit" name="atualizar" value="atualizar" />
                     <input type="submit" name="cancelar" value="cancelar reserva" />
                     <input type="hidden" name="id" value=<%= id%> /> 
@@ -241,12 +196,12 @@
                         reservas.setClienteID(idCliente);
                         reservas.setID(id);
                         reservas.setEstado("aguardando");
-                        
 
-                            if (null != request.getParameter("cancelar")) {
-                                reservas.setEstado("cancelado");
-                                reservas.setClienteID(0);
-                            }
+
+                        if (null != request.getParameter("cancelar")) {
+                            reservas.setEstado("cancelado");
+                            reservas.setClienteID(0);
+                        }
 
                         boolean result = false;
                         try {
