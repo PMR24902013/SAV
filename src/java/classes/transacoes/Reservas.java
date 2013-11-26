@@ -13,7 +13,19 @@ import java.util.Vector;
 public class Reservas {
 
     public boolean incluir(ReservasDO Reserva) throws Exception {
-
+        Transacao tr = new Transacao();
+        try {
+            // inserir validacoes de regras de negocio
+            tr.begin();
+            ReservasData rdata = new ReservasData();
+            rdata.incluir(Reserva, tr);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println("erro ao incluir");
+            e.printStackTrace();
+        }
         return false;
     } // incluir
 
