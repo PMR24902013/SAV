@@ -52,6 +52,21 @@ public class Consumo_de_Combustivel {
         return null;
     }
     
+    public Vector pesquisarPorPostoID(int idobj) {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            Consumo_de_CombustivelData vdata = new Consumo_de_CombustivelData();
+            Vector v = vdata.pesquisarPorPostoID(idobj, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar postos");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarTodos
+    
     public boolean atualizar (Consumo_de_CombustivelDO consumo) throws Exception {
         Transacao tr = new Transacao();
         try{

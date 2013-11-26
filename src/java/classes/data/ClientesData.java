@@ -89,6 +89,29 @@ public class ClientesData {
         cliente.setEstado(rs.getString("Estado"));
         return cliente;
     }
+    
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Cliente";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector clientes = new Vector();
+        while (rs.next()) {
+            ClientesDO cliente = new ClientesDO();
+            cliente.setId(rs.getInt("id"));
+            cliente.setUsuarioId(rs.getInt("Usuario_ID"));
+            cliente.setNome(rs.getString("Nome"));
+            cliente.setCPF(rs.getString("CPF"));
+            cliente.setEmail(rs.getString("email"));
+            cliente.setEndereco(rs.getString("Endereco"));
+            cliente.setTelefone(rs.getString("Telefone"));
+            cliente.setCNH(rs.getString("CNH"));
+            cliente.setEstado(rs.getString("Estado"));
+            clientes.add(cliente);
+        }
+        return clientes;
+    } // pesquisarTodos
 
     public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();

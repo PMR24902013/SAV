@@ -5,17 +5,6 @@
 * Data:11 /11/2013
 * Autor:Augusto
 * Descricao:altera os dados cadastrais do funcionario de manutencao
-* Entradas:
-
-    
-    
-    email CHAR(30) NULL,
-    Endereco CHAR(30) NULL,
-    Telefone CHAR(30) NULL,
-    
-    Estado CHAR(30) NULL,
-* Saidas:confirmação da atualização e disposicao do botao para voltar a tela inicial
-
 */
 --%>
 

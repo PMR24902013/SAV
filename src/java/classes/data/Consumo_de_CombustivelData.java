@@ -52,6 +52,27 @@ public class Consumo_de_CombustivelData {
         ps.setInt(7, consumo.getId());
         int result = ps.executeUpdate();
     } // atualizar
+    
+    public Vector pesquisarPorPostoID(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Consumo_de_Combustivel where posto_ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        Vector consumo = new Vector();
+        while (rs.next()) {
+            Consumo_de_CombustivelDO c = new Consumo_de_CombustivelDO();
+            c.setId(rs.getInt("id"));
+            c.setOperacoesDeCaixaID(rs.getInt("Operacoes_de_Caixa_ID"));
+            c.setPostoId(rs.getInt("Posto_ID"));
+            c.setTipo(rs.getString("Tipo"));
+            c.setQuantidade(rs.getFloat("Quantidade"));
+            c.setPrecoTotal(rs.getFloat("Preco_Total"));
+            c.setHorario(rs.getTime("Horario"));
+            consumo.add(c);
+        }
+        return consumo;
+    } // buscar
 
     public Consumo_de_CombustivelDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
