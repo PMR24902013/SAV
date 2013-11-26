@@ -84,6 +84,23 @@ public class Estacionamento {
 	 }
 	 return null;
   } // buscar
+  
+  public String buscarNome(int idobj) throws Exception{
+     Transacao tr = new Transacao();
+	 try{
+	   tr.beginReadOnly();
+  	     EstacionamentoData cdata = new EstacionamentoData();
+	     String c = cdata.buscarNome(idobj, tr);
+	   tr.commit();
+	   return c;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao buscar" + idobj);
+	   e.printStackTrace();
+	 }
+	 return null;
+  } // buscar
+  
    public EstacionamentoDO buscarPorUsuarioID(int idobj) throws Exception{
      Transacao tr = new Transacao();
 	 try{
@@ -154,25 +171,7 @@ public class Estacionamento {
 	 }
 	 return false;
   } // atualizar
-    
-        public String buscarNome(int id) throws Exception {
-     Transacao tr = new Transacao();
-	 try{
-	   // inserir validacoes de regras de negocio
-	   tr.begin();
-  	    EstacionamentoData cdata = new EstacionamentoData();
-            
-	    String c = cdata.buscarNome(id,tr);
-	   tr.commit();
-	   return c;
-	 } catch (Exception e) { 
-	   tr.rollback();
-	   System.out.println("erro ao atualizar situação do cadastro");
-	   e.printStackTrace();
-	 }
-	 return null;
-  } // atualizar
-        
+          
   public boolean isEmpty(String s) {
      if (null == s)
        return true;
@@ -180,6 +179,21 @@ public class Estacionamento {
        return true;
      return false;
   }
+  
+    public Vector pesquisarTodos() {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            EstacionamentoData edata = new EstacionamentoData();
+            Vector v = edata.pesquisarTodos(tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar modelos");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisarTodos
   
   public boolean isEmpty(int s) {
      if (null == (Integer) s)

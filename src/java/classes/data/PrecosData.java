@@ -15,13 +15,13 @@ public class PrecosData {
     
   public PrecosDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from Precos where  id=?";
+     String sql = "select * from Precos where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, idobj);
      ResultSet rs = ps.executeQuery();
      rs.next();
      PrecosDO preco = new PrecosDO();
-     preco.setModeloId(rs.getInt("Veiculo_ID"));
+     preco.setModeloId(rs.getInt("Modelo_ID"));
      preco.setPreco1(rs.getFloat("Preco_1"));
      preco.setPreco2(rs.getFloat("Preco_2"));
      preco.setPreco3(rs.getFloat("Preco_3"));
