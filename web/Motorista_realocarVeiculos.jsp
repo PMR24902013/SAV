@@ -50,7 +50,7 @@
                                 </select>
                         </tr>
                         <tr>
-                            <td><input type="submit" name="selecao" value="Selecionar Estacionamento"/>
+                            <td><input type="submit" name="selecao" value="Selecionar"/>
                             <td><input type="submit" name="cancelarProcura" value="Cancelar"/>
                         </tr>
                     </table>
@@ -61,13 +61,13 @@
                         String redirectURL = "./Motorista_menu.html";
                         response.sendRedirect(redirectURL);
                     }
-                    if(null != request.getParameterValues("selecao") && request.getParameter("selecionaEstacionamento").equals("null")){
-                        %>
+                    if (null != request.getParameterValues("selecao") && request.getParameter("selecionaEstacionamento").equals("null")) {
+                %>
                 Selecione um estacionamento!
                 <form action="./Motorista_realocarVeiculos.jsp">
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
-                                        <%
+                <%
                     }
                     if (null != request.getParameter("selecao") && !request.getParameter("selecionaEstacionamento").equals("null")) {
                         int IDEstacionamento = Integer.parseInt(request.getParameter("selecionaEstacionamento"));
@@ -94,7 +94,7 @@
                             <td><%=veiculo.getPlaca()%></td>
                             <td><%=modelo.getModelo()%></td>
                             <td><%=modelo.getMarca()%></td>
-                            <td><a href=Motorista_realocarVeiculos.jsp?action=showEditForm&id=<%= veiculo.getId()%>>Responder</a>
+                            <td><a href=Motorista_realocarVeiculos.jsp?action=showEditForm&id=<%= veiculo.getId()%>>Realocar</a>
                         </tr>
                         <%
                             }
@@ -114,7 +114,7 @@
                         classes.transacoes.Estacionamento listaEstacionamentos = new classes.transacoes.Estacionamento();
                         classes.data.EstacionamentoDO listagemEstacionamentos = new classes.data.EstacionamentoDO();
                         listagemEstacionamentos = listaEstacionamentos.buscar(1);
-                        if(request.getParameter("cancelarRealocar") == null && request.getParameter("selecaoDestino") == null){
+                        if (request.getParameter("cancelarRealocar") == null && request.getParameter("selecaoDestino") == null) {
                 %>
 
                 <form id="contentRight" action="#" method="post">
@@ -138,7 +138,8 @@
                         </tr>
                     </table>
                 </form>
-                <%}if (request.getParameter("cancelarRealocar") != null) {
+                <%}
+                    if (request.getParameter("cancelarRealocar") != null) {
                         String redirectURL = "./Motorista_menu.html";
                         response.sendRedirect(redirectURL);
                     }
@@ -149,13 +150,13 @@
                         if (buscaVeiculo.realocar(veiculoRealocado)) {
                 %>
                 Transação realizada com sucesso!
-                <form action="./Motorista_menu.html" method="post">
+                <form id="contentRight" action="./Motorista_menu.html" method="post">
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%} else {
                 %>
                 Erro ao atualizar informações           
-                <form action="./Motorista_realocarVeiculos.jsp" method="post">
+                <form id="contentRight" action="./Motorista_realocarVeiculos.jsp" method="post">
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%
@@ -164,6 +165,8 @@
                     }
 
                 %>
+                <div id="contentLeft"></div>
+                <div class="clear"> </div>
             </div>
         </div>
     </body>
