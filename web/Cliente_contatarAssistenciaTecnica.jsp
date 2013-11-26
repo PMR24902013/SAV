@@ -18,7 +18,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>contatar assistencia tecnica</title>
+        <title>Contatar assistencia tecnica</title>
         <%@ include file="headerCliente.html" %>
     </head>
     <body>
@@ -62,7 +62,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 
 
                 <form  id="contentRight" action="Cliente_contatarAssistenciaTecnica.jsp" method="post">
-                    Preencha todos os campos!
+                    <p id="contentRight">Preencha todos os campos!</p>
                 </form>
                 <%} else {
                     AssistenciaTecnicaDO assist = new AssistenciaTecnicaDO();
@@ -89,7 +89,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 
                 %>
                 <form  id="contentRight" action="Cliente_menu.html" method="post">
-                    O seu chamado foi registrado, você será contatado e breve.
+                    <p id="contentRight">O seu chamado foi registrado, você será contatado e breve.</p>
                     <input type="submit" name="Voltar" value="Voltar" />
                 </form>
                 <%                    }
