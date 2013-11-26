@@ -74,6 +74,7 @@ public class ReservasData {
      ReservasDO reserva = new ReservasDO();
      reserva.setDataDeReserva(rs.getDate("Data_da_Reserva"));
      reserva.setModeloID(rs.getInt("Modelos_ID"));
+     reserva.setVeiculoID(rs.getInt("Veiculo_ID"));
      reserva.setHorarioDeRetirada(rs.getTime("Horario_da_Retirada"));
      reserva.setEstacionamentoID(rs.getInt("Estacionamento_ID"));
      return reserva;

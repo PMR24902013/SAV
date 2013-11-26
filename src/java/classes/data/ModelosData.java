@@ -42,7 +42,7 @@ public class ModelosData {
 
     public ModelosDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Modelos where  Modelo=?";
+        String sql = "select * from Modelos where ID=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
