@@ -4,6 +4,7 @@
  */
 package classes.data;
 
+import java.util.Date;
 /**
  *
  * @author hidden
@@ -11,10 +12,8 @@ package classes.data;
 public class ManutencaoDO {
 
     private int _id;
-
     private String _data_da_Entrada_na_Manutencao;
     private int _veiculo_id;
-
     private int _funcionario_id;
     private String _estado;
 

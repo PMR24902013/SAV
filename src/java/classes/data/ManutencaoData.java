@@ -19,13 +19,14 @@ public class ManutencaoData {
      Connection con = tr.obterConexao();
      String sql = "insert into Manutencao (Veiculo_ID, Funcionario_ID, Data_da_Entrada_na_Manutencao, Estado) VALUES (?,?,?,?)";
      PreparedStatement ps = con.prepareStatement(sql);
+     
      ps.setInt(1, man.getVeiculoID());
      ps.setInt(2, man.getFuncionarioID());
      ps.setString(3, man.getDataDaEntradaNaManutencao());
      ps.setString(4, man.getEstado());
      int result = ps.executeUpdate();
   }
-
+  
   public void excluir(ManutencaoDO man, Transacao tr) throws Exception {
      excluir(man.getId(), tr);
   } // excluir
@@ -55,20 +56,22 @@ public class ManutencaoData {
 
   public ManutencaoDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from Manutencao where  id=?";
+     String sql = "select * from Manutencao where  ID=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, idobj);
      ResultSet rs = ps.executeQuery();
      rs.next();
      ManutencaoDO man = new ManutencaoDO();
-     man.setId (rs.getInt("id"));
-     man.setVeiculoID (rs.getInt("VeiculoID"));
-     man.setFuncionarioId(rs.getInt("FuncionarioID"));
-     man.setDataDaEntradaNaManutencao(rs.getString("DataDaEntradaNaManutencao"));
+     man.setDataDaEntradaNaManutencao(rs.getString("Data_da_Entrada_na_Manutencao"));
+     
+     man.setFuncionarioId(rs.getInt("Funcionario_ID"));
+     
+     man.setVeiculoID (rs.getInt("Veiculo_ID"));
+     
      man.setEstado(rs.getString("Estado"));
      return man;
   } // buscar
-
+  
     public Vector buscarPorEstado(String estado, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Manutencao where Estado=?";
