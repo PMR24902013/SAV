@@ -26,6 +26,7 @@
         <%@ page import="java.util.*"%>
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
+            <div id="tudo">
             <div id="contentRight">
                 <table>
                     <tr>
@@ -284,6 +285,7 @@
                 </form>
             </div>
             <div id="contentLeft"></div>
+            <div class="clear"></div>
         </div>
     </div>
 </body>

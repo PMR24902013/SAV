@@ -161,8 +161,7 @@
                     }
                     if (null != request.getParameter("cancelarProcura")) {
                 %>
-                <form id="contentRight" onload="./index.html">
-                </form>
+                <jsp:forward page="OperadorSistema_administrarEstacoes.jsp" />
                 <%             }
                 %>
 

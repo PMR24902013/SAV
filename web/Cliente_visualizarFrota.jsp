@@ -26,8 +26,7 @@
         <div id="base">
             <div id ="cima"><div id="logo"></div></div>
             <div id="tudo">
-                
-            
+            <div id="contentRight">
             <%
             ArrayList <String> modelo = new ArrayList<String>();
             ArrayList <String> marca = new ArrayList<String>();
@@ -72,31 +71,7 @@
                 endereco.add(est.getEndereco());
             }
             
-           /*  
-            int i = 1;
-            ModelosDO modelos = new ModelosDO();
-            Modelos m = new Modelos();
-            modelos = m.pesquisarModelo(i);
-            while( modelos != null){
-                modelo.add(modelos.getModelo());
-                marca.add(modelos.getMarca());
-                ano.add(String.valueOf(modelos.getAno()));
-                i ++;
-                modelos = m.pesquisarModelo(i);
-            
-            
-            EstacionamentoDO estac = new EstacionamentoDO();
-            Estacionamento e = new Estacionamento ();
-            estac = e.buscarPorUsuarioID(idobj);
-            while (estac != null){
-                estacionamento.add()
-            }
-            
-            VeiculosDO veiculos = new VeiculosDO();
-            Veiculos v = new Veiculos ();
-            veiculos = v.buscarPorEstado(estado);
-            
-            }*/
+           
             %>
             
             <table>
@@ -150,16 +125,10 @@
             
             </table>
             
-           <% /*if(null != request.getParameter("voltarMenu")){
-                response.sendRedirect(request.getContextPath() + "/index.html");
-                return;
-            }*/
-            %>
-            
-            <form name="content" action="index.html">
-                <input type="submit" name="Voltar" value="Voltar">
-            </form>
-            
             </div>
+            <div id="contentLeft"></div>
+            <div class="clear"></div>
+        </div>
+    </div>
     </body>
 </html>
