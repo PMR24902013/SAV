@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Histórico de uso</title>
         <%@ include file="headerCliente.html" %>
     </head>
     <body>
@@ -56,8 +56,6 @@
                                 <th><strong>Codigo da Reserva</strong></th>
                                 <th><strong>Data da Reserva</strong></th>
                                 <th><strong>Horário da Retirada</strong></th>
-                                <th><strong>Estado</strong></th>
-                                <th><strong>Codigo do veiculo</strong></th>
                                 <th><strong>Valor</strong></th>
                             </tr>
                         </thead>
@@ -79,8 +77,6 @@
                                 <td><%= ((ReservasDO) (reservas.get(i))).getID()%></td>
                                 <td><%= ((ReservasDO) (reservas.get(i))).getDataDeReserva()%></td>
                                 <td><%= ((ReservasDO) (reservas.get(i))).getHorarioDeRetirada()%></td> 
-                                <td><%= ((ReservasDO) (reservas.get(i))).getEstado()%></td> 
-                                <td><%= ((ReservasDO) (reservas.get(i))).getVeiculoID()%></td>
                                 <td><%= operdo.getValorDoPagamento()%></td>
                             </tr>
                             <% }%>
