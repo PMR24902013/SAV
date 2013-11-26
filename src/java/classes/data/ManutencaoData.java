@@ -51,8 +51,10 @@ public class ManutencaoData {
      ps.setInt(2, man.getFuncionarioID());
      ps.setString(3, man.getDataDaEntradaNaManutencao());
      ps.setString(4, man.getEstado());
+     ps.setInt(5, man.getId());
      int result = ps.executeUpdate();
   } // atualizar
+  
 
   public ManutencaoDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
