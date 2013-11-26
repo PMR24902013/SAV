@@ -28,7 +28,7 @@ public class Modelos {
         }
         return null;
     } // pesquisarTodos
-    
+
     public Vector buscar(String modelo, String ano){
         Transacao tr = new Transacao();
         try {

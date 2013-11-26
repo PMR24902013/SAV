@@ -84,6 +84,17 @@ public class EstacionamentoData {
         return e;
     } // buscar
 
+    public String buscarNome(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select Nome from Estacionamento where  ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String nome = rs.getString("Nome");
+        return nome;
+    } // buscar
+
     public EstacionamentoDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where  Usuario_ID=?";
@@ -135,6 +146,7 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     } // pesquisarPorNome
+    
     public Vector pesquisarEstacao(Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where Tipo= ?";
@@ -159,6 +171,7 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     } // pesquisarPorNome
+    
     public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where Estado =?";
@@ -175,6 +188,29 @@ public class EstacionamentoData {
         }
         return cadastro;
     } // pesquisarCadastro
+
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Estacionamento";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector estacionamento = new Vector();
+        while (rs.next()) {
+            EstacionamentoDO e = new EstacionamentoDO();
+            e.setId(rs.getInt("ID"));
+            e.setNome(rs.getString("Nome"));
+            e.setEndereco(rs.getString("Endereco"));
+            e.setVagas(rs.getInt("Vagas"));
+            e.setTipo(rs.getBoolean("Tipo"));
+            e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
+            e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
+            e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
+            e.setTelefone(rs.getString("Telefone"));
+            estacionamento.add(e);
+        }
+        return estacionamento;
+    } // pesquisarTodos
 
     public Vector listar(Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
