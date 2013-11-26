@@ -321,7 +321,7 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form id="contentRight" action="./OperadorSistema_administrarCadastros.jsp" method="post">
-                    Foi enviado um email para o usuario sobre a situaçao do seu cadastro
+                    <p id="contentRight">Foi enviado um email para o usuario sobre a situaçao do seu cadastro</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {

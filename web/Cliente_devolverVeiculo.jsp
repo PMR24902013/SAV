@@ -38,8 +38,13 @@
                                 veiculo.setEstado("Disponivel");
                                 veiculo.setClienteID(0);
                                 vTransacao.atualizar(veiculo);
-                            }
                         %>
+                        <p id="contentRight">Veículo devolvido</p>
+                        <%
+                                }
+                        if(null == request.getParameter("concluir")){
+                        %>
+                        
                         <table>
                             <tr>
                                 <th>Veículo<th>
@@ -65,8 +70,10 @@
                                 </th>
                             </tr>
                         </table>
+                                   
                         <input name="concluir" value="Concluir" type="submit"/>
                     </form>
+                                     <% } %>
                 </div>
                 <div id="contentLeft">
                     
