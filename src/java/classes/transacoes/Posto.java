@@ -101,6 +101,7 @@ public class Posto {
 	 }
 	 return null;
   } // buscar
+  
   public PostoDO buscarPorNome(String nome) throws Exception{
      Transacao tr = new Transacao();
 	 try{

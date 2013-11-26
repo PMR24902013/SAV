@@ -31,6 +31,24 @@ public class PrecosData {
      return preco;
   } // buscar
   
+  public PrecosDO buscarPorModeloID(int idobj, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Precos where Modelo_id=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setInt(1, idobj);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     PrecosDO preco = new PrecosDO();
+     preco.setModeloId(rs.getInt("Modelo_ID"));
+     preco.setPreco1(rs.getFloat("Preco_1"));
+     preco.setPreco2(rs.getFloat("Preco_2"));
+     preco.setPreco3(rs.getFloat("Preco_3"));
+     preco.setPreco4(rs.getInt("Preco_4"));
+     preco.setPreco5(rs.getFloat("Preco_5"));
+     preco.setPreco6(rs.getFloat("Preco_6"));
+     return preco;
+  } // buscar
+  
    public void atualizar(PrecosDO preco, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "update Precos set Veiculo_ID=?, Preco1=?, Preco2=? ,Preco3=?, Preco4=?, Preco5=?, Preco6=? where id=?";

@@ -112,33 +112,33 @@
             <%     if (action.equals("showPrice")) {
                     int id = Integer.parseInt(request.getParameter("id"));
                     classes.transacoes.Precos tn = new classes.transacoes.Precos();
-                    classes.data.PrecosDO precos = tn.buscar(id);
+                    classes.data.PrecosDO precos = tn.buscarPorModeloID(id);
             %>        
             <div id="content"><form action="./verPrecos.jsp" method="post">
                     <br>
-                    <div class="titulo">Preço por Quilometragem</div>
+                    <div class="titulo">Preço por Período</div>
                     <table>
                         <tr>
-                            <td>Até 100Km</td>
+                            <td>Até 1 hora</td>
                             <td><%= precos.getPreco1()%></td>
                         </tr>
                         <tr>
-                            <td>De 100Km a 200Km</td>
+                            <td>De 1 hora a 2 horas</td>
                             <td><%= precos.getPreco2()%></td>
                         </tr>
                         <tr>
-                            <td>De 200Km a 300Km</td>
+                            <td>De 2 horas a 3 horas</td>
                             <td><%= precos.getPreco3()%></td>
                         </tr>
                         <tr>
-                            <td>De 300Km a 400Km</td>
+                            <td>De 3 horas a 4 horas</td>
                             <td><%= precos.getPreco4()%></td>
                         </tr>
-                        <td>De 400Km a 500Km</td>
+                        <td>De 4 horas  a 5 horas</td>
                         <td><%= precos.getPreco5()%></td>
                         </tr>
                         <tr>
-                            <td>A partir de 500Km</td>
+                            <td>A partir de 5 horas</td>
                             <td><%= precos.getPreco6()%></td>
                         </tr>  
                     </table>
