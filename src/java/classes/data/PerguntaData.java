@@ -3,48 +3,86 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package classes.data;
 
 import java.sql.*;
 import java.util.*;
 import classes.utils.Transacao;
+
 public class PerguntaData {
-    
+
     public void incluir(PerguntaDO pergunta, Transacao tr) throws Exception {
-     Connection con = tr.obterConexao();
-     String sql = "insert into Duvida (Nome, email, Pergunta, Estado) values (?, ?, ?, ?)";
-     PreparedStatement ps = con.prepareStatement(sql);
-     ps.setString(1, pergunta.getNome());
-     ps.setString(2, pergunta.getEmail());
-     ps.setString(3, pergunta.getPergunta());
-     ps.setBoolean(4, pergunta.getEstado());
-     int result = ps.executeUpdate();
-  }    
-    
-    
-  public void excluir (int idobj, Transacao tr) throws Exception {
-     Connection con = tr.obterConexao();
-     String sql = "delete from Duvida where id=?";
-     PreparedStatement ps = con.prepareStatement(sql);
-     String id = ""+idobj;
-     ps.setString(1, id);
-     int result = ps.executeUpdate();
-  }    
-    
-  public void atualizar(PerguntaDO pergunta, Transacao tr) throws Exception {
-     Connection con = tr.obterConexao();
-     String sql = "update Duvida set Funcionario_ID=?, Nome=?, email=? ,Pergunta=?, Estado=? where id=?";
-     PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, pergunta.getFuncionarioId());
-     ps.setString(2, pergunta.getNome());
-     ps.setString(3, pergunta.getEmail());
-     ps.setString(4, pergunta.getPergunta());
-     ps.setBoolean(5, pergunta.getEstado());
-     int result = ps.executeUpdate();
-  }/*
+        Connection con = tr.obterConexao();
+        String sql = "insert into Duvida (Nome, email, Pergunta, Estado) values (?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, pergunta.getNome());
+        ps.setString(2, pergunta.getEmail());
+        ps.setString(3, pergunta.getPergunta());
+        ps.setBoolean(4, pergunta.getEstado());
+        int result = ps.executeUpdate();
+    }
+
+    public void excluir(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "delete from Duvida where id=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        String id = "" + idobj;
+        ps.setString(1, id);
+        int result = ps.executeUpdate();
+    }
+
+    public void atualizar(PerguntaDO pergunta, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "update Duvida set Funcionario_ID=?, Nome=?, email=? ,Pergunta=?, Estado=? where id=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, pergunta.getFuncionarioId());
+        ps.setString(2, pergunta.getNome());
+        ps.setString(3, pergunta.getEmail());
+        ps.setString(4, pergunta.getPergunta());
+        ps.setBoolean(5, pergunta.getEstado());
+        ps.setInt(6, pergunta.getID());
+        int result = ps.executeUpdate();
+    }
+
+    public Vector buscarPorEstado(boolean estado, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from duvida where Estado=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setBoolean(1, estado);
+        ResultSet rs = ps.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            PerguntaDO pergunta = new PerguntaDO();
+            pergunta.setID(rs.getInt("id"));
+            pergunta.setFuncionarioId(rs.getInt("funcionario_id"));
+            pergunta.setNome(rs.getString("nome"));
+            pergunta.setEmail(rs.getString("email"));
+            pergunta.setPergunta(rs.getString("pergunta"));
+            pergunta.setEstado(rs.getBoolean("estado"));
+            v.add(pergunta);
+        }
+        return v;
+    } // buscar
+
+    public PerguntaDO buscar(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from duvida where ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        PerguntaDO pergunta = new PerguntaDO();
+        pergunta.setID(rs.getInt("id"));
+        pergunta.setFuncionarioId(rs.getInt("funcionario_id"));
+        pergunta.setNome(rs.getString("nome"));
+        pergunta.setEmail(rs.getString("email"));
+        pergunta.setPergunta(rs.getString("pergunta"));
+        pergunta.setEstado(rs.getBoolean("estado"));
+        return pergunta;
+    } // buscar
+  /*
   
-      public ClientesDO buscar(int idobj, Transacao tr) throws Exception {
+     public ClientesDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Cliente where  id=?";
      PreparedStatement ps = con.prepareStatement(sql);
@@ -62,8 +100,8 @@ public class PerguntaData {
      cliente.setCNH(rs.getString("CNH"));
      cliente.setEstado(rs.getString("Estado"));
      return cliente;
-      }
-      public ClientesDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
+     }
+     public ClientesDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Cliente where  Usuario_ID=?";
      PreparedStatement ps = con.prepareStatement(sql);
@@ -82,8 +120,8 @@ public class PerguntaData {
      cliente.setCNH(rs.getString("CNH"));
      cliente.setEstado (rs.getString("Estado"));
      return cliente;
-      }
-      public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
+     }
+     public Vector pesquisarPorLogin(String login, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Cliente where nome like ?";
      PreparedStatement ps = con.prepareStatement(sql);
@@ -92,8 +130,8 @@ public class PerguntaData {
      System.out.println("query executada");
      Vector usuarios = new Vector();
      while (rs.next()) {
-        ClientesDO cliente = new ClientesDO();
-        cliente.setId (rs.getInt("id"));
+     ClientesDO cliente = new ClientesDO();
+     cliente.setId (rs.getInt("id"));
      cliente.setUsuarioId (rs.getInt("Usuario_ID"));
      cliente.setNome (rs.getString("Nome"));
      cliente.setCPF (rs.getString("CPF"));
@@ -101,13 +139,13 @@ public class PerguntaData {
      cliente.setEndereco (rs.getString("Endereco"));
      cliente.setTelefone (rs.getString("Telefone"));
      cliente.setCNH(rs.getString("CNH"));
-      cliente.setEstado (rs.getString("Estado"));
-        usuarios.add(cliente);
+     cliente.setEstado (rs.getString("Estado"));
+     usuarios.add(cliente);
      }
      return usuarios;
-  } // pesquisarPorLogin
+     } // pesquisarPorLogin
   
-      public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
+     public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "select * from Cliente where Estado =?";
      PreparedStatement ps = con.prepareStatement(sql);
@@ -116,21 +154,21 @@ public class PerguntaData {
      System.out.println("query executada");
      Vector cadastro = new Vector();
      while (rs.next()){
-        ClientesDO c = new ClientesDO();
-        c.setNome(rs.getString("Nome"));
-        c.setId(rs.getInt("ID"));
-        cadastro.add(c);
+     ClientesDO c = new ClientesDO();
+     c.setNome(rs.getString("Nome"));
+     c.setId(rs.getInt("ID"));
+     cadastro.add(c);
      }
      return cadastro;
-  } // pesquisarCadastro
+     } // pesquisarCadastro
       
-      public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
+     public void atualizarCadastro(int id, String estado, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
      String sql = "update Cliente set Estado=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setString(1, estado);
      ps.setInt(2, id);
      int result = ps.executeUpdate();
-  }// atualizarCadastro
-  */
+     }// atualizarCadastro
+     */
 }

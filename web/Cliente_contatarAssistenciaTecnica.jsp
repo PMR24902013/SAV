@@ -18,7 +18,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>contatar assistencia tecnica</title>
+        <title>Contatar assistencia tecnica</title>
         <%@ include file="headerCliente.html" %>
     </head>
     <body>
@@ -26,25 +26,30 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
             <div id ="cima"><div id="logo"></div></div>
 
             <div id="tudo">
+                <%
+                    if (null == request.getParameter("Confirmar")) {
+                %>
                 <form  id="contentRight" method="post" action=Cliente_contatarAssistenciaTecnica.jsp>
-                    Localizacao atual do veiculo <input type="text" name="local" />
-                    Defeito <input type="text" name="defeito" />
-
+                    <table>
+                        <tr>
+                            <td>Localizacao atual do veiculo</td><td> <input type="text" name="local" /></td>
+                        </tr>
+                        <tr>
+                            <td>Defeito</td><td> <input type="text" name="defeito" /></td>
+                        </tr>
+                    </table>
                     <input type="submit" name="Cancelar" value="Cancelar" />
                     <input type="submit" name="Confirmar" value="Confirmar" />
                     <input type="hidden" name="campo_controle" />
                 </form>
 
                 <!--    "Cancelar"  vlta pro inicio -->
-
-
-                <%     if (null != request.getParameter("Cancelar")) {
+                <% }
+                    if (null != request.getParameter("Cancelar")) {
                 %>        <jsp:forward page="Cliente_menu.html" />
                 <%        return;
                     }
-                %>
-                <%
-                    if (request.getParameter("Confirmar") != null) {
+                 if (request.getParameter("Confirmar") != null) {
 
                         String local = request.getParameter("local");
 
@@ -57,7 +62,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 
 
                 <form  id="contentRight" action="Cliente_contatarAssistenciaTecnica.jsp" method="post">
-                    Preencha todos os campos!
+                    <p id="contentRight">Preencha todos os campos!</p>
                 </form>
                 <%} else {
                     AssistenciaTecnicaDO assist = new AssistenciaTecnicaDO();
@@ -67,8 +72,8 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
                     assist.setEndereco(local);
                     assist.setQueixa(defeito);
                     assist.setData("2013/11/10");//precisamos ver como conseguir a data atual
-                    assist.setEstadoFinal("a espera de atendimento");
-                    assist.setFuncionarioID(11);//precisamos ver como escolhemos o funcionario
+                    assist.setEstadoFinal("Aguardando");
+                    //assist.setFuncionarioID(11);//precisamos ver como escolhemos o funcionario
                     String user = (String) session.getAttribute("user_name");//pega o nome do user atual
                     Vector ps = tn.pesquisar(user);// procura ele na tabela
                     UsuariosDO useratual = new UsuariosDO();
@@ -84,7 +89,7 @@ O sistema mostra um aviso ao ator de que o pedido de assistencia foi registrado.
 
                 %>
                 <form  id="contentRight" action="Cliente_menu.html" method="post">
-                    O seu chamada foi registrado, você será contatado e breve.
+                    <p id="contentRight">O seu chamado foi registrado, você será contatado e breve.</p>
                     <input type="submit" name="Voltar" value="Voltar" />
                 </form>
                 <%                    }

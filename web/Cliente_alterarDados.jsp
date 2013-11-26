@@ -3,7 +3,7 @@
     
 /**
 * Data:27/10/2013
-* Autor:hidden
+* Autor: Rafael
 * Descricao:altera os dados cadastrais do cliente
 * Entradas:
 
@@ -35,6 +35,7 @@
             <div id ="cima"><div id="logo"></div></div>
 
             <div id="tudo">
+                <%     if (null == request.getParameter("alterar")) { %>
                 <form  id="contentRight" action="Cliente_alterarDados.jsp" method="post">
                     <%
                         classes.transacoes.Clientes c = new classes.transacoes.Clientes();
@@ -48,7 +49,7 @@
                         ClientesDO clientelogado = new ClientesDO();
                         clientelogado = c.buscarPorUsuarioID(usuariologado.getId());%>
 
-                    Bem vindo <%= session.getAttribute("user_name")%>
+                        <p id="contentRight">Bem vindo <%= session.getAttribute("user_name")%></p>
                     <!-- mostra os valores atuais -->
                     <table>
                         <tr>
@@ -64,18 +65,12 @@
                             <td>Telefone</td>
                             <td><input type="text" value=<%=clientelogado.getTelefone()%> name="telefone" />
                         </tr>
-
-
-                        <tr>
-                            <td>Senha</td>
-                            <td><input type="text" value=<%=usuariologado.getSenha()%> name="senha" />
-                        </tr>
                     </table>
-                    <input type="submit" name="alterar" value="alterar" />
+                    <input type="submit" name="alterar" value="Alterar" />
                     <input type="submit" name="cancelar" value="cancelar" />
                 </form>
 
-
+                <% } %>
                 <!--   se apertar  "cancelar" volta para o menu do cliente -->
 
                 <%     if (null != request.getParameter("cancelar")) {
@@ -86,30 +81,36 @@
                     if (null != request.getParameterValues("alterar")) {
                         // se tiver campo vazio
                         Posto p = new Posto();
-                        if (p.isEmpty(request.getParameter("endereco")) || p.isEmpty(request.getParameter("email")) || p.isEmpty(request.getParameter("telefone")) || p.isEmpty(request.getParameter("senha"))) {
+                        if (p.isEmpty(request.getParameter("endereco")) || p.isEmpty(request.getParameter("email")) || p.isEmpty(request.getParameter("telefone"))) {
                 %>
-                Preencha todos os campos, por favor.
+                <p id="contentRight">Preencha todos os campos, por favor.</p>
                 <form  id="contentRight" action="Cliente_alterarDados.jsp" method="post">
                     <input type="submit" name="voltar" value="voltar" />
                 </form>
-
-
                 <%
                 } else {//se nao tiver
+
+                    classes.transacoes.Clientes c = new classes.transacoes.Clientes();
+                    Vector tn = new Vector();
+
+                    UsuariosDO usuariologado = new UsuariosDO();
+                    Usuarios users = new Usuarios();
+                    tn = users.pesquisar((String) session.getAttribute("user_name"));
+                    usuariologado = (UsuariosDO) tn.get(0);
+
+                    ClientesDO clientelogado = new ClientesDO();
+                    clientelogado = c.buscarPorUsuarioID(usuariologado.getId());
                     String email = request.getParameter("email");
                     String endereco = request.getParameter("endereco");
                     String telefone = request.getParameter("telefone");
 
-                    String senha = request.getParameter("senha");
-
                     clientelogado.setEmail(email);
                     clientelogado.setEndereco(endereco);
-
                     clientelogado.setTelefone(telefone);
+                    clientelogado.setEstado("Aguardando");
                     c.atualizar(clientelogado);
-                    usuariologado.setSenha(senha);
-                    users.atualizar(usuariologado);
-                %>   Dados alterados com sucesso
+                %>   
+                <p id="contentRight">Dados alterados com sucesso!</p>
                 <!--cria botao voltar-->
                 <form  id="contentRight" action="Cliente_menu.html" method="post">
                     <input type="submit" name="voltar" value="voltar" />

@@ -29,6 +29,23 @@ public class Precos {
 	 }
 	 return null;
   } // buscar
+    
+     public boolean atualizar(PrecosDO preco) throws Exception {
+     Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	     PrecosData cdata = new PrecosData();
+	     cdata.atualizar(preco, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao atualizar");
+	   e.printStackTrace();
+	 }
+	 return false;
+  } // atualizar
   
     public static void main(String[] args) {
         Precos p = new Precos();

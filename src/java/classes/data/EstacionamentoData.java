@@ -40,7 +40,7 @@ public class EstacionamentoData {
 
     public void atualizar(EstacionamentoDO e, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Estacionamento set Nome=?, Endereco=?, Vagas=?, Tipo=?, Nome_do_Responsavel=?, Documento_do_Convenio=?, Horario_de_Funcionamento=?, Telefone=? where id=?";
+        String sql = "update Estacionamento set Nome=?, Endereco=?, Vagas=?, Tipo=?, Nome_do_Responsavel=?, Documento_do_Convenio=?, Horario_de_Funcionamento=?, Telefone=?, CEP=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, e.getNome());
         ps.setString(2, e.getEndereco());
@@ -50,7 +50,8 @@ public class EstacionamentoData {
         ps.setString(6, e.getDocumento_Do_Convenio());
         ps.setString(7, e.getHorario_De_Funcionamento());
         ps.setString(8, e.getTelefone());
-        ps.setInt(9, e.getId());
+        ps.setString(9, e.getCEP());
+        ps.setInt(10, e.getId());
         int result = ps.executeUpdate();
     } // atualizar
 
@@ -232,6 +233,18 @@ public class EstacionamentoData {
             estacionamentos.add(e);
         }
         return estacionamentos;
+    }
+    
+    public String buscarNome(int idobj, Transacao tr) throws Exception{
+        
+        Connection con = tr.obterConexao();
+        String sql = "select Nome from Estacionamento where ID =?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1,idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String nome = rs.getString("Nome");
+        return nome;
     }
 
 } // ContatoData

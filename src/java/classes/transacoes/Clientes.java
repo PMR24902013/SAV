@@ -73,8 +73,8 @@ public class Clientes {
      Transacao tr = new Transacao();
 	 try{
 	   tr.beginReadOnly();
-  	     ClientesData cdata = new ClientesData();
-	     ClientesDO c = cdata.buscar(idobj, tr);
+  	   ClientesData cdata = new ClientesData();
+	   ClientesDO c = cdata.buscar(idobj, tr);
 	   tr.commit();
 	   return c;
 	 } catch (Exception e) {

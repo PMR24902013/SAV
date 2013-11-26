@@ -69,7 +69,7 @@ public class Precos_OpcionaisData {
   
   public Vector pesquisar(Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from Preco_opcional";
+     String sql = "select * from Precos_opcionais";
      PreparedStatement ps = con.prepareStatement(sql);
      ResultSet rs = ps.executeQuery();
      System.out.println("query executada");

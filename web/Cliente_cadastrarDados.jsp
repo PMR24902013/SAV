@@ -59,7 +59,6 @@
                 String passwd = (String) session.getAttribute("passwd");
                 Usuarios tu = new Usuarios();
                 UsuariosDO musuario = new UsuariosDO();
-                // cria um novo usuario
                 musuario.setLogin(user);
                 musuario.setSenha(passwd);
                 musuario.setTipo("Cliente");
@@ -75,13 +74,6 @@
                 String cnh = request.getParameter("carteira");
 
                 ClientesDO p = new ClientesDO();
-                //arrumar  arquivo 
-                //String nomeatual = (String) session.getAttribute("user_name");
-                //Usuarios tn = new Usuarios();
-                //Vector ps = tn.pesquisar(nomeatual);
-                //UsuariosDO clientecriado = new UsuariosDO();
-                //clientecriado = (UsuariosDO) ps.get(0);
-
                 Clientes c = new Clientes();
                 if (c.isEmpty(nome) || c.isEmpty(CPF) || c.isEmpty(telefone) || c.isEmpty(endereco) || c.isEmpty(email)) {
 

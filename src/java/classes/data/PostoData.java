@@ -48,14 +48,14 @@ public class PostoData {
      Connection con = tr.obterConexao();
      String sql = "update Posto set Usuarios_ID=?, Nome=?, Endereco=?, Telefone=?, Horario_de_Funcionamento=?, Responsavel=?, Documento_de_Licenciamento=? where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
-     ps.setInt(1, posto.getID());
-     ps.setInt(2, posto.getUsuariosID());
-     ps.setString(3, posto.getNome());
-     ps.setString(4, posto.getEndereco());
-     ps.setString(5, posto.getTelefone());
-     ps.setString(6, posto.getHorario());
-     ps.setString(7, posto.getResponsavel());
-     ps.setString(8, posto.getDocumento());
+     ps.setInt(1, posto.getUsuariosID());
+     ps.setString(2, posto.getNome());
+     ps.setString(3, posto.getEndereco());
+     ps.setString(4, posto.getTelefone());
+     ps.setString(5, posto.getHorario());
+     ps.setString(6, posto.getResponsavel());
+     ps.setString(7, posto.getDocumento());
+     ps.setInt(8, posto.getID());
      int result = ps.executeUpdate();
   } // atualizar
 
@@ -94,6 +94,31 @@ public class PostoData {
      posto.setHorario (rs.getString("Horario_de_Funcionamento"));
      posto.setResponsavel (rs.getString("Responsavel"));
      posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
+     posto.setGasolina(rs.getString("Preco_da_gasolina"));
+     posto.setAlcool(rs.getString("Preco_do_alcool"));
+     return posto;
+  } // buscar
+  
+  public PostoDO buscarPorNome(String nome, Transacao tr) throws Exception {
+     Connection con = tr.obterConexao();
+     String sql = "select * from Posto where Nome=?";
+     PreparedStatement ps = con.prepareStatement(sql);
+     ps.setString(1, nome);
+     ResultSet rs = ps.executeQuery();
+     rs.next();
+     PostoDO posto = new PostoDO();
+     posto.setID (rs.getInt("id"));
+     posto.setUsuariosID (rs.getInt("Usuarios_ID"));
+     posto.setNome (rs.getString("Nome"));
+     posto.setEndereco (rs.getString("endereco"));
+     posto.setTelefone (rs.getString("telefone"));
+     posto.setHorario (rs.getString("Horario_de_Funcionamento"));
+     posto.setResponsavel (rs.getString("Responsavel"));
+     posto.setDocumento(rs.getString("Documento_de_Licenciamento"));
+     posto.setEstado (rs.getString("Estado"));
+     posto.setGasolina(rs.getString("Preco_da_gasolina"));
+     posto.setAlcool(rs.getString("Preco_do_alcool"));
+     
      return posto;
   } // buscar
 
