@@ -56,8 +56,7 @@
                     if (c.isEmpty(nome) || c.isEmpty(local) || c.isEmpty(vagas) || c.isEmpty(proprietario) || c.isEmpty(horario) || c.isEmpty(telefone)) {
 
             %> 
-            <br>
-            Preencha todos os campos!
+            <p id="contentRight">Preencha todos os campos!</p>
             <form action="Estacionamento_cadastrarDados.jsp" method="post">
 
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
@@ -79,7 +78,7 @@
 
             %> 
             <p style="text-align: center;">Seus dados foram cadastrados com sucesso!</p>
-            <form action="./Cliente_cadastrarDados.jsp" method="post" style="margin-left: 40%;">
+            <form action="./Estacionamento_menu.html" method="post" style="margin-left: 40%;">
                 <input type="submit" name="Prosseguir" value="Prosseguir" />
             </form>
             <% }

@@ -95,10 +95,6 @@
                             <td>CEP</td>
                             <td><input type="text" name="cep" value="<%=estacionamento.getCEP()%>" />
                         </tr>
-                        <tr>
-                            <td>Documento do convênio</td>
-                            <td><input type="file" name="convenio" value="<%=estacionamento.getDocumento_Do_Convenio()%>" width="15" />
-                        </tr>
                     </table>
                     <input type="submit" name="atualizar" value="atualizar" />
                     <input type="hidden" name="id" value=<%=estacionamento.getId()%> /> 
@@ -135,13 +131,6 @@
                     estac.setEndereco(endereco);
                     estac.setVagas(vagas);
                     estac.setNome_Do_Responsavel(nomeDoResponsavel);
-                    estac.setDocumento_Do_Convenio(convenio);
-                    if (convenio == null) {
-                        estac.setDocumento_Do_Convenio(
-                                tn_e.buscar(
-                                        Integer.parseInt(
-                                                request.getParameter("id"))).getDocumento_Do_Convenio());
-                    }
                     estac.setHorario_De_Funcionamento(horarioDeFuncionamento);
                     estac.setTelefone(telefone);
                     estac.setCEP(cep);
@@ -158,13 +147,13 @@
                         // avisar usuario que transacao foi feita com sucesso
                 %>
                 <form  id="contentRight" action="./Estacionamento_menu.html" method="post">
-                    Transação realizada com sucesso!
+                    <p id="contentRight">Transação realizada com sucesso!</p>
                     <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
                 <form  id="contentRight" action="./Estacionamento_alterarDados.jsp" method="post">
-                    Erro ao atualizar dados.
+                    <p id="contentRight">Erro ao atualizar dados.</p>
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
