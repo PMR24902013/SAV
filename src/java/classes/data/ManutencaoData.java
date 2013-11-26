@@ -56,12 +56,14 @@ public class ManutencaoData {
 
   public ManutencaoDO buscar(int idobj, Transacao tr) throws Exception {
      Connection con = tr.obterConexao();
-     String sql = "select * from Manutencao where  ID=?";
+     String sql = "select * from Manutencao where id=?";
      PreparedStatement ps = con.prepareStatement(sql);
      ps.setInt(1, idobj);
      ResultSet rs = ps.executeQuery();
      rs.next();
      ManutencaoDO man = new ManutencaoDO();
+     man.setId(rs.getInt("id"));
+     
      man.setDataDaEntradaNaManutencao(rs.getString("Data_da_Entrada_na_Manutencao"));
      
      man.setFuncionarioId(rs.getInt("Funcionario_ID"));
@@ -71,6 +73,8 @@ public class ManutencaoData {
      man.setEstado(rs.getString("Estado"));
      return man;
   } // buscar
+  
+
   
     public Vector buscarPorEstado(String estado, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
