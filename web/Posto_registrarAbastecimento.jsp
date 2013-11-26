@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registrar abastecimento</title>
         <%@ include file="headerPosto.html" %>
         <%@ page import="classes.data.*" %>
         <%@ page import="classes.transacoes.*" %>
@@ -60,7 +60,6 @@
             <div id ="cima"><div id="logo"></div></div>
 
             <div id="tudo">
-
                 <div id="contentRight">
                     <form id="content" method="post">
                         <%
