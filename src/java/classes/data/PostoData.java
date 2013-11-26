@@ -99,6 +99,7 @@ public class PostoData {
         posto.setAlcool(rs.getString("Preco_do_alcool"));
         return posto;
     } // buscar
+    
 
     public PostoDO buscarPorNome(String nome, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();

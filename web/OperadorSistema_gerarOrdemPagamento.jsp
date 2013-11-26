@@ -22,7 +22,7 @@
             <div id="tudo">
                 <% 
                     String action = request.getParameter("action");
-                if (null == request.getParameter("posto") && null == request.getParameter("cliente") && null == request.getParameter("estacionamento")) {%>
+                if (null == request.getParameter("posto") && null == request.getParameter("cliente") && null == request.getParameter("estacionamento") && null==request.getParameter("action")) {%>
                 <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
                     Selecione o tipo de usuário cuja ordem deve ser emitida:
                     <table>
@@ -113,30 +113,85 @@
                         %>
                     </table>
                 </form>
-                <%} else if (action.equals("calcularValorPosto")) {
+                <%} else if (request.getParameter("action").equals("calcularValorPosto")) {
                     int posto_id = Integer.parseInt(request.getParameter("id"));
                     Consumo_de_Combustivel tn_consumo = new Consumo_de_Combustivel();
                     Vector consumos = tn_consumo.pesquisarPorPostoID(posto_id);
+                    Posto tn_p = new Posto();
+                    PostoDO posto = tn_p.buscar(posto_id);
+                    
                 %>
-                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post">
-                    <table>
-                        <tr>
-                            <td>Tipo</td>
-                            <td>Preço Total</td>
-                        </tr>   
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post"> 
                         <%
+                    float soma = 0;
                     for (int i = 0; i < consumos.size(); i++) {
                                 Consumo_de_CombustivelDO consumo = (Consumo_de_CombustivelDO) consumos.elementAt(i);
-                
-                        %>
-                        <tr>
-                            <td><%= consumo.getTipo()%></td>
-                            <td><%= consumo.getPrecoTotal()%>></td>                   
-                        </tr>  
-                        <%
+                                soma += consumo.getPrecoTotal();
+                        
                         }
+                        Operacoes_de_Caixa tn_op = new Operacoes_de_Caixa();
+                        Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
+                        operacao.setUsuarioID(posto.getUsuariosID());
+                        operacao.setValorDoPagamento(soma);
+                        operacao.setEstado("Aberto");
+                        boolean result;
+                        result = tn_op.incluir(operacao);
+                        if(result){
                         %>
-                    </table>
+                        Incluido nas operações de caixa
+                        <% } else {
+                        %>
+                        Ocorreu algum erro.
+                        <% }
+                        %>
+                </form>
+                <% } else if (request.getParameter("action").equals("calcularValorEstacionamento")) {
+                    int estacionamento_id = Integer.parseInt(request.getParameter("id"));
+                    Estacionamento tn_e = new Estacionamento();
+                    EstacionamentoDO estacionamento = tn_e.buscar(estacionamento_id);
+                %>
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post"> 
+                        <%
+                    float soma = estacionamento.getVagas()*(float)50.00;
+                        Operacoes_de_Caixa tn_op = new Operacoes_de_Caixa();
+                        Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
+                        operacao.setUsuarioID(estacionamento.getUsuario_Id());
+                        operacao.setValorDoPagamento(soma);
+                        operacao.setEstado("Aberto");
+                        boolean result;
+                        result = tn_op.incluir(operacao);
+                        if(result){
+                        %>
+                        Incluido nas operações de caixa
+                        <% } else {
+                        %>
+                        Ocorreu algum erro.
+                        <% }
+                        %>
+                </form>
+                <% } else if (request.getParameter("action").equals("calcularValorCliente")) {
+                    int estacionamento_id = Integer.parseInt(request.getParameter("id"));
+                    Estacionamento tn_e = new Estacionamento();
+                    EstacionamentoDO estacionamento = tn_e.buscar(estacionamento_id);
+                %>
+                <form id="contentRight" action="./OperadorSistema_gerarOrdemPagamento.jsp" method="post"> 
+                        <%
+                    float soma = estacionamento.getVagas()*(float)50.00;
+                        Operacoes_de_Caixa tn_op = new Operacoes_de_Caixa();
+                        Operacoes_de_CaixaDO operacao = new Operacoes_de_CaixaDO();
+                        operacao.setUsuarioID(estacionamento.getUsuario_Id());
+                        operacao.setValorDoPagamento(soma);
+                        operacao.setEstado("Aberto");
+                        boolean result;
+                        result = tn_op.incluir(operacao);
+                        if(result){
+                        %>
+                        Incluido nas operações de caixa
+                        <% } else {
+                        %>
+                        Ocorreu algum erro.
+                        <% }
+                        %>
                 </form>
                 <% } %>
                 <div id="contentLeft"></div>
