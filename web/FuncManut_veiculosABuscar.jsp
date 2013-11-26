@@ -45,7 +45,7 @@
 
                     <%
                         classes.transacoes.Manutencao tn = new classes.transacoes.Manutencao();
-                        String estado = "Consertando";
+                        String estado = "Aguardando";
                         Vector busca = tn.buscarPorEstado(estado);
                         if (((busca == null) || (busca.size() == 0))) {
                             // avisar usuario que nao ha' veiculos a buscar
