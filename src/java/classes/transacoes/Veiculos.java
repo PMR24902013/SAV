@@ -104,6 +104,22 @@ public class Veiculos {
 	 return null;
   } // buscar
   
+  public VeiculosDO buscarPorPlaca(String placa) {
+     
+     Transacao tr = new Transacao();
+     try {
+	     tr.beginReadOnly();
+           VeiculosData cdata = new VeiculosData();
+           VeiculosDO v = cdata.buscarPorPlaca(placa, tr);
+		 tr.commit();
+		 return v;
+     } catch(Exception e) {
+         System.out.println("erro ao pesquisar " );
+         e.printStackTrace();
+     }
+     return null;
+  } // pesquisar
+  
   public Vector buscarPorEstado(String estado) {
      
      Transacao tr = new Transacao();

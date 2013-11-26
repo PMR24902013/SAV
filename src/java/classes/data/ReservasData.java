@@ -50,7 +50,7 @@ public class ReservasData {
 
     public void atualizar(ReservasDO reserva, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=?, Horario_de_Devolucao=?, Veiculos_ID=? where id=?";
+        String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=?, Veiculos_ID=? Cliente_ID=? Vaga_ID=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         java.util.Date utilDate1 = reserva.getDataDeReserva();
         java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
@@ -62,9 +62,10 @@ public class ReservasData {
         ps.setDate(2, sqlDate2);
         ps.setInt(3, reserva.getModeloID());
         ps.setInt(4, reserva.getEstacionamentoID());
-        ps.setInt(5, reserva.getID());
-        ps.setDate(6, sqlDate3);
-        ps.setInt(7, reserva.getVeiculoID());
+        ps.setInt(5, reserva.getVeiculoID());
+        ps.setInt(6, reserva.getClienteID());
+        ps.setInt(7, reserva.getVagaID());
+        ps.setInt(8, reserva.getID());
         int result = ps.executeUpdate();
     } // atualizar
 

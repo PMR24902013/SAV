@@ -15,6 +15,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Alterar Reserva</title>
         <%@ include file="headerCliente.html" %>
@@ -54,7 +57,7 @@
                     Vector reserva = tn.pesquisar(idCliente, estado);
                     if ((reserva == null) || (reserva.size() == 0)) {
                         // avisar usuario que nao ha' reserva
-                %>
+%>
                 <p  id="contentRight">
                     Nenhuma reserva em aguardo foi encontrada
                 </p>
@@ -75,12 +78,12 @@
                             <td><a href=Cliente_alterarReserva.jsp?action=showEditForm&id=<%= r.getID()%>>Alterar</a>
                         </tr>        
                         <%           } // for i      
-                        %>
+%>
                     </table>            
                 </form>
                 <%     } // reservas retornados
                     } // pesquisar
-                %>
+%>
 
                 <! ------------------------------------------------------------------->
                 <!--   mostra formulario para atualizacao                           -->
@@ -94,7 +97,7 @@
 
                         classes.data.ReservasDO reserva = tn.buscar(id);
                         int estacionamentoID = reserva.getEstacionamentoID();
-                        int veiculoID = reserva.getVeiculoID(); 
+                        int veiculoID = reserva.getVeiculoID();
                         classes.data.EstacionamentoDO estacionamento = te.buscar(estacionamentoID);
                         classes.data.VeiculosDO veiculos = tv.buscar(veiculoID);
                         Vector todosEstacionamento = te.pesquisarTodos();
@@ -107,11 +110,11 @@
                         </tr>
                         <tr>
                             <td>Horário da Reserva</td>
-                            <td><input type="date" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada()%> />
+                            <td><input type="time" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada()%> />
                         </tr>
                         <tr>
                             <td>Estacionamento</td>
-                            <td><select name="selectName" onchange="goto_URL(this.form.selectName)">
+                            <td><select name="loadEstacionamento">
                                     <option selected disabled><%=estacionamento.getNome()%></option>
                                     <%
                                         for (int i = 0; i < todosEstacionamento.size(); i++) {
@@ -121,23 +124,23 @@
                                     <option><%= e.getNome()%></option>   
                                     <%
                                         } // for
-                                    %>
+%>
                                 </select></td>
                         </tr>
                         <tr>
                             <td>Placa</td>
-                            <td><select name="selectName2" onchange="goto_URL(this.form.selectName)">
+                            <td><select name="loadPlaca">
                                     <option selected disabled><%=veiculos.getPlaca()%></option>
                                     <%
-                                    Vector veiculo = tv.buscarPorEstacionamento(estacionamentoID);
+                                        Vector veiculo = tv.buscarPorEstacionamento(estacionamentoID);
                                         for (int i = 0; i < veiculo.size(); i++) {
-                                classes.data.VeiculosDO v = (classes.data.VeiculosDO) veiculo.elementAt(i);
+                                            classes.data.VeiculosDO v = (classes.data.VeiculosDO) veiculo.elementAt(i);
 
                                     %> 
                                     <option><%= v.getPlaca()%></option>   
                                     <%
                                         } // for
-                                    %>
+%>
                                 </select></td>
                         </tr>
                     </table>
@@ -154,44 +157,39 @@
                                 classes.data.VeiculosDO v = (classes.data.VeiculosDO) veiculo.elementAt(i);
                                 classes.data.ModelosDO modelo = tm.buscar(v.getModeloID());
 
-                                %> 
-                                <tr>
+                        %> 
+                        <tr>
                             <td><%=modelo.getModelo()%></td>
                             <td><%=modelo.getMarca()%></td>
                             <td><%=modelo.getAno()%></td>
                             <td>
-                            <%
-                            if(v.getArCondicionado()==true){
+                                <%
+                                    if (v.getArCondicionado() == true) {
                                 %>
                                 Ar condicionado;
-                                <%
-                            }
-                            if(v.getCambioAutomatico()==true){
+                                <%                                    }
+                                    if (v.getCambioAutomatico() == true) {
                                 %>
                                 Cambio Automatico;
-                                <%
-                            }
-                            if(v.getDirecaoHidraulica()==true){
+                                <%                                    }
+                                    if (v.getDirecaoHidraulica() == true) {
                                 %>
                                 Direçao Hidráulica;
-                                <%
-                            }
-                            if(v.getFreioABS()==true){
+                                <%                                    }
+                                    if (v.getFreioABS() == true) {
                                 %>
                                 Freio ABS;
-                                <%
-                            }
-                            if(v.getGPS()==true){
+                                <%                                    }
+                                    if (v.getGPS() == true) {
                                 %>
                                 GPS;
-                                <%
-                            }
-                            %>
+                                <%                                    }
+                                %>
                             </td>
                             <td><%=v.getPlaca()%></td>
-                            </tr>
+                        </tr>
                         <%                                        } // for
-                        %>
+%>
                     </table>
 
                     <input type="submit" name="atualizar" value="atualizar" />
@@ -200,19 +198,29 @@
                 </form>
                 <%
                     } // showEditForm
-                %>
+%>
 
                 <! ------------------------------------------------------------------->
                 <!--   atualizar valores -->
                 <%
                     if (action.equals("updateValues")) {
+                        String Placa = request.getParameter("loadPlaca");
                         String DataDeReserva = request.getParameter("data de reserva");
                         String HorarioDeRetirada = request.getParameter("horario de reserva");
-                        int ModeloID = Integer.parseInt(request.getParameter("modelo"));
-                        int EstacionamentoID = Integer.parseInt(request.getParameter("estacionamento"));
-                        int id = Integer.parseInt(request.getParameter("id"));
+
+                        classes.transacoes.Veiculos tv = new classes.transacoes.Veiculos();
+                        classes.data.VeiculosDO veiculos = new classes.data.VeiculosDO();
+
+                        veiculos = tv.buscarPorPlaca(Placa);
+                        classes.transacoes.Usuarios tr = new classes.transacoes.Usuarios();
+
+                        String nome = (String) session.getAttribute("user_name");
+                        int idCliente = tr.buscarID(nome);
                         classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
                         classes.data.ReservasDO reservas = new classes.data.ReservasDO();
+                        
+                        int id = Integer.parseInt(request.getParameter("id"));
+
                         try {
                             SimpleDateFormat hora = new SimpleDateFormat("hh:mm:ss");
                             SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
@@ -220,10 +228,13 @@
                             reservas.setHorarioDeRetirada(hora.parse(HorarioDeRetirada));
                         } catch (ParseException e) {
                         }
-
-                        reservas.setModeloID(ModeloID);
-                        reservas.setEstacionamentoID(EstacionamentoID);
+                        reservas.setVagaID(veiculos.getVagaID());
+                        reservas.setModeloID(veiculos.getModeloID());
+                        reservas.setVeiculoID(veiculos.getId());
+                        reservas.setEstacionamentoID(veiculos.getEstacionamentoID());
+                        reservas.setClienteID(idCliente);
                         reservas.setID(id);
+                        
                         boolean result = false;
                         try {
                             result = tn.atualizar(reservas);
@@ -232,7 +243,7 @@
                 <%                   }
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
-                %>
+%>
                 <form  id="contentRight" action="./Cliente_menu.html" method="post">
                     Transação realizada com sucesso!
                     <input type="submit" name="voltar" value="Voltar" />
@@ -245,7 +256,7 @@
                 </form>
                 <%     }
                     } // updateValues
-%>
+                %>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>
             </div>
