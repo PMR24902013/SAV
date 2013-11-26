@@ -50,21 +50,24 @@ public class ReservasData {
 
     public void atualizar(ReservasDO reserva, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Modelos_ID=?, Estacionamento_ID=?, Horario_de_Devolucao=?, Veiculos_ID=? where id=?";
+        String sql = "update Reservas set Data_da_Reserva=?, Horario_da_Retirada=?, Horario_da_Devolucao=?, Modelos_ID=?, Estacionamento_ID=?, Veiculos_ID=?, Cliente_ID=?, Vaga_ID=?, Estado=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         java.util.Date utilDate1 = reserva.getDataDeReserva();
         java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
         java.util.Date utilDate2 = reserva.getHorarioDeRetirada();
-        java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+        java.sql.Time sqlDate2 = new java.sql.Time(utilDate2.getTime());
         java.util.Date utilDate3 = reserva.getHorarioDeDevolucao();
-        java.sql.Date sqlDate3 = new java.sql.Date(utilDate2.getTime());
+        java.sql.Time sqlDate3 = new java.sql.Time(utilDate3.getTime());
         ps.setDate(1, sqlDate1);
-        ps.setDate(2, sqlDate2);
-        ps.setInt(3, reserva.getModeloID());
-        ps.setInt(4, reserva.getEstacionamentoID());
-        ps.setInt(5, reserva.getID());
-        ps.setDate(6, sqlDate3);
-        ps.setInt(7, reserva.getVeiculoID());
+        ps.setTime(2, sqlDate2);
+        ps.setTime(3, sqlDate3);
+        ps.setInt(4, reserva.getModeloID());
+        ps.setInt(5, reserva.getEstacionamentoID());
+        ps.setInt(6, reserva.getVeiculoID());
+        ps.setInt(7, reserva.getClienteID());
+        ps.setInt(8, reserva.getVagaID());
+        ps.setString(9, reserva.getEstado());
+        ps.setInt(10, reserva.getID());
         int result = ps.executeUpdate();
     } // atualizar
 

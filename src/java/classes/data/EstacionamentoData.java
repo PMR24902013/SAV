@@ -66,7 +66,7 @@ public class EstacionamentoData {
 
     public EstacionamentoDO buscar(int idobj, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "select * from Estacionamento where  id=?";
+        String sql = "select * from Estacionamento where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idobj);
         ResultSet rs = ps.executeQuery();
@@ -81,7 +81,19 @@ public class EstacionamentoData {
         e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
         e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
         e.setTelefone(rs.getString("Telefone"));
+        e.setUsuario_Id(rs.getInt("Usuario_ID"));
         return e;
+    } // buscar
+
+    public int buscarID(String nome, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select ID from Estacionamento where  Nome=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nome);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int ID = rs.getInt("ID");
+        return ID;
     } // buscar
 
     public String buscarNome(int idobj, Transacao tr) throws Exception {
@@ -234,4 +246,5 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     }
+
 } // ContatoData

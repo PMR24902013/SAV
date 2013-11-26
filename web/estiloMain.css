@@ -6,18 +6,19 @@
 	#base {
 		background	: #FFFFFF;
 		margin		: auto;
-		width		: 600px;
+		width		: 700px;
                 height          : auto;
 		padding		: 0;
 		clear		: both;
 		text-align	: left;
-                font            : small/1.5 fantasy;
+                font            : small/1.5 "Tahoma", "Bitstream Vera Sans", Verdana, Helvetica, sans-serif;
 	}
 
 
 	#cima #logo {
 		height		: 200px;
         	background	: url("header.png");
+                margin-left     : 50px;
 	}
         
 	#tudo {
@@ -33,7 +34,7 @@
         
 	#contentRight {
                 float           : right;
-                width           : 435px;
+                width           : 535px;
                 height          : auto;
         }
         
