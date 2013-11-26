@@ -152,7 +152,7 @@
                     </table>
                     Não sabe qual veículo escolher? Confira nossa <a href="./Cliente_visualizarFrota.jsp">frota disponível</a>!<br>
                     <input type="submit" name="atualizar" value="atualizar" />
-                    <input type="submit" name="cancelar" value="cancelar reserva" />
+                    <input type="submit" name="cancelar" value="desistir" />
                     <input type="hidden" name="id" value=<%= id%> /> 
                     <input type="hidden" name="action" value="updateValues" />
                 </form>
@@ -184,7 +184,7 @@
                         try {
                             SimpleDateFormat hora = new SimpleDateFormat("hh:mm");
                             SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
-                            reservas.setDataDeReserva(data.parse(DataDeReserva));
+                            reservas.setDataDeReserva(data.parse(DataDeReserva)); 
                             reservas.setHorarioDeRetirada(hora.parse(HorarioDeRetirada));
                             reservas.setHorarioDeDevolucao(hora.parse(HorarioDeDevolucao));
                         } catch (ParseException e) {

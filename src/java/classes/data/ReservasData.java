@@ -17,7 +17,7 @@ public class ReservasData {
 
     public void incluir(ReservasDO reserva, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "insert into Reservas ( Vaga_ID, Operacoes_de_caixa_ID, Modelo_ID, Veiculos_ID, Estacionamento_ID, Cliente_ID, Horario_da_Retirada, Data_da_Reserva, Estado, Horario_da_Devolucao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into Reservas ( Vaga_ID, Operacoes_de_caixa_ID, Modelos_ID, Veiculos_ID, Estacionamento_ID, Cliente_ID, Horario_da_Retirada, Data_da_Reserva, Estado, Horario_da_Devolucao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         java.util.Date utilDate1 = reserva.getDataDeReserva();
         java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());

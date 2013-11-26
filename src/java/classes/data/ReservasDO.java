@@ -6,7 +6,6 @@ package classes.data;
 
 import java.util.*;
 import java.text.*;
-import java.sql.*;
 
 /**
  *
@@ -21,9 +20,9 @@ public class ReservasDO {
     private int _veiculo_id;
     private int _estacionamento_id;
     private int _cliente_id;
-    private java.sql.Time _horarioDeRetirada;
-    private java.sql.Date _dataDeReserva;
-    private java.sql.Time _horarioDeDevolucao;
+    private Date _horarioDeRetirada;
+    private Date _dataDeReserva;
+    private Date _horarioDeDevolucao;
     private String _estado;
     
     SimpleDateFormat data = new SimpleDateFormat ("dd/MM/yyyy");
@@ -57,16 +56,16 @@ public class ReservasDO {
         return _cliente_id;
     }
     
-    public java.sql.Time getHorarioDeRetirada(){
+    public Date getHorarioDeRetirada(){
         return _horarioDeRetirada;
     }
     
-    public java.sql.Time getHorarioDeDevolucao(){
+    public Date getHorarioDeDevolucao(){
         return _horarioDeDevolucao;
     }
     
     
-    public java.sql.Date getDataDeReserva(){
+    public Date getDataDeReserva(){
         return _dataDeReserva;
     }
     
@@ -102,15 +101,15 @@ public class ReservasDO {
         _cliente_id = idCliente;
     }
     
-    public void setHorarioDeRetirada(java.sql.Time horarioDeRetirada){
+    public void setHorarioDeRetirada(Date horarioDeRetirada){
             _horarioDeRetirada = horarioDeRetirada;
     }
     
-    public void setHorarioDeDevolucao(java.sql.Time horarioDeDevolucao){
+    public void setHorarioDeDevolucao(Date horarioDeDevolucao){
             _horarioDeDevolucao = horarioDeDevolucao;
     }
     
-    public void setDataDeReserva(java.sql.Date dataDeReserva){
+    public void setDataDeReserva(Date dataDeReserva){
             _dataDeReserva = dataDeReserva;
     }
     
