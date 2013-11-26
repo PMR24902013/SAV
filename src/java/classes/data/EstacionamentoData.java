@@ -40,7 +40,7 @@ public class EstacionamentoData {
 
     public void atualizar(EstacionamentoDO e, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
-        String sql = "update Estacionamento set Nome=?, Endereco=?, Vagas=?, Tipo=?, Nome_do_Responsavel=?, Documento_do_Convenio=?, Horario_de_Funcionamento=?, Telefone=? where id=?";
+        String sql = "update Estacionamento set Nome=?, Endereco=?, Vagas=?, Tipo=?, Nome_do_Responsavel=?, Documento_do_Convenio=?, Horario_de_Funcionamento=?, Telefone=?, CEP=? where id=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, e.getNome());
         ps.setString(2, e.getEndereco());
@@ -50,7 +50,8 @@ public class EstacionamentoData {
         ps.setString(6, e.getDocumento_Do_Convenio());
         ps.setString(7, e.getHorario_De_Funcionamento());
         ps.setString(8, e.getTelefone());
-        ps.setInt(9, e.getId());
+        ps.setString(9, e.getCEP());
+        ps.setInt(10, e.getId());
         int result = ps.executeUpdate();
     } // atualizar
 
@@ -81,6 +82,17 @@ public class EstacionamentoData {
         e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
         e.setTelefone(rs.getString("Telefone"));
         return e;
+    } // buscar
+
+    public String buscarNome(int idobj, Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select Nome from Estacionamento where  ID=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idobj);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        String nome = rs.getString("Nome");
+        return nome;
     } // buscar
 
     public EstacionamentoDO buscarPorUsuarioID(int idobj, Transacao tr) throws Exception {
@@ -134,6 +146,7 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     } // pesquisarPorNome
+    
     public Vector pesquisarEstacao(Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where Tipo= ?";
@@ -158,6 +171,7 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     } // pesquisarPorNome
+    
     public Vector pesquisarCadastro(String estado, Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
         String sql = "select * from Estacionamento where Estado =?";
@@ -174,6 +188,29 @@ public class EstacionamentoData {
         }
         return cadastro;
     } // pesquisarCadastro
+
+    public Vector pesquisarTodos(Transacao tr) throws Exception {
+        Connection con = tr.obterConexao();
+        String sql = "select * from Estacionamento";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        System.out.println("query executada");
+        Vector estacionamento = new Vector();
+        while (rs.next()) {
+            EstacionamentoDO e = new EstacionamentoDO();
+            e.setId(rs.getInt("ID"));
+            e.setNome(rs.getString("Nome"));
+            e.setEndereco(rs.getString("Endereco"));
+            e.setVagas(rs.getInt("Vagas"));
+            e.setTipo(rs.getBoolean("Tipo"));
+            e.setNome_Do_Responsavel(rs.getString("Nome_do_Responsavel"));
+            e.setDocumento_Do_Convenio(rs.getString("Documento_do_Convenio"));
+            e.setHorario_De_Funcionamento(rs.getString("Horario_de_Funcionamento"));
+            e.setTelefone(rs.getString("Telefone"));
+            estacionamento.add(e);
+        }
+        return estacionamento;
+    } // pesquisarTodos
 
     public Vector listar(Transacao tr) throws Exception {
         Connection con = tr.obterConexao();
@@ -197,5 +234,4 @@ public class EstacionamentoData {
         }
         return estacionamentos;
     }
-
 } // ContatoData

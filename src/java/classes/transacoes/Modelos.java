@@ -9,6 +9,7 @@ package classes.transacoes;
 import classes.data.ModelosDO;
 import classes.data.ModelosData;
 import classes.utils.Transacao;
+import com.google.common.collect.Iterables;
 import java.util.Vector;
 
 public class Modelos {
@@ -27,7 +28,7 @@ public class Modelos {
         }
         return null;
     } // pesquisarTodos
-    
+
     public Vector buscar(String modelo, String ano){
         Transacao tr = new Transacao();
         try {
@@ -73,6 +74,36 @@ public class Modelos {
 	 }
 	 return null;
     }
+    
+    public boolean incluir (ModelosDO modelo) throws Exception{
+        if (isEmpty(String.valueOf(modelo.getAno())) || isEmpty(modelo.getMarca()) || isEmpty(modelo.getModelo())){
+            return false;
+        }
+        // efetuando a transacao
+        Transacao tr = new Transacao();
+        try {
+
+            tr.begin();
+            ModelosData cdata = new ModelosData();
+            cdata.incluir(modelo, tr);
+            tr.commit();
+            return true;
+       
+        } catch(Exception e) {
+            tr.rollback();
+            System.out.println("erro ao incluir " + modelo.getModelo());
+            e.printStackTrace();
+          }
+        return false;
+    } // incluir
+    
+    public boolean isEmpty(String s) {
+     if (null == s)
+       return true;
+     if (s.length() == 0)
+       return true;
+     return false;
+  }
     
     public static void main(String[] args) {
         Modelos m = new Modelos();
