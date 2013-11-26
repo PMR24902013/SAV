@@ -26,10 +26,10 @@ public class ReservasData {
         ps.setInt(4, reserva.getVeiculoID());
         ps.setInt(5, reserva.getEstacionamentoID());
         ps.setInt(6, reserva.getClienteID());
-    //ps.setDate(7, reserva.getHorarioDeRetirada().getTime());
-        //ps.setDate(8, reserva.getDataDeReserva().getTime());
+        ps.setTime(7, reserva.getHorarioDeRetirada());
+        ps.setDate(8, reserva.getDataDeReserva());
         ps.setString(9, reserva.getEstado());
-    //ps.setDate(10, reserva.getHorarioDeDevolucao().getTime());
+        ps.setTime(10, reserva.getHorarioDeDevolucao());
 
         int result = ps.executeUpdate();
     }
