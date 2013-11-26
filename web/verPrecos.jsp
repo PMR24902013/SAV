@@ -116,7 +116,7 @@
             %>        
             <div id="content"><form action="./verPrecos.jsp" method="post">
                     <br>
-                    <div class="titulo">Preço por Quilometragem</div>
+                    <div class="titulo">Preço por Período</div>
                     <table>
                         <tr>
                             <td>Até 1 hora</td>
