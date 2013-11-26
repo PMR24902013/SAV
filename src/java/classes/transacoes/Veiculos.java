@@ -14,182 +14,171 @@ import java.util.Vector;
  * @author hidden
  */
 public class Veiculos {
-     public boolean incluir (VeiculosDO veiculo) throws Exception{
 
-     // validacao das regras de negocio
-     if ( (isEmpty(veiculo.getPlaca())) || ( isEmpty(veiculo.getEstado()))) {
-       return false;
-     }
+    public boolean incluir(VeiculosDO veiculo) throws Exception {
 
-     // efetuando a transacao
-     Transacao tr = new Transacao();
-     try {
-
-       tr.begin();
-         VeiculosData cdata = new VeiculosData();
-         cdata.incluir(veiculo, tr);
-       tr.commit();
-       return true;
-       
-     } catch(Exception e) {
-         tr.rollback();
-         System.out.println("erro ao incluir " + veiculo.getPlaca());
-         e.printStackTrace();
-     }
-     return false;
-  } // incluir
-
-  public boolean atualizar(VeiculosDO veiculo) throws Exception {
-     Transacao tr = new Transacao();
-	 try{
-	   tr.begin();
-  	   VeiculosData cdata = new VeiculosData();
-	   cdata.atualizar(veiculo, tr);
-	   tr.commit();
-	   return true;
-	 } catch (Exception e) {
-	   tr.rollback();
-	   System.out.println("erro ao atualizar" + veiculo.getPlaca());
-	   e.printStackTrace();
-	 }
-	 return false;
-  } // atualizar
-  
-    public boolean realocar(VeiculosDO funcionario) throws Exception {
-     Transacao tr = new Transacao();
-	 try{
-	   // inserir validacoes de regras de negocio
-	   tr.begin();
-  	    VeiculosData cdata = new VeiculosData();
-	     cdata.realocar(funcionario, tr);
-	   tr.commit();
-	   return true;
-	 } catch (Exception e) {
-	   tr.rollback();
-	   System.out.println("erro ao atualizar" + funcionario.getPlaca());
-	   e.printStackTrace();
-	 }
-	 return false;
-  } // atualizar
-
-  public boolean excluir(VeiculosDO veiculo) throws Exception {
-     Transacao tr = new Transacao();
-	 try{
-	   // inserir validacoes de regras de negocio
-	   tr.begin();
-  	     VeiculosData cdata = new VeiculosData();
-	     cdata.excluir(veiculo, tr);
-	   tr.commit();
-	   return true;
-	 } catch (Exception e) {
-	   tr.rollback();
-	   System.out.println("erro ao excluir" + veiculo.getPlaca());
-	   e.printStackTrace();
-	 }
-	 return false;
-  } // excluir
-  public VeiculosDO buscar(int idobj) throws Exception{
-     Transacao tr = new Transacao();
-	 try{
-	   tr.beginReadOnly();
-  	     VeiculosData cdata = new VeiculosData();
-	     VeiculosDO c = cdata.buscar(idobj, tr);
-	   tr.commit();
-	   return c;
-	 } catch (Exception e) {
-	   tr.rollback();
-	   System.out.println("erro ao buscar" + idobj);
-	   e.printStackTrace();
-	 }
-	 return null;
-  } // buscar
-  
-  public Vector buscarPorEstado(String estado) {
-     
-     Transacao tr = new Transacao();
-     try {
-	     tr.beginReadOnly();
-           VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.buscarPorEstado(estado, tr);
-		 tr.commit();
-		 return v;
-     } catch(Exception e) {
-         System.out.println("erro ao pesquisar " );
-         e.printStackTrace();
-     }
-     return null;
-  } // pesquisar
-    public Vector buscarPorVaga(int idobj) {
-     
-     Transacao tr = new Transacao();
-     try {
-	     tr.beginReadOnly();
-           VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.buscarPorVaga(idobj, tr);
-		 tr.commit();
-		 return v;
-     } catch(Exception e) {
-         System.out.println("erro ao pesquisar " );
-         e.printStackTrace();
-     }
-     return null;
-  } // pesquisar
-  
-  public boolean jaExiste(String placa) throws Exception{
-      Transacao tr = new Transacao();
-        try{
-            tr.beginReadOnly();
-            VeiculosData cdata = new VeiculosData();
-            return cdata.jaExiste(placa, tr);
+        // validacao das regras de negocio
+        if ((isEmpty(veiculo.getPlaca())) || (isEmpty(veiculo.getEstado()))) {
+            return false;
         }
-        catch (Exception e){
+
+        // efetuando a transacao
+        Transacao tr = new Transacao();
+        try {
+
+            tr.begin();
+            VeiculosData cdata = new VeiculosData();
+            cdata.incluir(veiculo, tr);
+            tr.commit();
+            return true;
+
+        } catch (Exception e) {
             tr.rollback();
-            System.out.println("erro ao buscar");
+            System.out.println("erro ao incluir " + veiculo.getPlaca());
             e.printStackTrace();
         }
         return false;
-  }
+    } // incluir
 
-/*
+    public boolean atualizar(VeiculosDO veiculo) throws Exception {
+        Transacao tr = new Transacao();
+        try {
+            tr.begin();
+            VeiculosData cdata = new VeiculosData();
+            cdata.atualizar(veiculo, tr);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println("erro ao atualizar" + veiculo.getPlaca());
+            e.printStackTrace();
+        }
+        return false;
+    } // atualizar
+
+    public boolean realocar(VeiculosDO funcionario) throws Exception {
+        Transacao tr = new Transacao();
+        try {
+            // inserir validacoes de regras de negocio
+            tr.begin();
+            VeiculosData cdata = new VeiculosData();
+            cdata.realocar(funcionario, tr);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println("erro ao atualizar" + funcionario.getPlaca());
+            e.printStackTrace();
+        }
+        return false;
+    } // atualizar
+
+    public boolean excluir(VeiculosDO veiculo) throws Exception {
+        Transacao tr = new Transacao();
+        try {
+            // inserir validacoes de regras de negocio
+            tr.begin();
+            VeiculosData cdata = new VeiculosData();
+            cdata.excluir(veiculo, tr);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println("erro ao excluir" + veiculo.getPlaca());
+            e.printStackTrace();
+        }
+        return false;
+    } // excluir
+
+    public VeiculosDO buscar(int idobj) throws Exception {
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            VeiculosData cdata = new VeiculosData();
+            VeiculosDO c = cdata.buscar(idobj, tr);
+            tr.commit();
+            return c;
+        } catch (Exception e) {
+            tr.rollback();
+            System.out.println("erro ao buscar" + idobj);
+            e.printStackTrace();
+        }
+        return null;
+    } // buscar
+
+    public Vector buscarPorEstado(String estado) {
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            VeiculosData cdata = new VeiculosData();
+            Vector v = cdata.buscarPorEstado(estado, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar ");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
+
+    public Vector buscarPorVaga(int idobj) {
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            VeiculosData cdata = new VeiculosData();
+            Vector v = cdata.buscarPorVaga(idobj, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar ");
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
+
+    /*
      public Vector pesquisar(String placa) {
      if ( isEmpty(placa) )
-        return null;
+     return null;
 
      Transacao tr = new Transacao();
      try {
-	     tr.beginReadOnly();
-           VeiculosData cdata = new VeiculosData();
-           Vector v = cdata.buscar(Integer.parseInt(placa), tr);
+     tr.beginReadOnly();
+     VeiculosData cdata = new VeiculosData();
+     Vector v = cdata.buscar(Integer.parseInt(placa), tr);
            
-		 tr.commit();
-		 return v;
+     tr.commit();
+     return v;
      } catch(Exception e) {
-         System.out.println("erro ao pesquisar " + placa);
-         e.printStackTrace();
+     System.out.println("erro ao pesquisar " + placa);
+     e.printStackTrace();
      }
      return null;
-  } // pesquisar
-*/
-  
-  public boolean isEmpty(String s) {
-     if (null == s)
-       return true;
-     if (s.length() == 0)
-       return true;
-     return false;
-  }
+     } // pesquisar
+     */
+    public boolean isEmpty(String s) {
+        if (null == s) {
+            return true;
+        }
+        if (s.length() == 0) {
+            return true;
+        }
+        return false;
+    }
 
-  public static void main(String[] args) {
-      Veiculos c = new Veiculos();
-      VeiculosDO contato = new VeiculosDO();
-      try {
-	    contato = c.buscar(6);
+    public static void main(String[] args) {
+        Veiculos c = new Veiculos();
+        VeiculosDO contato = new VeiculosDO();
+        try {
+            contato = c.buscar(6);
             System.out.println(contato.getPlaca());
-      } catch(Exception e) {
-          e.printStackTrace();
-      }
-  } // main
- 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } // main
+
     public Vector pesquisarTodos() {
         Transacao tr = new Transacao();
         try {
@@ -204,20 +193,20 @@ public class Veiculos {
         }
         return null;
     } // pesquisarTodos
-    
-        public VeiculosDO buscarPorVeiculoID(int idobj ) throws Exception {
-     
-     Transacao tr = new Transacao();
-     try {
-	     tr.beginReadOnly();
-           VeiculosData cdata = new VeiculosData();
-           VeiculosDO v = cdata.buscarPorVeiculoID(idobj, tr);
-           	 tr.commit();
-		 return v;
-     } catch(Exception e) {
-         System.out.println("erro ao pesquisar "+idobj );
-         e.printStackTrace();
-     }
-     return null;
-  } // pesquisar
+
+    public VeiculosDO buscarPorVeiculoID(int idobj) throws Exception {
+
+        Transacao tr = new Transacao();
+        try {
+            tr.beginReadOnly();
+            VeiculosData cdata = new VeiculosData();
+            VeiculosDO v = cdata.buscarPorVeiculoID(idobj, tr);
+            tr.commit();
+            return v;
+        } catch (Exception e) {
+            System.out.println("erro ao pesquisar " + idobj);
+            e.printStackTrace();
+        }
+        return null;
+    } // pesquisar
 }
