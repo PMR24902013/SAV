@@ -57,7 +57,7 @@
                     Vector reserva = tn.pesquisar(idCliente, estado);
                     if ((reserva == null) || (reserva.size() == 0)) {
                         // avisar usuario que nao ha' reserva
-%>
+                %>
                 <p  id="contentRight">
                     Nenhuma reserva em aguardo foi encontrada
                 </p>
@@ -78,12 +78,12 @@
                             <td><a href=Cliente_alterarReserva.jsp?action=showEditForm&id=<%= r.getID()%>>Alterar</a>
                         </tr>        
                         <%           } // for i      
-%>
+                        %>
                     </table>            
                 </form>
                 <%     } // reservas retornados
                     } // pesquisar
-%>
+                %>
 
                 <! ------------------------------------------------------------------->
                 <!--   mostra formulario para atualizacao                           -->
@@ -109,13 +109,17 @@
                             <td><input type="date" name="data de reserva" value=<%= reserva.getDataDeReserva()%> />
                         </tr>
                         <tr>
-                            <td>Horário da Reserva</td>
+                            <td>Horário da Retirada</td>
                             <td><input type="time" name="horario de reserva" value=<%= reserva.getHorarioDeRetirada()%> />
+                        </tr>
+                        <tr>
+                            <td>Horário da Devolução</td>
+                            <td><input type="time" name="horario de devolucao" value=<%= reserva.getHorarioDeDevolucao()%> />
                         </tr>
                         <tr>
                             <td>Estacionamento</td>
                             <td><select name="loadEstacionamento">
-                                    <option selected disabled><%=estacionamento.getNome()%></option>
+                                    <option><%=estacionamento.getNome()%></option>
                                     <%
                                         for (int i = 0; i < todosEstacionamento.size(); i++) {
                                             classes.data.EstacionamentoDO e = (classes.data.EstacionamentoDO) todosEstacionamento.elementAt(i);
@@ -124,13 +128,13 @@
                                     <option><%= e.getNome()%></option>   
                                     <%
                                         } // for
-%>
+                                    %>
                                 </select></td>
                         </tr>
                         <tr>
                             <td>Placa</td>
                             <td><select name="loadPlaca">
-                                    <option selected disabled><%=veiculos.getPlaca()%></option>
+                                    <option><%=veiculos.getPlaca()%></option>
                                     <%
                                         Vector veiculo = tv.buscarPorEstacionamento(estacionamentoID);
                                         for (int i = 0; i < veiculo.size(); i++) {
@@ -140,7 +144,7 @@
                                     <option><%= v.getPlaca()%></option>   
                                     <%
                                         } // for
-%>
+                                    %>
                                 </select></td>
                         </tr>
                     </table>
@@ -189,17 +193,17 @@
                             <td><%=v.getPlaca()%></td>
                         </tr>
                         <%                                        } // for
-%>
+                        %>
                     </table>
 
                     <input type="submit" name="atualizar" value="atualizar" />
+                    <input type="submit" name="cancelar" value="cancelar reserva" />
                     <input type="hidden" name="id" value=<%= id%> /> 
                     <input type="hidden" name="action" value="updateValues" />
                 </form>
                 <%
                     } // showEditForm
-%>
-
+                %>
                 <! ------------------------------------------------------------------->
                 <!--   atualizar valores -->
                 <%
@@ -207,6 +211,7 @@
                         String Placa = request.getParameter("loadPlaca");
                         String DataDeReserva = request.getParameter("data de reserva");
                         String HorarioDeRetirada = request.getParameter("horario de reserva");
+                        String HorarioDeDevolucao = request.getParameter("horario de devolucao");
 
                         classes.transacoes.Veiculos tv = new classes.transacoes.Veiculos();
                         classes.data.VeiculosDO veiculos = new classes.data.VeiculosDO();
@@ -218,14 +223,15 @@
                         int idCliente = tr.buscarID(nome);
                         classes.transacoes.Reservas tn = new classes.transacoes.Reservas();
                         classes.data.ReservasDO reservas = new classes.data.ReservasDO();
-                        
+
                         int id = Integer.parseInt(request.getParameter("id"));
 
                         try {
-                            SimpleDateFormat hora = new SimpleDateFormat("hh:mm:ss");
+                            SimpleDateFormat hora = new SimpleDateFormat("hh:mm");
                             SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
                             reservas.setDataDeReserva(data.parse(DataDeReserva));
                             reservas.setHorarioDeRetirada(hora.parse(HorarioDeRetirada));
+                            reservas.setHorarioDeDevolucao(hora.parse(HorarioDeDevolucao));
                         } catch (ParseException e) {
                         }
                         reservas.setVagaID(veiculos.getVagaID());
@@ -234,7 +240,14 @@
                         reservas.setEstacionamentoID(veiculos.getEstacionamentoID());
                         reservas.setClienteID(idCliente);
                         reservas.setID(id);
+                        reservas.setEstado("aguardando");
                         
+
+                            if (null != request.getParameter("cancelar")) {
+                                reservas.setEstado("cancelado");
+                                reservas.setClienteID(0);
+                            }
+
                         boolean result = false;
                         try {
                             result = tn.atualizar(reservas);
@@ -243,20 +256,19 @@
                 <%                   }
                     if (result) {
                         // avisar usuario que transacao foi feita com sucesso
-%>
+                %>
                 <form  id="contentRight" action="./Cliente_menu.html" method="post">
                     Transação realizada com sucesso!
-                    <input type="submit" name="voltar" value="Voltar" />
                 </form>
                 <%     } else {
                 %>
-                Erro ao atualizar dados do contato
                 <form  id="contentRight" action="./Cliente_alterarReserva.jsp" method="post">
+                    Erro ao atualizar dados do contato
                     <input type="submit" name="retry" value="Repetir" />
                 </form>
                 <%     }
                     } // updateValues
-                %>
+%>
                 <div id="contentLeft"></div>
                 <div class="clear"> </div>
             </div>

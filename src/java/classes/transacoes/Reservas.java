@@ -52,7 +52,20 @@ public class Reservas {
     } // atualizar
 
     public boolean excluir(ReservasDO Reserva) throws Exception {
-        return false;
+        Transacao tr = new Transacao();
+	 try{
+	   // inserir validacoes de regras de negocio
+	   tr.begin();
+  	     ReservasData cdata = new ReservasData();
+	     cdata.excluir(Reserva, tr);
+	   tr.commit();
+	   return true;
+	 } catch (Exception e) {
+	   tr.rollback();
+	   System.out.println("erro ao excluir");
+	   e.printStackTrace();
+	 }
+	 return false;
     } // excluir
 
     public Vector pesquisar(int idobj, String estado) throws Exception {
